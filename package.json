@@ -6,7 +6,7 @@
     "start": "next start",
     "test": "jest --watch",
     "test:ci": "jest --ci",
-    "test:cov": "jest --collect-coverage"
+    "test:cov": "jest --coverage --watchAll=false"
   },
   "dependencies": {
     "next": "latest",
