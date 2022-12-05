@@ -9,6 +9,7 @@
     "test:cov": "jest --coverage --watchAll=false"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^2.0.7",
     "next": "latest",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
