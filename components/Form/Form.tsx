@@ -6,7 +6,8 @@ const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
 
   const handleNext = () => {
-    setCurrentForm(currentForm + 1);
+    currentForm <= 1 && setCurrentForm(currentForm + 1);
+    console.log("Success!");
   };
 
   const handleGoBack = () => {

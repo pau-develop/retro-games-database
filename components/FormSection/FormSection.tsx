@@ -34,6 +34,7 @@ const FormSection = ({
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
   const passwordRegex = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,15}$/);
+  const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
   const validateEmail = () => {
     if (emailRegex.test(inputRef.current!.value)) return actionNext();
@@ -53,7 +54,10 @@ const FormSection = ({
     let strings = new Array();
     if (inputRef.current!.value.length === 0)
       return setAlertMessage(["⚠ Password field is mandatory"]);
-    if (!/\w{5,15}$/.test(inputRef.current!.value))
+    if (
+      inputRef.current!.value.length < 4 ||
+      inputRef.current!.value.length > 14
+    )
       strings = ["⚠ Must be 5-15 characters long"];
     if (!/\d/.test(inputRef.current!.value))
       strings = [...strings, "⚠ Must contain one number"];
@@ -69,7 +73,22 @@ const FormSection = ({
   };
 
   const validateName = () => {
-    console.log(inputRef.current!.value);
+    let strings = new Array();
+    if (inputRef.current!.value.length === 0)
+      return setAlertMessage(["⚠ user name field is mandatory"]);
+
+    if (
+      inputRef.current!.value.length < 2 ||
+      inputRef.current!.value.length > 14
+    )
+      strings = ["⚠ Must be 3-15 characters long"];
+
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(inputRef.current!.value))
+      strings = [...strings, "⚠ Only letters and numbers allowed"];
+
+    if (userNameRegex.test(inputRef.current!.value)) return actionNext();
+
+    setAlertMessage(strings);
   };
 
   const handleSubmission = (event: React.MouseEvent<HTMLButtonElement>) => {
