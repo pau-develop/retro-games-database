@@ -33,7 +33,7 @@ const FormSectionStyled = styled.div`
       border: none;
     }
     &__input:focus {
-      outline: none;
+      outline: 1px solid #3bb909;
     }
     &__input::placeholder {
       color: #86a681;

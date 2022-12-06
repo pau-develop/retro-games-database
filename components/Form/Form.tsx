@@ -5,7 +5,7 @@ import FormStyled from "./FormStyled";
 const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
 
-  const handleUserInput = (id: string) => {
+  const handleNext = () => {
     setCurrentForm(currentForm + 1);
   };
 
@@ -24,7 +24,7 @@ const Form = (): JSX.Element => {
           text={"Email"}
           id={"email"}
           message={"Enter a valid email address"}
-          actionNext={handleUserInput}
+          actionNext={handleNext}
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
@@ -37,7 +37,7 @@ const Form = (): JSX.Element => {
           message={"Choose your password"}
           text2={"Repeat password"}
           id2={"repassword"}
-          actionNext={handleUserInput}
+          actionNext={handleNext}
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
@@ -48,7 +48,7 @@ const Form = (): JSX.Element => {
           text={"User name"}
           id={"username"}
           message={"Enter your user name"}
-          actionNext={handleUserInput}
+          actionNext={handleNext}
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
