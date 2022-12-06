@@ -1,4 +1,3 @@
-import { IUserInput } from "interfaces/interfaces";
 import { useState } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
