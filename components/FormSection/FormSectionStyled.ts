@@ -16,8 +16,16 @@ const FormSectionStyled = styled.div`
       }
     }
     &__label-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
       width: 100%;
-      flex: 2;
+      flex: 5;
+    }
+    &__alert-wrap {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.8rem;
     }
     &__label {
       width: 100%;

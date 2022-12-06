@@ -16,28 +16,56 @@ interface FormSectionProps {
 const FormSection = ({
   text,
   id,
-  message,
   text2,
   id2,
+  message,
   actionNext,
   actionBack,
   actionSubmit,
   currentForm,
 }: FormSectionProps): JSX.Element => {
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
+  const [botAlertMessage, setBotAlertMessage] = useState<string | undefined>(
+    undefined
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
   const emailRegex = new RegExp(
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   );
-  const passwordRegex = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/);
+  const passwordRegex = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,15}$/);
+
   const validateEmail = () => {
-    if (emailRegex.test(inputRef.current!.value)) actionNext();
+    if (emailRegex.test(inputRef.current!.value)) return actionNext();
+    if (inputRef.current!.value.length === 0)
+      return setAlertMessage(["⚠ Email field is mandatory"]);
     else setAlertMessage(["⚠ That is not a valid email address"]);
   };
 
+  const revalidatePassword = () => {
+    if (inputRef.current!.value === inputRef2.current!.value)
+      return actionNext();
+
+    setBotAlertMessage("⚠ Passwords do not match");
+  };
+
   const validatePassword = () => {
-    console.log(inputRef.current!.value);
+    let strings = new Array();
+    if (inputRef.current!.value.length === 0)
+      return setAlertMessage(["⚠ Password field is mandatory"]);
+    if (!/\w{5,15}$/.test(inputRef.current!.value))
+      strings = ["⚠ Must be 5-15 characters long"];
+    if (!/\d/.test(inputRef.current!.value))
+      strings = [...strings, "⚠ Must contain one number"];
+    if (!/[A-Z]/.test(inputRef.current!.value))
+      strings = [...strings, "⚠ Must contain one upper case character"];
+    if (!/[a-z]/.test(inputRef.current!.value))
+      strings = [...strings, "⚠ Must contain one lower case character"];
+
+    setAlertMessage(strings);
+    if (passwordRegex.test(inputRef.current!.value)) {
+      return revalidatePassword();
+    }
   };
 
   const validateName = () => {
@@ -64,8 +92,14 @@ const FormSection = ({
             placeholder={text}
             ref={inputRef}
             autoComplete={"off"}
+            type={currentForm === 1 ? "password" : "text"}
           />
-          {alertMessage.length !== 0 && <span>{alertMessage}</span>}
+          <div className="form-section__alert-wrap">
+            {alertMessage.length !== 0 &&
+              alertMessage.map((alert, index) => (
+                <span key={index}>{alert}</span>
+              ))}
+          </div>
         </label>
         {text2 !== undefined && (
           <label className="form-section__label" htmlFor={id2}>
@@ -75,9 +109,13 @@ const FormSection = ({
               placeholder={text2}
               ref={inputRef2}
               autoComplete={"off"}
+              type="password"
             />
           </label>
         )}
+        <div className="form-section__alert-wrap">
+          {botAlertMessage !== undefined && <span>{botAlertMessage}</span>}
+        </div>
       </div>
       <div className="form-section__button-wrap">
         <button onClick={(event) => handleSubmission(event)}>
