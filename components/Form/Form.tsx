@@ -5,6 +5,18 @@ import FormStyled from "./FormStyled";
 const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
 
+  const handleUserInput = (id: string) => {
+    setCurrentForm(currentForm + 1);
+  };
+
+  const handleGoBack = () => {
+    setCurrentForm(currentForm - 1);
+  };
+
+  const handleSubmit = () => {
+    console.log("Submited!");
+  };
+
   return (
     <FormStyled>
       {currentForm === 0 && (
@@ -12,6 +24,10 @@ const Form = (): JSX.Element => {
           text={"Email"}
           id={"email"}
           message={"Enter a valid email address"}
+          actionNext={handleUserInput}
+          actionBack={handleGoBack}
+          actionSubmit={handleSubmit}
+          currentForm={currentForm}
         />
       )}
       {currentForm === 1 && (
@@ -21,6 +37,10 @@ const Form = (): JSX.Element => {
           message={"Choose your password"}
           text2={"Repeat password"}
           id2={"repassword"}
+          actionNext={handleUserInput}
+          actionBack={handleGoBack}
+          actionSubmit={handleSubmit}
+          currentForm={currentForm}
         />
       )}
       {currentForm === 2 && (
@@ -28,6 +48,10 @@ const Form = (): JSX.Element => {
           text={"User name"}
           id={"username"}
           message={"Enter your user name"}
+          actionNext={handleUserInput}
+          actionBack={handleGoBack}
+          actionSubmit={handleSubmit}
+          currentForm={currentForm}
         />
       )}
       <span>{`${currentForm + 1}/3`}</span>
