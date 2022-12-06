@@ -7,7 +7,7 @@ interface FormSectionProps {
   text2?: string;
   id2?: string;
   message?: string;
-  actionNext: () => void;
+  actionNext: (input: string) => void;
   actionBack: () => void;
   actionSubmit: () => void;
   currentForm: number;
@@ -37,7 +37,8 @@ const FormSection = ({
   const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
   const validateEmail = () => {
-    if (emailRegex.test(inputRef.current!.value)) return actionNext();
+    if (emailRegex.test(inputRef.current!.value))
+      return actionNext(inputRef.current!.value);
     if (inputRef.current!.value.length === 0)
       return setAlertMessage(["⚠ Email field is mandatory"]);
     else setAlertMessage(["⚠ That is not a valid email address"]);
@@ -45,7 +46,7 @@ const FormSection = ({
 
   const revalidatePassword = () => {
     if (inputRef.current!.value === inputRef2.current!.value)
-      return actionNext();
+      return actionNext(inputRef.current!.value);
 
     setBotAlertMessage("⚠ Passwords do not match");
   };
@@ -86,7 +87,8 @@ const FormSection = ({
     if (/[!@#$%^&*(),.?":{}|<>]/.test(inputRef.current!.value))
       strings = [...strings, "⚠ Only letters and numbers allowed"];
 
-    if (userNameRegex.test(inputRef.current!.value)) return actionNext();
+    if (userNameRegex.test(inputRef.current!.value))
+      return actionNext(inputRef.current!.value);
 
     setAlertMessage(strings);
   };

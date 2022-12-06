@@ -2,12 +2,28 @@ import { useState } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
+const initialData = {
+  userName: "",
+  password: "",
+  email: "",
+};
+
 const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
+  const [userData, setUserData] = useState(initialData);
 
-  const handleNext = () => {
-    currentForm <= 1 && setCurrentForm(currentForm + 1);
-    console.log("Success!");
+  const handleNext = (input: string) => {
+    if (currentForm === 0) {
+      setUserData({ ...userData, email: input });
+      return setCurrentForm(currentForm + 1);
+    }
+    if (currentForm === 1) {
+      setUserData({ ...userData, password: input });
+      return setCurrentForm(currentForm + 1);
+    }
+    if (currentForm === 2) {
+      setUserData({ ...userData, userName: input });
+    }
   };
 
   const handleGoBack = () => {

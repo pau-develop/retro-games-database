@@ -20,7 +20,7 @@ const FormSectionStyled = styled.div`
       flex-direction: column;
       justify-content: space-evenly;
       width: 100%;
-      flex: 5;
+      flex: 2;
     }
     &__alert-wrap {
       display: flex;
@@ -57,11 +57,11 @@ const FormSectionStyled = styled.div`
         border-color: #3bb909;
         background-color: transparent;
         color: #3bb909;
-        width: 75%;
+        width: 100%;
         height: 40%;
       }
       button:last-child {
-        width: 50%;
+        width: 75%;
         height: 30%;
       }
       .form-button--disabled {
