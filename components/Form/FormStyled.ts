@@ -1,23 +1,18 @@
 import styled from "styled-components";
 
 const FormStyled = styled.form`
-  width: 300px;
-  height: 400px;
-  border: 2px solid #3ec209;
+  width: 500px;
+  height: 500px;
+  padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  label {
-    color: #3ec209;
-    padding: 2%;
+  span {
+    color: #3bb909;
   }
-  input {
-    padding: 2%;
-    background-color: #415838;
-    border: none;
-  }
-  input:focus {
-    outline: none;
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 100%;
   }
 `;
 

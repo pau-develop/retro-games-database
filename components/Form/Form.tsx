@@ -1,16 +1,37 @@
+import { IUserInput } from "interfaces/interfaces";
+import { useState } from "react";
+import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
 const Form = (): JSX.Element => {
+  const [currentForm, setCurrentForm] = useState<number>(0);
+
   return (
     <FormStyled>
-      <label htmlFor="username">User name</label>
-      <input id="username"></input>
-      <label htmlFor="password">Password</label>
-      <input id="password" type="password"></input>
-      <label htmlFor="repassword">Repeat password</label>
-      <input id="repassword" type="password"></input>
-      <label htmlFor="email">Email</label>
-      <input id="email"></input>
+      {currentForm === 0 && (
+        <FormSection
+          text={"Email"}
+          id={"email"}
+          message={"Enter a valid email address"}
+        />
+      )}
+      {currentForm === 1 && (
+        <FormSection
+          text={"Password"}
+          id={"password"}
+          message={"Choose your password"}
+          text2={"Repeat password"}
+          id2={"repassword"}
+        />
+      )}
+      {currentForm === 2 && (
+        <FormSection
+          text={"User name"}
+          id={"username"}
+          message={"Enter your user name"}
+        />
+      )}
+      <span>{`${currentForm + 1}/3`}</span>
     </FormStyled>
   );
 };
