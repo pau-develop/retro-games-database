@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^2.0.7",
+    "mongodb": "^4.12.1",
     "next": "latest",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
