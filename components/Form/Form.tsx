@@ -42,7 +42,7 @@ const Form = (): JSX.Element => {
       },
       body: JSON.stringify(userData),
     });
-  }, []);
+  }, [currentForm]);
 
   return (
     <FormStyled>
