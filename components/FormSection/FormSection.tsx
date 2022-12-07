@@ -40,6 +40,15 @@ const FormSection = ({
   const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
   useEffect(() => {
+    if (currentForm === 0 && userData.email !== "")
+      inputRef.current!.value = userData.email;
+    if (currentForm === 1 && userData.password !== "")
+      inputRef.current!.value = userData.password;
+    if (currentForm === 1 && userData.rePassword !== "")
+      if (inputRef2.current !== null)
+        inputRef2.current!.value = userData.rePassword;
+    if (currentForm === 2 && userData.userName !== "")
+      inputRef2.current!.value = userData.userName;
     inputRef.current!.focus();
   }, []);
 
