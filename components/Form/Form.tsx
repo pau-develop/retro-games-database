@@ -32,7 +32,6 @@ const Form = (): JSX.Element => {
   };
 
   const handleSubmit = async () => {
-    console.log("on it");
     await fetch("/api/register", {
       method: "POST",
       headers: {
