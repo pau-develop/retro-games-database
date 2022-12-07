@@ -37,24 +37,33 @@ const FormSection = ({
   const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
   const validateEmail = () => {
-    if (emailRegex.test(inputRef.current!.value))
-      return actionNext(inputRef.current!.value);
-    if (inputRef.current!.value.length === 0)
+    if (inputRef.current!.value.length === 0) {
+      inputRef.current!.focus();
+      inputRef.current!.value = "";
       return setAlertMessage(["⚠ Email field is mandatory"]);
-    else setAlertMessage(["⚠ That is not a valid email address"]);
+    } else if (emailRegex.test(inputRef.current!.value))
+      return actionNext(inputRef.current!.value);
+
+    inputRef.current!.value = "";
+    return setAlertMessage(["⚠ That is not a valid email address"]);
   };
 
   const revalidatePassword = () => {
     if (inputRef.current!.value === inputRef2.current!.value)
       return actionNext(inputRef.current!.value);
 
+    inputRef2.current!.focus();
+    inputRef2.current!.value = "";
     setBotAlertMessage("⚠ Passwords do not match");
   };
 
   const validatePassword = () => {
     let strings = new Array();
-    if (inputRef.current!.value.length === 0)
+    if (inputRef.current!.value.length === 0) {
+      inputRef.current!.value = "";
+      inputRef2.current!.value = "";
       return setAlertMessage(["⚠ Password field is mandatory"]);
+    }
     if (
       inputRef.current!.value.length < 4 ||
       inputRef.current!.value.length > 14
@@ -67,16 +76,23 @@ const FormSection = ({
     if (!/[a-z]/.test(inputRef.current!.value))
       strings = [...strings, "⚠ Must contain one lower case character"];
 
-    setAlertMessage(strings);
     if (passwordRegex.test(inputRef.current!.value)) {
+      setAlertMessage([""]);
       return revalidatePassword();
     }
+
+    inputRef.current!.focus();
+    inputRef.current!.value = "";
+    inputRef2.current!.value = "";
+    setAlertMessage(strings);
   };
 
   const validateName = () => {
     let strings = new Array();
-    if (inputRef.current!.value.length === 0)
+    if (inputRef.current!.value.length === 0) {
+      inputRef.current!.value = "";
       return setAlertMessage(["⚠ user name field is mandatory"]);
+    }
 
     if (
       inputRef.current!.value.length < 2 ||
@@ -90,6 +106,8 @@ const FormSection = ({
     if (userNameRegex.test(inputRef.current!.value))
       return actionNext(inputRef.current!.value);
 
+    inputRef.current!.focus();
+    inputRef.current!.value = "";
     setAlertMessage(strings);
   };
 
@@ -103,7 +121,7 @@ const FormSection = ({
   return (
     <FormSectionStyled className="form-section">
       <div className="form-section__text-wrap">
-        <p className="form-section__text">{message}</p>
+        <h3 className="form-section__text">{message}</h3>
       </div>
       <div className="form-section__label-wrap">
         <label className="form-section__label" htmlFor={id}>

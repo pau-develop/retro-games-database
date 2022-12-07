@@ -58,11 +58,11 @@ const FormSectionStyled = styled.div`
         background-color: transparent;
         color: #3bb909;
         width: 100%;
-        height: 40%;
+        height: 25%;
       }
       button:last-child {
         width: 75%;
-        height: 30%;
+        height: 20%;
       }
       .form-button--disabled {
         visibility: hidden;

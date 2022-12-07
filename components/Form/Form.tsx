@@ -51,7 +51,7 @@ const Form = (): JSX.Element => {
         <FormSection
           text={"Password"}
           id={"password"}
-          message={"Choose your password"}
+          message={"Enter password"}
           text2={"Repeat password"}
           id2={"repassword"}
           actionNext={handleNext}
@@ -64,7 +64,7 @@ const Form = (): JSX.Element => {
         <FormSection
           text={"User name"}
           id={"username"}
-          message={"Enter your user name"}
+          message={"Enter a user name"}
           actionNext={handleNext}
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
