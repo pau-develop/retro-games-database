@@ -129,6 +129,7 @@ describe("Given a Form component", () => {
 
     test("If user name is valid, the user data should be updated", () => {
       render(<Form />);
+      global.fetch = jest.fn().mockResolvedValue({});
       const emailBox = screen.getByPlaceholderText("Email");
       let nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
@@ -151,6 +152,7 @@ describe("Given a Form component", () => {
 
     test("Clicking on back button, should bring user to previous input menu", () => {
       render(<Form />);
+
       let emailBox = screen.getByPlaceholderText("Email");
       const nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });

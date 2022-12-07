@@ -12,7 +12,7 @@ const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
 
-  const handleNext = (input: string) => {
+  function handleNext(input: string) {
     if (currentForm === 0) {
       setUserData({ ...userData, email: input });
       return setCurrentForm(currentForm + 1);
@@ -23,16 +23,23 @@ const Form = (): JSX.Element => {
     }
     if (currentForm === 2) {
       setUserData({ ...userData, userName: input });
+      return handleSubmit();
     }
-  };
+  }
 
-  const handleGoBack = () => {
+  function handleGoBack() {
     setCurrentForm(currentForm - 1);
-  };
+  }
 
-  const handleSubmit = () => {
-    console.log("Submited!");
-  };
+  async function handleSubmit() {
+    await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+  }
 
   return (
     <FormStyled>
@@ -51,7 +58,7 @@ const Form = (): JSX.Element => {
         <FormSection
           text={"Password"}
           id={"password"}
-          message={"Choose your password"}
+          message={"Enter password"}
           text2={"Repeat password"}
           id2={"repassword"}
           actionNext={handleNext}
@@ -64,7 +71,7 @@ const Form = (): JSX.Element => {
         <FormSection
           text={"User name"}
           id={"username"}
-          message={"Enter your user name"}
+          message={"Enter a user name"}
           actionNext={handleNext}
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
