@@ -1,16 +1,26 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
 const initialData = {
   userName: "",
   password: "",
+  rePassword: "",
   email: "",
 };
 
 const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
+
+  useEffect(() => {
+    if (
+      userData.userName !== "" &&
+      userData.password !== "" &&
+      userData.email !== ""
+    )
+      handleSubmit();
+  }, [userData]);
 
   const handleNext = useCallback(
     (input: string) => {
@@ -24,7 +34,6 @@ const Form = (): JSX.Element => {
       }
       if (currentForm === 2) {
         setUserData({ ...userData, userName: input });
-        return handleSubmit();
       }
     },
     [currentForm]
@@ -34,7 +43,7 @@ const Form = (): JSX.Element => {
     setCurrentForm(currentForm - 1);
   }, [currentForm]);
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -42,7 +51,7 @@ const Form = (): JSX.Element => {
       },
       body: JSON.stringify(userData),
     });
-  }, [currentForm]);
+  };
 
   return (
     <FormStyled>
@@ -55,6 +64,7 @@ const Form = (): JSX.Element => {
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
+          userData={userData}
         />
       )}
       {currentForm === 1 && (
@@ -68,6 +78,7 @@ const Form = (): JSX.Element => {
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
+          userData={userData}
         />
       )}
       {currentForm === 2 && (
@@ -79,6 +90,7 @@ const Form = (): JSX.Element => {
           actionBack={handleGoBack}
           actionSubmit={handleSubmit}
           currentForm={currentForm}
+          userData={userData}
         />
       )}
       <span>{`${currentForm + 1}/3`}</span>

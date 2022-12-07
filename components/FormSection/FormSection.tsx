@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import FormSectionStyled from "./FormSectionStyled";
+import { IUserInput } from "../../interfaces/interfaces";
 
 interface FormSectionProps {
   text: string;
@@ -11,6 +12,7 @@ interface FormSectionProps {
   actionBack: () => void;
   actionSubmit: () => void;
   currentForm: number;
+  userData: IUserInput;
 }
 
 const FormSection = ({
@@ -23,6 +25,7 @@ const FormSection = ({
   actionBack,
   actionSubmit,
   currentForm,
+  userData,
 }: FormSectionProps): JSX.Element => {
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
   const [botAlertMessage, setBotAlertMessage] = useState<string | undefined>(
