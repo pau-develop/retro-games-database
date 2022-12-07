@@ -8,11 +8,12 @@ interface FormSectionProps {
   text2?: string;
   id2?: string;
   message?: string;
-  actionNext: (input: string) => void;
-  actionBack: () => void;
-  actionSubmit: () => void;
-  currentForm: number;
-  userData: IUserInput;
+  actionNext?: (input: string) => void;
+  actionBack?: () => void;
+  actionSubmit?: () => void;
+  currentForm?: number;
+  userData?: IUserInput;
+  formType: "register" | "login";
 }
 
 const FormSection = ({
@@ -26,6 +27,7 @@ const FormSection = ({
   actionSubmit,
   currentForm,
   userData,
+  formType,
 }: FormSectionProps): JSX.Element => {
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
   const [botAlertMessage, setBotAlertMessage] = useState<string | undefined>(
@@ -38,17 +40,18 @@ const FormSection = ({
   );
   const passwordRegex = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,15}$/);
   const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
+  const buttonContent = formType === "login" ? "Login" : "Submit";
 
   useEffect(() => {
-    if (currentForm === 0 && userData.email !== "")
-      inputRef.current!.value = userData.email;
-    if (currentForm === 1 && userData.password !== "")
-      inputRef.current!.value = userData.password;
-    if (currentForm === 1 && userData.rePassword !== "")
+    if (currentForm === 0 && userData!.email !== "")
+      inputRef.current!.value = userData!.email;
+    if (currentForm === 1 && userData!.password !== "")
+      inputRef.current!.value = userData!.password;
+    if (currentForm === 1 && userData!.rePassword !== "")
       if (inputRef2.current !== null)
-        inputRef2.current!.value = userData.rePassword;
-    if (currentForm === 2 && userData.userName !== "")
-      inputRef2.current!.value = userData.userName;
+        inputRef2.current!.value = userData!.rePassword;
+    if (currentForm === 2 && userData!.userName !== "")
+      inputRef2.current!.value = userData!.userName;
     inputRef.current!.focus();
   }, []);
 
@@ -58,7 +61,7 @@ const FormSection = ({
       inputRef.current!.value = "";
       return setAlertMessage(["⚠ Email field is mandatory"]);
     } else if (emailRegex.test(inputRef.current!.value))
-      return actionNext(inputRef.current!.value);
+      return actionNext!(inputRef.current!.value);
 
     inputRef.current!.focus();
     inputRef.current!.value = "";
@@ -67,7 +70,7 @@ const FormSection = ({
 
   const revalidatePassword = () => {
     if (inputRef.current!.value === inputRef2.current!.value)
-      return actionNext(inputRef.current!.value);
+      return actionNext!(inputRef.current!.value);
 
     inputRef2.current!.focus();
     inputRef2.current!.value = "";
@@ -122,7 +125,7 @@ const FormSection = ({
       strings = [...strings, "⚠ Only letters and numbers allowed"];
 
     if (userNameRegex.test(inputRef.current!.value)) {
-      return actionNext(inputRef.current!.value);
+      return actionNext!(inputRef.current!.value);
     }
 
     inputRef.current!.focus();
@@ -177,11 +180,11 @@ const FormSection = ({
       </div>
       <div className="form-section__button-wrap">
         <button onClick={(event) => handleSubmission(event)}>
-          {currentForm === 2 ? "Submit" : "Next"}
+          {currentForm === 2 ? "Submit" : buttonContent}
         </button>
         <button
           className={currentForm === 0 ? "form-button--disabled" : undefined}
-          onClick={() => actionBack()}
+          onClick={() => actionBack!()}
         >
           Go back
         </button>
