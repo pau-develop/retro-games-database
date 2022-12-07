@@ -122,7 +122,6 @@ const FormSection = ({
       strings = [...strings, "⚠ Only letters and numbers allowed"];
 
     if (userNameRegex.test(inputRef.current!.value)) {
-      console.log("hi");
       return actionNext(inputRef.current!.value);
     }
 

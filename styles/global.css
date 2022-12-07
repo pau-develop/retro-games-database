@@ -9,3 +9,10 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+#__next {
+  width: 100vw;
+  height: 100vh;
+  min-height: 600px;
+  min-width: 800px;
+}
