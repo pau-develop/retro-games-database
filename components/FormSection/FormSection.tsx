@@ -100,16 +100,19 @@ const FormSection = ({
     }
 
     if (
-      inputRef.current!.value.length < 2 ||
-      inputRef.current!.value.length > 14
-    )
+      inputRef.current!.value.length < 3 ||
+      inputRef.current!.value.length > 15
+    ) {
       strings = ["⚠ Must be 3-15 characters long"];
+    }
 
     if (/[!@#$%^&*(),.?":{}|<>]/.test(inputRef.current!.value))
       strings = [...strings, "⚠ Only letters and numbers allowed"];
 
-    if (userNameRegex.test(inputRef.current!.value))
+    if (userNameRegex.test(inputRef.current!.value)) {
+      console.log("hi");
       return actionNext(inputRef.current!.value);
+    }
 
     inputRef.current!.focus();
     inputRef.current!.value = "";

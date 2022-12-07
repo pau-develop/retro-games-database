@@ -23,6 +23,7 @@ const Form = (): JSX.Element => {
     }
     if (currentForm === 2) {
       setUserData({ ...userData, userName: input });
+      return handleSubmit();
     }
   };
 
@@ -30,8 +31,15 @@ const Form = (): JSX.Element => {
     setCurrentForm(currentForm - 1);
   };
 
-  const handleSubmit = () => {
-    console.log("Submited!");
+  const handleSubmit = async () => {
+    console.log("on it");
+    await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
   };
 
   return (
