@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const FormStyled = styled.form`
-  width: 500px;
+  width: 400px;
   height: 500px;
-  padding: 5%;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,6 @@ const FormStyled = styled.form`
   }
   @media (max-width: 600px) {
     width: 100%;
-    height: 100%;
   }
 `;
 
