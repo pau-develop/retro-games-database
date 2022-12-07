@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import FormSectionStyled from "./FormSectionStyled";
 import { IUserInput } from "../../interfaces/interfaces";
+import {
+  revalidatePassword,
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "./FormSectionFunctions";
 
 interface FormSectionProps {
   text: string;
@@ -29,18 +35,13 @@ const FormSection = ({
   userData,
   formType,
 }: FormSectionProps): JSX.Element => {
+  const buttonContent = formType === "login" ? "Login" : "Next";
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
   const [botAlertMessage, setBotAlertMessage] = useState<string | undefined>(
     undefined
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
-  const emailRegex = new RegExp(
-    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  );
-  const passwordRegex = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,15}$/);
-  const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
-  const buttonContent = formType === "login" ? "Login" : "Submit";
 
   useEffect(() => {
     if (currentForm === 0 && userData!.email !== "")
@@ -51,93 +52,48 @@ const FormSection = ({
       if (inputRef2.current !== null)
         inputRef2.current!.value = userData!.rePassword;
     if (currentForm === 2 && userData!.userName !== "")
-      inputRef2.current!.value = userData!.userName;
+      inputRef.current!.value = userData!.userName;
     inputRef.current!.focus();
   }, []);
 
-  const validateEmail = () => {
-    if (inputRef.current!.value.length === 0) {
-      inputRef.current!.focus();
-      inputRef.current!.value = "";
-      return setAlertMessage(["⚠ Email field is mandatory"]);
-    } else if (emailRegex.test(inputRef.current!.value))
-      return actionNext!(inputRef.current!.value);
+  const validateField = () => {
+    if (formType === "login") {
+      //sec
+    } else if (formType === "register") {
+      if (currentForm === 0) {
+        const validation = validateEmail(inputRef.current!);
+        if (typeof validation !== "number") return setAlertMessage(validation);
+        else return actionNext!(inputRef.current!.value);
+      }
+      if (currentForm === 1) {
+        const validation = validatePassword(
+          inputRef.current!,
+          inputRef2.current!
+        );
+        if (typeof validation !== "number") return setAlertMessage(validation);
+        else {
+          setAlertMessage([""]);
+          const validation = revalidatePassword(
+            inputRef.current!,
+            inputRef2.current!
+          );
+          if (typeof validation !== "number") {
+            return setBotAlertMessage(validation);
+          } else return actionNext!(inputRef.current!.value);
+        }
+      }
 
-    inputRef.current!.focus();
-    inputRef.current!.value = "";
-    return setAlertMessage(["⚠ That is not a valid email address"]);
-  };
-
-  const revalidatePassword = () => {
-    if (inputRef.current!.value === inputRef2.current!.value)
-      return actionNext!(inputRef.current!.value);
-
-    inputRef2.current!.focus();
-    inputRef2.current!.value = "";
-    setBotAlertMessage("⚠ Passwords do not match");
-  };
-
-  const validatePassword = () => {
-    let strings = new Array();
-    if (inputRef.current!.value.length === 0) {
-      inputRef.current!.value = "";
-      inputRef2.current!.value = "";
-      return setAlertMessage(["⚠ Password field is mandatory"]);
+      if (currentForm === 2) {
+        const validation = validateName(inputRef.current!);
+        if (typeof validation !== "number") setAlertMessage(validation);
+        else return actionNext!(inputRef.current!.value);
+      }
     }
-    if (
-      inputRef.current!.value.length < 4 ||
-      inputRef.current!.value.length > 14
-    )
-      strings = ["⚠ Must be 5-15 characters long"];
-    if (!/\d/.test(inputRef.current!.value))
-      strings = [...strings, "⚠ Must contain one number"];
-    if (!/[A-Z]/.test(inputRef.current!.value))
-      strings = [...strings, "⚠ Must contain one upper case character"];
-    if (!/[a-z]/.test(inputRef.current!.value))
-      strings = [...strings, "⚠ Must contain one lower case character"];
-
-    if (passwordRegex.test(inputRef.current!.value)) {
-      setAlertMessage([""]);
-      return revalidatePassword();
-    }
-
-    inputRef.current!.focus();
-    inputRef.current!.value = "";
-    inputRef2.current!.value = "";
-    setAlertMessage(strings);
-  };
-
-  const validateName = () => {
-    let strings = new Array();
-    if (inputRef.current!.value.length === 0) {
-      inputRef.current!.value = "";
-      return setAlertMessage(["⚠ user name field is mandatory"]);
-    }
-
-    if (
-      inputRef.current!.value.length < 3 ||
-      inputRef.current!.value.length > 15
-    ) {
-      strings = ["⚠ Must be 3-15 characters long"];
-    }
-
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(inputRef.current!.value))
-      strings = [...strings, "⚠ Only letters and numbers allowed"];
-
-    if (userNameRegex.test(inputRef.current!.value)) {
-      return actionNext!(inputRef.current!.value);
-    }
-
-    inputRef.current!.focus();
-    inputRef.current!.value = "";
-    setAlertMessage(strings);
   };
 
   const handleSubmission = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    currentForm === 0 && validateEmail();
-    currentForm === 1 && validatePassword();
-    currentForm === 2 && validateName();
+    validateField();
   };
 
   return (
