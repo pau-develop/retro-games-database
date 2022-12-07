@@ -12,7 +12,7 @@ const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
 
-  const handleNext = (input: string) => {
+  function handleNext(input: string) {
     if (currentForm === 0) {
       setUserData({ ...userData, email: input });
       return setCurrentForm(currentForm + 1);
@@ -25,13 +25,13 @@ const Form = (): JSX.Element => {
       setUserData({ ...userData, userName: input });
       return handleSubmit();
     }
-  };
+  }
 
-  const handleGoBack = () => {
+  function handleGoBack() {
     setCurrentForm(currentForm - 1);
-  };
+  }
 
-  const handleSubmit = async () => {
+  async function handleSubmit() {
     await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -39,7 +39,7 @@ const Form = (): JSX.Element => {
       },
       body: JSON.stringify(userData),
     });
-  };
+  }
 
   return (
     <FormStyled>
