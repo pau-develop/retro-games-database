@@ -1,3 +1,4 @@
+import Router, { useRouter } from "next/router";
 import { useState, useCallback, useEffect } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
@@ -10,6 +11,7 @@ const initialData = {
 };
 
 const Form = (): JSX.Element => {
+  const router = useRouter();
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
 
@@ -34,6 +36,7 @@ const Form = (): JSX.Element => {
       }
       if (currentForm === 2) {
         setUserData({ ...userData, userName: input });
+        return setCurrentForm(currentForm + 1);
       }
     },
     [currentForm]
@@ -51,6 +54,7 @@ const Form = (): JSX.Element => {
       },
       body: JSON.stringify(userData),
     });
+    if (result.status === 200) router.push("/home");
   };
 
   return (
@@ -93,7 +97,8 @@ const Form = (): JSX.Element => {
           userData={userData}
         />
       )}
-      <span>{`${currentForm + 1}/3`}</span>
+      {currentForm === 3 && <span>Submitting...</span>}
+      {currentForm < 3 && <span>{`${currentForm + 1}/3`}</span>}
     </FormStyled>
   );
 };
