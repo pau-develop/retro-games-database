@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
@@ -12,7 +12,7 @@ const Form = (): JSX.Element => {
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
 
-  function handleNext(input: string) {
+  const handleNext = useCallback((input: string) => {
     if (currentForm === 0) {
       setUserData({ ...userData, email: input });
       return setCurrentForm(currentForm + 1);
@@ -25,13 +25,13 @@ const Form = (): JSX.Element => {
       setUserData({ ...userData, userName: input });
       return handleSubmit();
     }
-  }
+  }, []);
 
-  function handleGoBack() {
+  const handleGoBack = useCallback(() => {
     setCurrentForm(currentForm - 1);
-  }
+  }, []);
 
-  async function handleSubmit() {
+  const handleSubmit = useCallback(async () => {
     await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -39,7 +39,7 @@ const Form = (): JSX.Element => {
       },
       body: JSON.stringify(userData),
     });
-  }
+  }, []);
 
   return (
     <FormStyled>
