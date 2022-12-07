@@ -1,6 +1,24 @@
 import Form from "@/components/Form/Form";
 import { render, screen, fireEvent } from "@testing-library/react";
 
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
+
 describe("Given a Form component", () => {
   describe("When instantiated", () => {
     test("It should render an input box to enter email", () => {
