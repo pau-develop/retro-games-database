@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormSectionStyled from "./FormSectionStyled";
 
 interface FormSectionProps {
@@ -36,6 +36,10 @@ const FormSection = ({
   const passwordRegex = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,15}$/);
   const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
+  useEffect(() => {
+    inputRef.current!.focus();
+  }, []);
+
   const validateEmail = () => {
     if (inputRef.current!.value.length === 0) {
       inputRef.current!.focus();
@@ -44,6 +48,7 @@ const FormSection = ({
     } else if (emailRegex.test(inputRef.current!.value))
       return actionNext(inputRef.current!.value);
 
+    inputRef.current!.focus();
     inputRef.current!.value = "";
     return setAlertMessage(["⚠ That is not a valid email address"]);
   };
