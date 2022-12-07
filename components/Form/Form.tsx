@@ -44,7 +44,7 @@ const Form = (): JSX.Element => {
   }, [currentForm]);
 
   const handleSubmit = async () => {
-    await fetch("/api/register", {
+    const result = await fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
