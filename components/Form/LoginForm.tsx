@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
@@ -12,9 +12,9 @@ const initialData = {
 const LoginForm = (): JSX.Element => {
   const [userData, setUserData] = useState(initialData);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     //search user
-  };
+  }, []);
 
   return (
     <FormStyled>

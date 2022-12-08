@@ -46,7 +46,8 @@ const RegisterForm = (): JSX.Element => {
     setCurrentForm(currentForm - 1);
   }, [currentForm]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
+    console.log("hi");
     const result = await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -55,7 +56,7 @@ const RegisterForm = (): JSX.Element => {
       body: JSON.stringify(userData),
     });
     if (result.status === 200) router.push("/home");
-  };
+  }, [userData]);
 
   return (
     <FormStyled>

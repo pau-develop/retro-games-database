@@ -48,7 +48,7 @@ const FormSection = ({
       inputRef.current!.value = userData!.password;
     if (currentForm === 1 && userData!.rePassword !== "")
       if (inputRef2.current !== null)
-        inputRef2.current!.value = userData!.rePassword;
+        inputRef2.current.value = userData!.rePassword;
     if (currentForm === 2 && userData!.userName !== "")
       inputRef.current!.value = userData!.userName;
     inputRef.current!.focus();
@@ -143,9 +143,7 @@ const FormSection = ({
         )}
         <div className="form-section__alert-wrap">
           {botAlertMessage.length !== 0 &&
-            botAlertMessage.map((alert, index) => (
-              <span key={index}>{alert}</span>
-            ))}
+            botAlertMessage.map((alert) => <span key={alert}>{alert}</span>)}
         </div>
       </div>
       <div className="form-section__button-wrap">
