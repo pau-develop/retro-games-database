@@ -11,6 +11,11 @@ const initialData = {
 
 const LoginForm = (): JSX.Element => {
   const [userData, setUserData] = useState(initialData);
+
+  const handleSubmit = () => {
+    //search user
+  };
+
   return (
     <FormStyled>
       <FormSection
@@ -22,6 +27,7 @@ const LoginForm = (): JSX.Element => {
         currentForm={0}
         formType="login"
         userData={userData}
+        actionSubmit={handleSubmit}
       />
     </FormStyled>
   );

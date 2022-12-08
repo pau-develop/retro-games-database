@@ -37,9 +37,7 @@ const FormSection = ({
 }: FormSectionProps): JSX.Element => {
   const buttonContent = formType === "login" ? "Login" : "Next";
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
-  const [botAlertMessage, setBotAlertMessage] = useState<string | undefined>(
-    undefined
-  );
+  const [botAlertMessage, setBotAlertMessage] = useState<string[]>(new Array());
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
 
@@ -56,44 +54,57 @@ const FormSection = ({
     inputRef.current!.focus();
   }, []);
 
-  const validateField = () => {
-    if (formType === "login") {
-      //sec
-    } else if (formType === "register") {
-      if (currentForm === 0) {
-        const validation = validateEmail(inputRef.current!);
-        if (typeof validation !== "number") return setAlertMessage(validation);
-        else return actionNext!(inputRef.current!.value);
-      }
-      if (currentForm === 1) {
-        const validation = validatePassword(
-          inputRef.current!,
-          inputRef2.current!
-        );
-        if (typeof validation !== "number") return setAlertMessage(validation);
-        else {
-          setAlertMessage([""]);
-          const validation = revalidatePassword(
-            inputRef.current!,
-            inputRef2.current!
-          );
-          if (typeof validation !== "number") {
-            return setBotAlertMessage(validation);
-          } else return actionNext!(inputRef.current!.value);
-        }
-      }
+  const validateEmailField = () => {
+    const validation = validateEmail(inputRef.current!);
+    if (typeof validation !== "number") return setAlertMessage(validation);
+    else return actionNext!(inputRef.current!.value);
+  };
 
-      if (currentForm === 2) {
-        const validation = validateName(inputRef.current!);
-        if (typeof validation !== "number") setAlertMessage(validation);
-        else return actionNext!(inputRef.current!.value);
+  const validateNameField = () => {
+    const validation = validateName(inputRef.current!);
+    if (typeof validation !== "number") setAlertMessage(validation);
+    else return actionNext!(inputRef.current!.value);
+  };
+
+  const validatePasswordField = () => {
+    const validation = validatePassword(inputRef.current!, inputRef2.current!);
+    if (typeof validation !== "number") return setAlertMessage(validation);
+    else {
+      setAlertMessage([""]);
+      const validation = revalidatePassword(
+        inputRef.current!,
+        inputRef2.current!
+      );
+      if (typeof validation !== "number") {
+        return setBotAlertMessage(validation);
+      } else return actionNext!(inputRef.current!.value);
+    }
+  };
+
+  const validateLoginInfo = () => {
+    const validation = validateName(inputRef.current!);
+    if (typeof validation !== "number") setAlertMessage(validation);
+    else {
+      setAlertMessage([""]);
+      const validation = validatePassword(inputRef2.current!);
+      if (typeof validation !== "number") setBotAlertMessage(validation);
+      else {
+        actionSubmit!();
       }
     }
   };
 
   const handleSubmission = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    validateField();
+    if (formType === "register") {
+      if (currentForm === 0) validateEmailField();
+      if (currentForm === 1) validatePasswordField();
+      if (currentForm === 2) validateNameField();
+      return;
+    }
+    if (formType === "login") {
+      validateLoginInfo();
+    }
   };
 
   return (
@@ -131,7 +142,10 @@ const FormSection = ({
           </label>
         )}
         <div className="form-section__alert-wrap">
-          {botAlertMessage !== undefined && <span>{botAlertMessage}</span>}
+          {botAlertMessage.length !== 0 &&
+            botAlertMessage.map((alert, index) => (
+              <span key={index}>{alert}</span>
+            ))}
         </div>
       </div>
       <div className="form-section__button-wrap">

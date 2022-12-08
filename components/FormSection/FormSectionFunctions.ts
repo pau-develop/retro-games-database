@@ -4,12 +4,12 @@ const userNameRegex = new RegExp(/^[a-zA-Z0-9]{3,15}$/);
 
 export const validatePassword = (
   currentInput: HTMLInputElement,
-  currentInput2: HTMLInputElement
+  currentInput2?: HTMLInputElement
 ) => {
   let strings = new Array();
   if (currentInput.value.length === 0) {
     currentInput.value = "";
-    currentInput2.value = "";
+    if (currentInput2 !== undefined) currentInput2.value = "";
     return ["⚠ Password field is mandatory"];
   }
   if (currentInput.value.length < 4 || currentInput.value.length > 14)
@@ -27,7 +27,7 @@ export const validatePassword = (
 
   currentInput.focus();
   currentInput.value = "";
-  currentInput2.value = "";
+  if (currentInput2 !== undefined) currentInput2.value = "";
   return strings;
 };
 
@@ -74,5 +74,5 @@ export const revalidatePassword = (
 
   currentInput2.focus();
   currentInput2.value = "";
-  return "⚠ Passwords do not match";
+  return ["⚠ Passwords do not match"];
 };
