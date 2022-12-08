@@ -1,7 +1,7 @@
-import Form from "@/components/Form/Form";
+import RegisterForm from "@/components/Form/RegisterForm";
 
 const register = () => {
-  return <Form />;
+  return <RegisterForm />;
 };
 
 export default register;

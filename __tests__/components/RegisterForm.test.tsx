@@ -1,4 +1,4 @@
-import Form from "@/components/Form/Form";
+import RegisterForm from "@/components/Form/RegisterForm";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 jest.mock("next/router", () => ({
@@ -19,16 +19,16 @@ jest.mock("next/router", () => ({
   },
 }));
 
-describe("Given a Form component", () => {
+describe("Given a RegisterForm component", () => {
   describe("When instantiated", () => {
     test("It should render an input box to enter email", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       expect(emailBox).toBeInTheDocument();
     });
 
     test("if input field is left empty or the email entered is invalid, an alert message should appear", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       const nextButton = screen.getByRole("button", { name: "Next" });
       expect(nextButton).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("Given a Form component", () => {
     });
 
     test("if the email is valid, a couple input boxes for password will be rendered", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       const nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
@@ -52,7 +52,7 @@ describe("Given a Form component", () => {
     });
 
     test("Upon entering password, if field is left empty, password is invalid, or passwords do not match, an alert message should appear", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       let nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
@@ -93,7 +93,7 @@ describe("Given a Form component", () => {
     });
 
     test("if the password is valid, an input box for user name will be rendered", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       let nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
@@ -113,7 +113,7 @@ describe("Given a Form component", () => {
     });
 
     test("Upon entering user name, if field is left empty or user name is invalid, an alert message should appear", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       let nextButton = screen.getByRole("button", { name: "Next" });
       fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
@@ -146,7 +146,7 @@ describe("Given a Form component", () => {
     });
 
     test("If user name is valid, the user data should be updated", () => {
-      render(<Form />);
+      render(<RegisterForm />);
       global.fetch = jest.fn().mockResolvedValue({});
       const emailBox = screen.getByPlaceholderText("Email");
       let nextButton = screen.getByRole("button", { name: "Next" });
@@ -169,7 +169,7 @@ describe("Given a Form component", () => {
     });
 
     test("Clicking on back button, should bring user to previous input menu", () => {
-      render(<Form />);
+      render(<RegisterForm />);
 
       let emailBox = screen.getByPlaceholderText("Email");
       const nextButton = screen.getByRole("button", { name: "Next" });

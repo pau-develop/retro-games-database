@@ -10,7 +10,7 @@ const initialData = {
   email: "",
 };
 
-const Form = (): JSX.Element => {
+const RegisterForm = (): JSX.Element => {
   const router = useRouter();
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
@@ -46,7 +46,8 @@ const Form = (): JSX.Element => {
     setCurrentForm(currentForm - 1);
   }, [currentForm]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
+    console.log("hi");
     const result = await fetch("/api/register", {
       method: "POST",
       headers: {
@@ -55,7 +56,7 @@ const Form = (): JSX.Element => {
       body: JSON.stringify(userData),
     });
     if (result.status === 200) router.push("/home");
-  };
+  }, [userData]);
 
   return (
     <FormStyled>
@@ -69,6 +70,7 @@ const Form = (): JSX.Element => {
           actionSubmit={handleSubmit}
           currentForm={currentForm}
           userData={userData}
+          formType="register"
         />
       )}
       {currentForm === 1 && (
@@ -83,6 +85,7 @@ const Form = (): JSX.Element => {
           actionSubmit={handleSubmit}
           currentForm={currentForm}
           userData={userData}
+          formType="register"
         />
       )}
       {currentForm === 2 && (
@@ -95,6 +98,7 @@ const Form = (): JSX.Element => {
           actionSubmit={handleSubmit}
           currentForm={currentForm}
           userData={userData}
+          formType="register"
         />
       )}
       {currentForm === 3 && <span>Submitting...</span>}
@@ -103,4 +107,4 @@ const Form = (): JSX.Element => {
   );
 };
 
-export default Form;
+export default RegisterForm;
