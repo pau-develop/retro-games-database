@@ -56,10 +56,21 @@ const FormSection = ({
     inputRef.current!.focus();
   }, []);
 
-  const validateEmailField = () => {
+  const validateEmailField = async () => {
     const validation = validateEmail(inputRef.current!);
     if (typeof validation !== "number") return setAlertMessage(validation);
-    else return actionNext!(inputRef.current!.value);
+    else {
+      const result = await fetch("/api/checkEmail", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(inputRef.current!.value),
+      });
+      if (result.status === 403)
+        return setAlertMessage(["⚠ Email already taken"]);
+      else return actionNext!(inputRef.current!.value);
+    }
   };
 
   const validateNameField = async () => {
@@ -73,8 +84,9 @@ const FormSection = ({
         },
         body: JSON.stringify(inputRef.current!.value),
       });
-      if (result.status === 403) setAlertMessage(["⚠ User name already taken"]);
-      else actionNext!(inputRef.current!.value);
+      if (result.status === 403)
+        return setAlertMessage(["⚠ User name already taken"]);
+      else return actionNext!(inputRef.current!.value);
     }
   };
 
