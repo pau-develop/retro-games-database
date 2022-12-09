@@ -17,6 +17,7 @@ interface FormSectionProps {
   actionNext?: (input: string) => void;
   actionBack?: () => void;
   actionSubmit?: () => void;
+  actionLogin?: (input: string, input2: string) => void;
   currentForm?: number;
   userData?: IUserInput;
   formType: "register" | "login";
@@ -31,6 +32,7 @@ const FormSection = ({
   actionNext,
   actionBack,
   actionSubmit,
+  actionLogin,
   currentForm,
   userData,
   formType,
@@ -60,10 +62,20 @@ const FormSection = ({
     else return actionNext!(inputRef.current!.value);
   };
 
-  const validateNameField = () => {
+  const validateNameField = async () => {
     const validation = validateName(inputRef.current!);
     if (typeof validation !== "number") setAlertMessage(validation);
-    else return actionNext!(inputRef.current!.value);
+    else {
+      const result = await fetch("/api/checkName", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(inputRef.current!.value),
+      });
+      if (result.status === 403) setAlertMessage(["⚠ User name already taken"]);
+      else actionNext!(inputRef.current!.value);
+    }
   };
 
   const validatePasswordField = () => {
@@ -89,7 +101,7 @@ const FormSection = ({
       const validation = validatePassword(inputRef2.current!);
       if (typeof validation !== "number") setBotAlertMessage(validation);
       else {
-        actionSubmit!();
+        actionLogin!(inputRef.current!.value, inputRef2.current!.value);
       }
     }
   };

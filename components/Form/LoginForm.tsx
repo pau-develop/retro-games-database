@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FormSection from "../FormSection/FormSection";
 import FormStyled from "./FormStyled";
 
@@ -12,9 +12,24 @@ const initialData = {
 const LoginForm = (): JSX.Element => {
   const [userData, setUserData] = useState(initialData);
 
-  const handleSubmit = useCallback(() => {
-    //search user
-  }, []);
+  useEffect(() => {
+    if (userData.userName !== "" && userData.password !== "") handleSubmit();
+  });
+
+  const handleUserData = (input: string, input2: string) => {
+    console.log(input, input2);
+    setUserData({ ...userData, userName: input, password: input2 });
+  };
+
+  const handleSubmit = useCallback(async () => {
+    // const result = await fetch("/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(userData),
+    // });
+  }, [userData]);
 
   return (
     <FormStyled>
@@ -27,7 +42,7 @@ const LoginForm = (): JSX.Element => {
         currentForm={0}
         formType="login"
         userData={userData}
-        actionSubmit={handleSubmit}
+        actionLogin={handleUserData}
       />
     </FormStyled>
   );
