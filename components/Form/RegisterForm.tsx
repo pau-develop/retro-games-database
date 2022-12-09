@@ -47,7 +47,6 @@ const RegisterForm = (): JSX.Element => {
   }, [currentForm]);
 
   const handleSubmit = useCallback(async () => {
-    console.log("hi");
     const result = await fetch("/api/register", {
       method: "POST",
       headers: {
