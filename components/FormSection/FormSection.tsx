@@ -17,7 +17,7 @@ interface FormSectionProps {
   actionNext?: (input: string) => void;
   actionBack?: () => void;
   actionSubmit?: () => void;
-  actionLogin?: (input: string, input2: string) => void;
+  actionLogin?: (input: string, input2: string) => Promise<number>;
   currentForm?: number;
   userData?: IUserInput;
   formType: "register" | "login";
@@ -44,16 +44,18 @@ const FormSection = ({
   const inputRef2 = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (currentForm === 0 && userData!.email !== "")
-      inputRef.current!.value = userData!.email;
-    if (currentForm === 1 && userData!.password !== "")
-      inputRef.current!.value = userData!.password;
-    if (currentForm === 1 && userData!.rePassword !== "")
-      if (inputRef2.current !== null)
-        inputRef2.current.value = userData!.rePassword;
-    if (currentForm === 2 && userData!.userName !== "")
-      inputRef.current!.value = userData!.userName;
-    inputRef.current!.focus();
+    if (userData !== undefined) {
+      if (currentForm === 0 && userData!.email !== "")
+        inputRef.current!.value = userData!.email;
+      if (currentForm === 1 && userData!.password !== "")
+        inputRef.current!.value = userData!.password;
+      if (currentForm === 1 && userData!.rePassword !== "")
+        if (inputRef2.current !== null)
+          inputRef2.current.value = userData!.rePassword;
+      if (currentForm === 2 && userData!.userName !== "")
+        inputRef.current!.value = userData!.userName;
+      inputRef.current!.focus();
+    }
   }, []);
 
   const validateEmailField = async () => {
@@ -105,7 +107,7 @@ const FormSection = ({
     }
   };
 
-  const validateLoginInfo = () => {
+  const validateLoginInfo = async () => {
     const validation = validateName(inputRef.current!);
     if (typeof validation !== "number") setAlertMessage(validation);
     else {
@@ -113,7 +115,12 @@ const FormSection = ({
       const validation = validatePassword(inputRef2.current!);
       if (typeof validation !== "number") setBotAlertMessage(validation);
       else {
-        actionLogin!(inputRef.current!.value, inputRef2.current!.value);
+        const validation = await actionLogin!(
+          inputRef.current!.value,
+          inputRef2.current!.value
+        );
+        if (validation === 403)
+          return setBotAlertMessage(["⚠ Incorrect user name or password"]);
       }
     }
   };
