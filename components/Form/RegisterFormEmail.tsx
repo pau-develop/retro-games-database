@@ -1,4 +1,4 @@
-import useUserAPI from "hooks/useUserAPI";
+import useUserAPI from "../../hooks/useUserAPI";
 import { IUserInput } from "interfaces/interfaces";
 import { useEffect, useRef, useState } from "react";
 import { validateEmail } from "./FormFunctions";
@@ -29,9 +29,8 @@ const RegisterFormEmail = ({
     event.preventDefault();
     const validation = validateEmail(inputRef.current!);
     if (typeof validation !== "number") return setAlertMessage(validation);
-    debugger;
-    const result = checkEmail(inputRef.current!.value);
-    return (await result)
+    const result = await checkEmail(inputRef.current!.value);
+    return result
       ? actionNext!(inputRef.current!.value)
       : setAlertMessage(["⚠ Email already taken"]);
   };
