@@ -7,6 +7,7 @@ import {
   validateName,
   validatePassword,
 } from "./FormSectionFunctions";
+import useAPI from "hooks/useUserAPI";
 
 interface FormSectionProps {
   text: string;
@@ -42,6 +43,7 @@ const FormSection = ({
   const [botAlertMessage, setBotAlertMessage] = useState<string[]>(new Array());
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
+  const { checkEmail, checkName } = useAPI();
 
   useEffect(() => {
     if (userData !== undefined) {
@@ -61,35 +63,19 @@ const FormSection = ({
   const validateEmailField = async () => {
     const validation = validateEmail(inputRef.current!);
     if (typeof validation !== "number") return setAlertMessage(validation);
-    else {
-      const result = await fetch("/api/checkEmail", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(inputRef.current!.value),
-      });
-      if (result.status === 403)
-        return setAlertMessage(["⚠ Email already taken"]);
-      else return actionNext!(inputRef.current!.value);
-    }
+    const result = checkEmail(inputRef.current!.value);
+    return (await result)
+      ? actionNext!(inputRef.current!.value)
+      : setAlertMessage(["⚠ Email already taken"]);
   };
 
   const validateNameField = async () => {
     const validation = validateName(inputRef.current!);
-    if (typeof validation !== "number") setAlertMessage(validation);
-    else {
-      const result = await fetch("/api/checkName", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(inputRef.current!.value),
-      });
-      if (result.status === 403)
-        return setAlertMessage(["⚠ User name already taken"]);
-      else return actionNext!(inputRef.current!.value);
-    }
+    if (typeof validation !== "number") return setAlertMessage(validation);
+    const result = checkName(inputRef.current!.value);
+    return (await result)
+      ? actionNext!(inputRef.current!.value)
+      : setAlertMessage(["⚠ User name already taken"]);
   };
 
   const validatePasswordField = () => {

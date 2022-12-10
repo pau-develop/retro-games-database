@@ -21,7 +21,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.2.0",
-    "@testing-library/user-event": "14.2.0",
+    "@testing-library/user-event": "^14.2.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "18.0.9",
     "@types/styled-components": "^5.1.26",

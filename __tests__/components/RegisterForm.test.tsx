@@ -1,5 +1,6 @@
 import RegisterForm from "@/components/Form/RegisterForm";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -41,12 +42,19 @@ describe("Given a RegisterForm component", () => {
       expect(alertMessage).toBeInTheDocument();
     });
 
-    test("if the email is valid, a couple input boxes for password will be rendered", () => {
+    test("if the email is valid, a couple input boxes for password will be rendered", async () => {
       render(<RegisterForm />);
       const emailBox = screen.getByPlaceholderText("Email");
       const nextButton = screen.getByRole("button", { name: "Next" });
-      fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
-      fireEvent.click(nextButton);
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 200,
+        json: jest.fn().mockResolvedValue(""),
+      });
+      act(async () => {
+        fireEvent.change(emailBox, { target: { value: "valid@email.com" } });
+        await userEvent.click(nextButton);
+      });
+      await new Promise((r) => setTimeout(r, 2000));
       const passwordBox = screen.getByPlaceholderText("Password");
       expect(passwordBox).toBeInTheDocument();
     });
