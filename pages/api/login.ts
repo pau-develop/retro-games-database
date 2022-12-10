@@ -1,4 +1,4 @@
-import { hashCompare } from "database/authentication";
+import { createToken, hashCompare } from "database/authentication";
 import connectDB from "database/connectDB";
 import User from "database/User";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -13,8 +13,10 @@ const login = async (request: NextApiRequest, response: NextApiResponse) => {
     user.password,
     result[0].password
   );
-  if (passwordValidation)
-    return response.status(200).json({ message: "you are logged in" });
+  if (passwordValidation) {
+    const token = createToken(user.password);
+    return response.status(200).json({ token: token });
+  }
 
   return response
     .status(403)

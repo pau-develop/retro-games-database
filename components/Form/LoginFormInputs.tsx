@@ -1,14 +1,10 @@
-import React, { useRef, useState } from "react";
+import useUserAPI from "hooks/useUserAPI";
+import React, { useCallback, useRef, useState } from "react";
 import { validateName, validatePassword } from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 
-interface LoginFormInputsProps {
-  actionSubmit: (input: string, input2: string) => Promise<void>;
-}
-
-const LoginFormInputs = ({
-  actionSubmit,
-}: LoginFormInputsProps): JSX.Element => {
+const LoginFormInputs = (): JSX.Element => {
+  const { userLogin } = useUserAPI();
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
   const [alertMessage, setAlertMessage] = useState<string[]>(new Array());
@@ -23,10 +19,19 @@ const LoginFormInputs = ({
       const validation = validatePassword(inputRef2.current!);
       if (typeof validation !== "number") setBotAlertMessage(validation);
       else {
-        actionSubmit!(inputRef.current!.value, inputRef2.current!.value);
+        handleSubmit(inputRef.current!.value, inputRef2.current!.value);
       }
     }
   };
+
+  const handleSubmit = useCallback(async (input: string, input2: string) => {
+    const result = (await userLogin(input, input2)) as Response;
+
+    if (result) {
+      const { token } = await result.json();
+      console.log(token);
+    } else setBotAlertMessage(["⚠ Incorrect user name or password"]);
+  }, []);
 
   return (
     <FormSectionStyled>

@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-plugin-styled-components": "^2.0.7",
     "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.12.1",
     "mongoose": "^6.8.0",
     "next": "latest",
@@ -23,6 +24,7 @@
     "@testing-library/react": "13.2.0",
     "@testing-library/user-event": "^14.2.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/react": "18.0.9",
     "@types/styled-components": "^5.1.26",
     "jest": "28.1.0",
