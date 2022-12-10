@@ -1,5 +1,5 @@
 import RegisterFormPassword from "@/components/Form/RegisterFormPassword";
-import { fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import useUserAPI from "../../hooks/useUserAPI";
 
 describe("Given a RegisterFormPassword component", () => {
