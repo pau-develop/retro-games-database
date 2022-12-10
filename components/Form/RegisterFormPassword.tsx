@@ -31,18 +31,13 @@ const RegisterFormPassword = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    const validation = validatePassword(inputRef.current!, inputRef2.current!);
+    let validation = validatePassword(inputRef.current!, inputRef2.current!);
     if (typeof validation !== "number") return setAlertMessage(validation);
-    else {
-      setAlertMessage([""]);
-      const validation = revalidatePassword(
-        inputRef.current!,
-        inputRef2.current!
-      );
-      if (typeof validation !== "number") {
-        return setBotAlertMessage(validation);
-      } else return actionNext!(inputRef.current!.value);
-    }
+
+    setAlertMessage([""]);
+    validation = revalidatePassword(inputRef.current!, inputRef2.current!);
+    if (typeof validation !== "number") return setBotAlertMessage(validation);
+    return actionNext!(inputRef.current!.value);
   };
 
   return (
