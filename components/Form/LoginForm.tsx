@@ -1,36 +1,21 @@
+import useUserAPI from "hooks/useUserAPI";
 import { useCallback, useEffect, useState } from "react";
-import FormSection from "../FormSection/FormSection";
+import FormSectionStyled from "./FormSectionStyled";
 import FormStyled from "./FormStyled";
+import LoginFormInputs from "./LoginFormInputs";
 
 const LoginForm = (): JSX.Element => {
+  const { userLogin } = useUserAPI();
+
   const handleSubmit = useCallback(async (input: string, input2: string) => {
-    const loginInfo = {
-      userName: input,
-      password: input2,
-    };
-    const result = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(loginInfo),
-    });
-    const status = result.status;
-    return result.status;
+    const result = await userLogin(input, input2);
+    if (result) console.log("LOGGED");
+    else console.log("FAIL");
   }, []);
 
   return (
     <FormStyled>
-      <FormSection
-        text={"User name"}
-        id={"username"}
-        message={"Enter user information"}
-        text2={"Password"}
-        id2={"password"}
-        currentForm={0}
-        formType="login"
-        actionLogin={handleSubmit}
-      />
+      <LoginFormInputs actionSubmit={handleSubmit} />
     </FormStyled>
   );
 };
