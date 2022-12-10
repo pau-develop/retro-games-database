@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import { useState, useCallback, useEffect } from "react";
-import FormSection from "../FormSection/FormSection";
+import RegisterFormEmail from "./RegisterFormEmail";
+import RegisterFormPassword from "./RegisterFormPassword";
 import FormStyled from "./FormStyled";
+import RegisterFormName from "./RegisterFormName";
 
 const initialData = {
   userName: "",
@@ -60,44 +62,20 @@ const RegisterForm = (): JSX.Element => {
   return (
     <FormStyled>
       {currentForm === 0 && (
-        <FormSection
-          text={"Email"}
-          id={"email"}
-          message={"Enter a valid email address"}
-          actionNext={handleNext}
-          actionBack={handleGoBack}
-          actionSubmit={handleSubmit}
-          currentForm={currentForm}
-          userData={userData}
-          formType="register"
-        />
+        <RegisterFormEmail actionNext={handleNext} userData={userData} />
       )}
       {currentForm === 1 && (
-        <FormSection
-          text={"Password"}
-          id={"password"}
-          message={"Enter password"}
-          text2={"Repeat password"}
-          id2={"repassword"}
+        <RegisterFormPassword
           actionNext={handleNext}
           actionBack={handleGoBack}
-          actionSubmit={handleSubmit}
-          currentForm={currentForm}
           userData={userData}
-          formType="register"
         />
       )}
       {currentForm === 2 && (
-        <FormSection
-          text={"User name"}
-          id={"username"}
-          message={"Enter a user name"}
+        <RegisterFormName
           actionNext={handleNext}
           actionBack={handleGoBack}
-          actionSubmit={handleSubmit}
-          currentForm={currentForm}
           userData={userData}
-          formType="register"
         />
       )}
       {currentForm === 3 && <span>Submitting...</span>}
