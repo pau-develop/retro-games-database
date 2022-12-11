@@ -6,7 +6,7 @@ const checkEmail = async (
   request: NextApiRequest,
   response: NextApiResponse
 ) => {
-  const client = await connectDB();
+  await connectDB();
   const email = request.body;
   const result = await User.find({ email: email });
   if (result.length > 0) response.status(403).json({ state: false });

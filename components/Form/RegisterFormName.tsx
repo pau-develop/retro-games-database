@@ -20,7 +20,7 @@ const RegisterFormName = ({
   const { checkName } = useUserAPI();
 
   useEffect(() => {
-    if (userData!.userName !== "") inputRef.current!.value = userData!.userName;
+    if (userData.userName !== "") inputRef.current!.value = userData.userName;
 
     inputRef.current!.focus();
   }, []);
@@ -33,7 +33,7 @@ const RegisterFormName = ({
     if (typeof validation !== "number") return setAlertMessage(validation);
     const result = checkName(inputRef.current!.value);
     return (await result)
-      ? actionNext!(inputRef.current!.value)
+      ? actionNext(inputRef.current!.value)
       : setAlertMessage(["⚠ User name already taken"]);
   };
 
@@ -54,9 +54,7 @@ const RegisterFormName = ({
           />
           <div className="form-section__alert-wrap">
             {alertMessage.length !== 0 &&
-              alertMessage.map((alert, index) => (
-                <span key={index}>{alert}</span>
-              ))}
+              alertMessage.map((alert) => <span key={alert}>{alert}</span>)}
           </div>
         </label>
       </div>

@@ -20,9 +20,9 @@ const RegisterFormPassword = ({
   const inputRef2 = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (userData!.password !== "") {
-      inputRef.current!.value = userData!.password;
-      inputRef2.current!.value = userData!.password;
+    if (userData.password !== "") {
+      inputRef.current!.value = userData.password;
+      inputRef2.current!.value = userData.password;
     }
     inputRef.current!.focus();
   }, []);
@@ -37,7 +37,7 @@ const RegisterFormPassword = ({
     setAlertMessage([""]);
     validation = revalidatePassword(inputRef.current!, inputRef2.current!);
     if (typeof validation !== "number") return setBotAlertMessage(validation);
-    return actionNext!(inputRef.current!.value);
+    return actionNext(inputRef.current!.value);
   };
 
   return (
@@ -57,9 +57,7 @@ const RegisterFormPassword = ({
           />
           <div className="form-section__alert-wrap">
             {alertMessage.length !== 0 &&
-              alertMessage.map((alert, index) => (
-                <span key={index}>{alert}</span>
-              ))}
+              alertMessage.map((alert) => <span key={alert}>{alert}</span>)}
           </div>
         </label>
 
@@ -81,7 +79,7 @@ const RegisterFormPassword = ({
       </div>
       <div className="form-section__button-wrap">
         <button onClick={(event) => validatePasswordField(event)}>Next</button>
-        <button onClick={() => actionBack!()}>Go back</button>
+        <button onClick={() => actionBack()}>Go back</button>
       </div>
     </FormSectionStyled>
   );

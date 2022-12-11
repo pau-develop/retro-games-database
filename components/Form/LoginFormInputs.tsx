@@ -29,7 +29,7 @@ const LoginFormInputs = (): JSX.Element => {
 
     if (result) {
       const { token } = await result.json();
-      console.log(token);
+      console.log();
     } else setBotAlertMessage(["⚠ Incorrect user name or password"]);
   }, []);
 
@@ -50,9 +50,7 @@ const LoginFormInputs = (): JSX.Element => {
           />
           <div className="form-section__alert-wrap">
             {alertMessage.length !== 0 &&
-              alertMessage.map((alert, index) => (
-                <span key={index}>{alert}</span>
-              ))}
+              alertMessage.map((alert) => <span key={alert}>{alert}</span>)}
           </div>
         </label>
 

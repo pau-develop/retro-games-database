@@ -6,7 +6,7 @@ const checkName = async (
   request: NextApiRequest,
   response: NextApiResponse
 ) => {
-  const client = await connectDB();
+  await connectDB();
   const userName = request.body;
 
   const result = await User.find({ userName: userName });

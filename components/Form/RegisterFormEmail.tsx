@@ -18,7 +18,7 @@ const RegisterFormEmail = ({
   const { checkEmail } = useUserAPI();
 
   useEffect(() => {
-    if (userData!.email !== "") inputRef.current!.value = userData!.email;
+    if (userData.email !== "") inputRef.current!.value = userData.email;
 
     inputRef.current!.focus();
   }, []);
@@ -31,7 +31,7 @@ const RegisterFormEmail = ({
     if (typeof validation !== "number") return setAlertMessage(validation);
     const result = await checkEmail(inputRef.current!.value);
     return result
-      ? actionNext!(inputRef.current!.value)
+      ? actionNext(inputRef.current!.value)
       : setAlertMessage(["⚠ Email already taken"]);
   };
 
@@ -52,9 +52,7 @@ const RegisterFormEmail = ({
           />
           <div className="form-section__alert-wrap">
             {alertMessage.length !== 0 &&
-              alertMessage.map((alert, index) => (
-                <span key={index}>{alert}</span>
-              ))}
+              alertMessage.map((alert) => <span key={alert}>{alert}</span>)}
           </div>
         </label>
       </div>
