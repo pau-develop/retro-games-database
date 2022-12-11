@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const register = async (request: NextApiRequest, response: NextApiResponse) => {
-  await connectDB();
+  await connectDB("retro-games");
   const newUser = request.body;
   newUser.password = await hashPass(newUser.password);
   const result = await User.create({

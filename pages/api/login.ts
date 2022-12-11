@@ -4,7 +4,7 @@ import User from "database/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const login = async (request: NextApiRequest, response: NextApiResponse) => {
-  await connectDB();
+  await connectDB("retro-games");
   const user = request.body;
   const result = await User.find({ userName: user.userName });
   if (result.length <= 0) return response.status(403).json({});
