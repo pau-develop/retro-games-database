@@ -13,16 +13,14 @@ const LoginForm = (): JSX.Element => {
 
   const validateLoginInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const validation = validateName(inputRef.current!);
-    if (typeof validation !== "number") setAlertMessage(validation);
-    else {
-      setAlertMessage([""]);
-      const validation = validatePassword(inputRef2.current!);
-      if (typeof validation !== "number") setBotAlertMessage(validation);
-      else {
-        handleSubmit(inputRef.current!.value, inputRef2.current!.value);
-      }
-    }
+    let validation = validateName(inputRef.current!);
+    if (typeof validation !== "number") return setAlertMessage(validation);
+
+    setAlertMessage([""]);
+    validation = validatePassword(inputRef2.current!);
+    if (typeof validation !== "number") return setBotAlertMessage(validation);
+
+    return handleSubmit(inputRef.current!.value, inputRef2.current!.value);
   };
 
   const handleSubmit = useCallback(async (input: string, input2: string) => {
