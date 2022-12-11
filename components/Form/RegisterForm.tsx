@@ -4,6 +4,7 @@ import RegisterFormEmail from "./RegisterFormEmail";
 import RegisterFormPassword from "./RegisterFormPassword";
 import FormStyled from "./FormStyled";
 import RegisterFormName from "./RegisterFormName";
+import useUserAPI from "../../hooks/useUserAPI";
 
 const initialData = {
   userName: "",
@@ -13,6 +14,7 @@ const initialData = {
 };
 
 const RegisterForm = (): JSX.Element => {
+  const { userRegister } = useUserAPI();
   const router = useRouter();
   const [currentForm, setCurrentForm] = useState<number>(0);
   const [userData, setUserData] = useState(initialData);
@@ -49,14 +51,9 @@ const RegisterForm = (): JSX.Element => {
   }, [currentForm]);
 
   const handleSubmit = useCallback(async () => {
-    const result = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    const result = await userRegister(userData);
     if (result.status === 200) router.push("/home");
+    else console.log("something went wrong");
   }, [userData]);
 
   return (
