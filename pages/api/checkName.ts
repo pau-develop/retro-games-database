@@ -6,7 +6,7 @@ const checkName = async (
   request: NextApiRequest,
   response: NextApiResponse
 ) => {
-  await connectDB();
+  await connectDB("retro-games");
   const userName = request.body;
 
   const result = await User.find({ userName: userName });
