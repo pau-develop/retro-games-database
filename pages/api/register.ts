@@ -14,7 +14,7 @@ const register = async (request: NextApiRequest, response: NextApiResponse) => {
     email: newUser.email,
     verified: false,
   });
-  console.log("RESULT", result);
+
   response.json({ result });
 };
 

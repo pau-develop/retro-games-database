@@ -1,3 +1,5 @@
+import { IUserInput } from "interfaces/interfaces";
+
 const useUserAPI = () => {
   const checkEmail = async (input: string) => {
     const result = await fetch("/api/checkEmail", {
@@ -36,7 +38,18 @@ const useUserAPI = () => {
     if (result.status === 403) return false;
     else return result;
   };
-  return { checkEmail, checkName, userLogin };
+
+  const userRegister = async (userData: IUserInput) => {
+    const result = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    return result;
+  };
+  return { checkEmail, checkName, userLogin, userRegister };
 };
 
 export default useUserAPI;
