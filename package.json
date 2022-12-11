@@ -9,12 +9,14 @@
     "test:cov": "jest --coverage --watchAll=false"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "babel-plugin-styled-components": "^2.0.7",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.12.1",
     "mongoose": "^6.8.0",
     "next": "latest",
+    "next-redux-wrapper": "^8.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "styled-components": "^5.3.6"
