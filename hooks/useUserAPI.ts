@@ -49,7 +49,20 @@ const useUserAPI = () => {
     const user = decodeToken(data.token);
     dispatch(loginUserAction(user));
     if (stayLogged) localStorage.setItem("token", user.token);
+    sessionStorage.setItem("token", user.token);
     return true;
+  };
+
+  const userLogout = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    const user = {
+      userName: "",
+      email: "",
+      token: "",
+      verified: false,
+    };
+    dispatch(loginUserAction(user));
   };
 
   const userRegister = async (userData: IUserInput) => {
@@ -62,7 +75,7 @@ const useUserAPI = () => {
     });
     return result;
   };
-  return { checkEmail, checkName, userLogin, userRegister };
+  return { checkEmail, checkName, userLogin, userRegister, userLogout };
 };
 
 export default useUserAPI;

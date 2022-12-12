@@ -31,14 +31,16 @@ const Header = (): JSX.Element => {
   );
 
   useEffect(() => {
-    checkForToken();
+    if (checkForToken(localStorage)) return;
+    checkForToken(sessionStorage);
   }, []);
 
-  const checkForToken = () => {
-    const token = localStorage.getItem("token");
-    if (token === null) return;
+  const checkForToken = (storage: Storage) => {
+    const token = storage.getItem("token");
+    if (token === null) return false;
     const user = decodeToken(token);
     dispatch(loginUserAction(user));
+    return true;
   };
 
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {

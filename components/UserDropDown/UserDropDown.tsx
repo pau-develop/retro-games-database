@@ -1,3 +1,4 @@
+import useUserAPI from "hooks/useUserAPI";
 import Link from "next/link";
 import { useState } from "react";
 import { getElementPos, shouldRenderDropDown } from "../Header/HeaderFunctions";
@@ -16,6 +17,7 @@ interface UserDropDownProps {
 }
 
 const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
+  const { userLogout } = useUserAPI();
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
@@ -39,7 +41,7 @@ const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
           <li>
             <Link href="/home">Settings</Link>
           </li>
-          <li>Logout</li>
+          <li onClick={() => userLogout()}>Logout</li>
         </>
       )}
       {type === "guest" && (
