@@ -125,6 +125,26 @@ describe("Given a useAPI hook", () => {
     expect(localToken).not.toBeNull();
   });
 
+  describe("When its function userLogout is called", () => {
+    test("It should remove the token from localStorage and sessionStorage", () => {
+      window.localStorage.setItem("token", "12345");
+      window.sessionStorage.setItem("token", "12345");
+      const {
+        result: {
+          current: { userLogout },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      userLogout();
+      const localToken = localStorage.getItem("token");
+      const sessionToken = sessionStorage.getItem("token");
+
+      expect(localToken).toBeNull();
+      expect(sessionToken).toBeNull();
+    });
+  });
+
   describe("When its function 'userRegister' is called", () => {
     const userData = {
       userName: "tester",
