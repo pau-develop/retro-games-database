@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { RootState } from "store/store";
 import HeaderStyled from "./HeaderStyled";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IUser } from "interfaces/interfaces";
 
 const Header = (): JSX.Element => {
-  const user = useSelector<RootState>((state) => state.user) as IUser;
-  console.log(user);
+  // const user = useSelector<RootState>((state) => state.user) as IUser;
+  // console.log(user);
   return (
     <HeaderStyled className="header">
       <h1 className="header__title">RETRO GAMES DATABASE</h1>

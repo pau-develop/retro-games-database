@@ -14,10 +14,6 @@ const userReducer = createReducer(initialState, (builder) => {
     actionTypes.loginUser,
     (state: IUser, action: IUserAction) => action.payload
   );
-  builder.addCase(
-    actionTypes.logoutUser,
-    (state: IUser, action: IUserAction) => action.payload
-  );
 
   builder.addDefaultCase((state: IUser) => state);
 });
