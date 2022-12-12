@@ -12,9 +12,10 @@ const initialDropDownPosition = {
 
 interface UserDropDownProps {
   action: (shouldRender: boolean) => void;
+  type: "guest" | "user";
 }
 
-const UserDropDown = ({ action }: UserDropDownProps): JSX.Element => {
+const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
@@ -33,12 +34,24 @@ const UserDropDown = ({ action }: UserDropDownProps): JSX.Element => {
       onMouseLeave={(event) => handleMouseLeave(event)}
       onMouseEnter={(event) => getElementPosition(event)}
     >
-      <li>
-        <Link href="/register">Register</Link>
-      </li>
-      <li>
-        <Link href="/login">Login</Link>
-      </li>
+      {type === "user" && (
+        <>
+          <li>
+            <Link href="/home">Settings</Link>
+          </li>
+          <li>Logout</li>
+        </>
+      )}
+      {type === "guest" && (
+        <>
+          <li>
+            <Link href="/register">Register</Link>
+          </li>
+          <li>
+            <Link href="/login">Login</Link>
+          </li>
+        </>
+      )}
     </UserDropDownStyled>
   );
 };

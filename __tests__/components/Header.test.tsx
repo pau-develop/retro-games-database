@@ -1,10 +1,23 @@
 import Header from "@/components/Header/Header";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
+interface WrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+let Wrapper: ({ children }: WrapperProps) => JSX.Element;
+
+beforeEach(() => {
+  Wrapper = ({ children }: WrapperProps): JSX.Element => {
+    return <Provider store={store}>{children}</Provider>;
+  };
+});
 
 describe("Given a Header component", () => {
   describe("When instantiated", () => {
     test("It should render a heading with the site name", () => {
-      render(<Header />);
+      render(<Header />, { wrapper: Wrapper });
       const heading = screen.getByRole("heading", {
         name: "RETRO GAMES DATABASE",
       });
@@ -15,7 +28,7 @@ describe("Given a Header component", () => {
 
   describe("When mouse hovers over the 'Guest' item", () => {
     test("It should render a dropdown menu with items 'register' & 'login'", () => {
-      render(<Header />);
+      render(<Header />, { wrapper: Wrapper });
       const navItems = screen.getAllByRole("listitem");
       fireEvent.mouseOver(navItems[1]);
       const dropMenu = screen.getByText("Register");
@@ -25,7 +38,7 @@ describe("Given a Header component", () => {
 
   describe("When mouse stops hovering over the 'Guest' nav item", () => {
     test("It should stop rendering the dropdown menu", () => {
-      render(<Header />);
+      render(<Header />, { wrapper: Wrapper });
       const navItems = screen.getAllByRole("listitem");
       fireEvent.mouseOver(navItems[1]);
       const dropMenu = screen.getByText("Register");
@@ -37,7 +50,7 @@ describe("Given a Header component", () => {
 
   describe("When mouse stops hovering over the dropdown menu", () => {
     test("It should stop rendering the dropdown menu", () => {
-      render(<Header />);
+      render(<Header />, { wrapper: Wrapper });
       const navItems = screen.getAllByRole("listitem");
       fireEvent.mouseOver(navItems[1]);
       const dropMenu = screen.getByText("Register");

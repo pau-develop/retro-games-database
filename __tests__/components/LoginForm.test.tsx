@@ -3,6 +3,24 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
+
 const mockUserLogin = jest.fn().mockReturnValue(false);
 
 interface WrapperProps {

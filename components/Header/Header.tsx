@@ -2,12 +2,18 @@ import Link from "next/link";
 
 import HeaderStyled from "./HeaderStyled";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { IUser } from "../../interfaces/interfaces";
+import { decodeToken } from "../../database/authentication";
+import { loginUserAction } from "../../store/actions";
 const caretIcon = <FontAwesomeIcon icon={faCaretDown} />;
+const userIcon = <FontAwesomeIcon icon={faUser} />;
 
 const initialDropDownPosition = {
   top: 0,
@@ -17,12 +23,23 @@ const initialDropDownPosition = {
 };
 
 const Header = (): JSX.Element => {
-  // const user = useSelector<RootState>((state) => state.user) as IUser;
-  // console.log(user);
+  const dispatch = useDispatch();
+  const user = useSelector<RootState>((state) => state.user) as IUser;
   const [accountDropDown, setAccountDropDown] = useState(false);
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
+
+  useEffect(() => {
+    checkForToken();
+  }, []);
+
+  const checkForToken = () => {
+    const token = localStorage.getItem("token");
+    if (token === null) return;
+    const user = decodeToken(token);
+    dispatch(loginUserAction(user));
+  };
 
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {
     const element = getElementPos(event);
@@ -43,17 +60,26 @@ const Header = (): JSX.Element => {
           <li>
             <Link href="/home">Home</Link>
           </li>
-
-          <li
-            onMouseLeave={(event) => handleMouseLeave(event)}
-            onMouseEnter={(event) => getElementPosition(event)}
-          >
-            Guest<i>{caretIcon}</i>
-          </li>
+          {user.userName === "" ? (
+            <li
+              onMouseLeave={(event) => handleMouseLeave(event)}
+              onMouseEnter={(event) => getElementPosition(event)}
+            >
+              Guest<i>{caretIcon}</i>
+            </li>
+          ) : (
+            <li
+              onMouseLeave={(event) => handleMouseLeave(event)}
+              onMouseEnter={(event) => getElementPosition(event)}
+            >
+              Account<i>{userIcon}</i>
+            </li>
+          )}
         </ul>
         {accountDropDown && (
           <UserDropDown
             action={(shouldRender) => setAccountDropDown(shouldRender)}
+            type={user.userName !== "" ? "user" : "guest"}
           />
         )}
       </nav>

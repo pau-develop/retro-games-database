@@ -1,9 +1,31 @@
+import { renderHook } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
 import useUserAPI from "../../hooks/useUserAPI";
+
+interface WrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+let Wrapper: ({ children }: WrapperProps) => JSX.Element;
+
+beforeEach(() => {
+  Wrapper = ({ children }: WrapperProps): JSX.Element => {
+    return <Provider store={store}>{children}</Provider>;
+  };
+});
 
 describe("Given a useAPI hook", () => {
   describe("When its function 'checkEmail' is called", () => {
     test("If the email already exists on the database it should return false", async () => {
-      const { checkEmail } = useUserAPI();
+      const {
+        result: {
+          current: { checkEmail },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+
       global.fetch = jest.fn().mockResolvedValue({
         status: 403,
       });
@@ -11,7 +33,13 @@ describe("Given a useAPI hook", () => {
       expect(result).toBe(false);
     });
     test("If the email doesn't exists on the database it should return true", async () => {
-      const { checkEmail } = useUserAPI();
+      const {
+        result: {
+          current: { checkEmail },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
       global.fetch = jest.fn().mockResolvedValue({
         status: 200,
       });
@@ -21,7 +49,13 @@ describe("Given a useAPI hook", () => {
   });
   describe("When its function 'checkName' is called", () => {
     test("If the name already exists on the database it should return false", async () => {
-      const { checkName } = useUserAPI();
+      const {
+        result: {
+          current: { checkName },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
       global.fetch = jest.fn().mockResolvedValue({
         status: 403,
       });
@@ -29,7 +63,13 @@ describe("Given a useAPI hook", () => {
       expect(result).toBe(false);
     });
     test("If the name doesn't exists on the database it should return true", async () => {
-      const { checkName } = useUserAPI();
+      const {
+        result: {
+          current: { checkName },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
       global.fetch = jest.fn().mockResolvedValue({
         status: 200,
       });
@@ -40,20 +80,18 @@ describe("Given a useAPI hook", () => {
 
   describe("When its function 'userLogin' is called", () => {
     test("If either the user name or password are wrong, it will return false", async () => {
-      const { userLogin } = useUserAPI();
+      const {
+        result: {
+          current: { userLogin },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
       global.fetch = jest.fn().mockResolvedValue({
         status: 403,
       });
-      const result = await userLogin("test", "Test1");
+      const result = await userLogin("test", "Test1", false);
       expect(result).toBe(false);
-    });
-    test("If all info is correct, it should return the response", async () => {
-      const { userLogin } = useUserAPI();
-      global.fetch = jest.fn().mockResolvedValue({
-        status: 200,
-      });
-      const result = await userLogin("test", "Test1");
-      expect(result).toStrictEqual({ status: 200 });
     });
   });
 
@@ -65,7 +103,13 @@ describe("Given a useAPI hook", () => {
       email: "test@test.com",
     };
     test("It will return ", async () => {
-      const { userRegister } = useUserAPI();
+      const {
+        result: {
+          current: { userRegister },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
       global.fetch = jest.fn().mockResolvedValue({
         status: 200,
       });
