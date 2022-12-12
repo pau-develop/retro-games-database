@@ -3,9 +3,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { validateName, validatePassword } from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 import FormStyled from "./FormStyled";
-import { decodeToken } from "../../database/authentication";
 import { useDispatch } from "react-redux";
-import { loginUserAction } from "../../store/actions";
 import { useRouter } from "next/router";
 
 const LoginForm = (): JSX.Element => {
@@ -31,16 +29,9 @@ const LoginForm = (): JSX.Element => {
   };
 
   const handleSubmit = useCallback(async (input: string, input2: string) => {
-    const result = (await userLogin(input, input2)) as Response;
-
-    if (result) {
-      const { token } = await result.json();
-      const user = decodeToken(token);
-      if (checkboxRef.current!.checked)
-        localStorage.setItem("token", user.token);
-      dispatch(loginUserAction(user));
-      router.push("/home");
-    } else setBotAlertMessage(["⚠ Incorrect user name or password"]);
+    const result = await userLogin(input, input2, checkboxRef.current!.checked);
+    if (result) return router.push("/home");
+    return setBotAlertMessage(["⚠ Incorrect user name or password"]);
   }, []);
 
   return (

@@ -1,6 +1,10 @@
+import { decodeToken } from "../database/authentication";
 import { IUserInput } from "interfaces/interfaces";
+import { useDispatch } from "react-redux";
+import { loginUserAction } from "../store/actions";
 
 const useUserAPI = () => {
+  const dispatch = useDispatch();
   const checkEmail = async (input: string) => {
     const result = await fetch("/api/checkEmail", {
       method: "POST",
@@ -23,7 +27,11 @@ const useUserAPI = () => {
     if (result.status === 403) return false;
     return true;
   };
-  const userLogin = async (input: string, input2: string) => {
+  const userLogin = async (
+    input: string,
+    input2: string,
+    stayLogged: boolean
+  ) => {
     const loginInfo = {
       userName: input,
       password: input2,
@@ -36,7 +44,12 @@ const useUserAPI = () => {
       body: JSON.stringify(loginInfo),
     });
     if (result.status === 403) return false;
-    else return result;
+    console.log(result);
+    const data = await result.json();
+    const user = decodeToken(data.token);
+    dispatch(loginUserAction(user));
+    if (stayLogged) localStorage.setItem("token", user.token);
+    return true;
   };
 
   const userRegister = async (userData: IUserInput) => {
