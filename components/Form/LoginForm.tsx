@@ -3,9 +3,9 @@ import React, { useCallback, useRef, useState } from "react";
 import { validateName, validatePassword } from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 import FormStyled from "./FormStyled";
-import { decodeToken } from "database/authentication";
+import { decodeToken } from "../../database/authentication";
 import { useDispatch } from "react-redux";
-import { loginUserAction } from "store/actions";
+import { loginUserAction } from "../../store/actions";
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch();
