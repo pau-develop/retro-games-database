@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { RootState } from "store/store";
+
 import HeaderStyled from "./HeaderStyled";
-import { useSelector } from "react-redux";
-import { IUser } from "interfaces/interfaces";
+
 import React, { useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+const caretIcon = <FontAwesomeIcon icon={faCaretDown} />;
 
 const initialDropDownPosition = {
   top: 0,
@@ -46,7 +48,7 @@ const Header = (): JSX.Element => {
             onMouseLeave={(event) => handleMouseLeave(event)}
             onMouseEnter={(event) => getElementPosition(event)}
           >
-            Guest
+            <span> Guest</span> <i>{caretIcon}</i>
           </li>
         </ul>
         {accountDropDown && (

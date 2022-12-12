@@ -26,6 +26,8 @@ const HeaderStyled = styled.div`
         display: flex;
         list-style: none;
         li {
+          display: flex;
+          justify-content: space-around;
           background-color: transparent;
           border-radius: 5px;
           width: 100px;
