@@ -53,7 +53,6 @@ const RegisterForm = (): JSX.Element => {
   const handleSubmit = useCallback(async () => {
     const result = await userRegister(userData);
     if (result.status === 200) router.push("/home");
-    else console.log("something went wrong");
   }, [userData]);
 
   return (

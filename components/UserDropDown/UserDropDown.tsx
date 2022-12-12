@@ -1,4 +1,4 @@
-import useUserAPI from "hooks/useUserAPI";
+import useUserAPI from "../../hooks/useUserAPI";
 import Link from "next/link";
 import { useState } from "react";
 import { getElementPos, shouldRenderDropDown } from "../Header/HeaderFunctions";

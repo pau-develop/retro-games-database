@@ -7,7 +7,7 @@ import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
-import { RootState } from "store/store";
+import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";

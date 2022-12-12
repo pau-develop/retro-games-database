@@ -1,4 +1,4 @@
-import Header from "@/components/Header/Header";
+import Header from "../../components/Header/Header";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";

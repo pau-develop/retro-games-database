@@ -2,6 +2,17 @@ import { renderHook } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import useUserAPI from "../../hooks/useUserAPI";
+import { mockUser } from "../../mocks/testMocks";
+
+jest.mock("../../database/authentication", () => ({
+  ...jest.requireActual("../../database/authentication"),
+
+  decodeToken: () => jest.fn().mockReturnValue({ mockUser }),
+}));
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 interface WrapperProps {
   children: JSX.Element | JSX.Element[];
@@ -93,6 +104,25 @@ describe("Given a useAPI hook", () => {
       const result = await userLogin("test", "Test1", false);
       expect(result).toBe(false);
     });
+  });
+
+  test("If everything is correct, it will update the store state, the local storage and the session storage", async () => {
+    const {
+      result: {
+        current: { userLogin },
+      },
+    } = renderHook(useUserAPI, {
+      wrapper: Wrapper,
+    });
+    global.fetch = jest.fn().mockResolvedValue({
+      status: 200,
+      json: jest.fn().mockReturnValue({ token: "12345" }),
+    });
+    const result = await userLogin("test", "Test1", true);
+    const sessionToken = sessionStorage.getItem("token");
+    const localToken = localStorage.getItem("token");
+    expect(sessionToken).not.toBeNull();
+    expect(localToken).not.toBeNull();
   });
 
   describe("When its function 'userRegister' is called", () => {

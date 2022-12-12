@@ -44,7 +44,7 @@ const useUserAPI = () => {
       body: JSON.stringify(loginInfo),
     });
     if (result.status === 403) return false;
-    console.log(result);
+
     const data = await result.json();
     const user = decodeToken(data.token);
     dispatch(loginUserAction(user));
