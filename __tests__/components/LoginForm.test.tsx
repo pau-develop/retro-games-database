@@ -21,8 +21,6 @@ jest.mock("next/router", () => ({
   },
 }));
 
-const mockUserLogin = jest.fn().mockReturnValue(false);
-
 interface WrapperProps {
   children: JSX.Element | JSX.Element[];
 }
@@ -34,6 +32,8 @@ beforeEach(() => {
     return <Provider store={store}>{children}</Provider>;
   };
 });
+
+const mockUserLogin = jest.fn().mockReturnValue(false);
 
 jest.mock("../../hooks/useUserAPI", () => ({
   __esModule: true,

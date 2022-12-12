@@ -2,6 +2,13 @@ import Header from "../../components/Header/Header";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
+import { mockUser } from "../../mocks/testMocks";
+
+jest.mock("../../database/authentication", () => ({
+  ...jest.requireActual("../../database/authentication"),
+
+  decodeToken: () => jest.fn().mockReturnValue({ mockUser }),
+}));
 interface WrapperProps {
   children: JSX.Element | JSX.Element[];
 }
@@ -58,6 +65,13 @@ describe("Given a Header component", () => {
       fireEvent.mouseOver(dropMenu);
       fireEvent.mouseLeave(dropMenu);
       expect(dropMenu).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When token is present in localStorage", () => {
+    test("It should update the store state, which would change the 'Guest' navigation item to 'Account'", () => {
+      window.localStorage.setItem("token", "12345");
+      render(<Header />, { wrapper: Wrapper });
     });
   });
 });
