@@ -7,7 +7,7 @@ import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
-import { RootState } from "store/store";
+import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";
@@ -31,14 +31,16 @@ const Header = (): JSX.Element => {
   );
 
   useEffect(() => {
-    checkForToken();
+    if (checkForToken(localStorage)) return;
+    checkForToken(sessionStorage);
   }, []);
 
-  const checkForToken = () => {
-    const token = localStorage.getItem("token");
-    if (token === null) return;
+  const checkForToken = (storage: Storage) => {
+    const token = storage.getItem("token");
+    if (token === null) return false;
     const user = decodeToken(token);
     dispatch(loginUserAction(user));
+    return true;
   };
 
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {
