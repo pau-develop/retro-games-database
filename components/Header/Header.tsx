@@ -2,14 +2,16 @@ import Link from "next/link";
 
 import HeaderStyled from "./HeaderStyled";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "store/store";
-import { useSelector } from "react-redux";
-import { IUser } from "interfaces/interfaces";
+import { useSelector, useDispatch } from "react-redux";
+import { IUser } from "../../interfaces/interfaces";
+import { decodeToken } from "../../database/authentication";
+import { loginUserAction } from "../../store/actions";
 const caretIcon = <FontAwesomeIcon icon={faCaretDown} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 
@@ -21,12 +23,23 @@ const initialDropDownPosition = {
 };
 
 const Header = (): JSX.Element => {
+  const dispatch = useDispatch();
   const user = useSelector<RootState>((state) => state.user) as IUser;
-
   const [accountDropDown, setAccountDropDown] = useState(false);
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
+
+  useEffect(() => {
+    checkForToken();
+  }, []);
+
+  const checkForToken = () => {
+    const token = localStorage.getItem("token");
+    if (token === null) return;
+    const user = decodeToken(token);
+    dispatch(loginUserAction(user));
+  };
 
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {
     const element = getElementPos(event);
