@@ -74,6 +74,20 @@ const FormSectionStyled = styled.div`
         visibility: hidden;
       }
     }
+    &__checkbox {
+      width: 100%;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        padding-left: 10px;
+        color: ${(props) => props.theme.fontColor};
+      }
+      input {
+        background-color: ${(props) => props.theme.fontColor};
+      }
+    }
   }
 `;
 

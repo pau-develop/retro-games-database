@@ -9,6 +9,7 @@ import { loginUserAction } from "../../store/actions";
 import { useRouter } from "next/router";
 
 const LoginForm = (): JSX.Element => {
+  const checkboxRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
   const { userLogin } = useUserAPI();
@@ -35,6 +36,8 @@ const LoginForm = (): JSX.Element => {
     if (result) {
       const { token } = await result.json();
       const user = decodeToken(token);
+      if (checkboxRef.current!.checked)
+        localStorage.setItem("token", user.token);
       dispatch(loginUserAction(user));
       router.push("/home");
     } else setBotAlertMessage(["⚠ Incorrect user name or password"]);
@@ -77,6 +80,10 @@ const LoginForm = (): JSX.Element => {
             {botAlertMessage.length !== 0 &&
               botAlertMessage.map((alert) => <span key={alert}>{alert}</span>)}
           </div>
+        </div>
+        <div className="form-section__checkbox">
+          <input ref={checkboxRef} type="checkbox" />
+          <span> Keep me logged</span>
         </div>
         <div className="form-section__button-wrap">
           <button onClick={(event) => validateLoginInfo(event)}>Login</button>
