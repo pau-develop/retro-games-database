@@ -11,7 +11,7 @@ const HeaderStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 1%;
-  padding: 1%;
+  padding: 5px;
   .header {
     &__title {
       padding: 0;
@@ -26,7 +26,13 @@ const HeaderStyled = styled.div`
         display: flex;
         list-style: none;
         li {
-          margin: 10px;
+          width: 100px;
+          padding: 10px;
+          position: relative;
+          text-align: center;
+        }
+        li:hover {
+          cursor: pointer;
         }
       }
       a:-webkit-any-link {
