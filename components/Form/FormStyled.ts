@@ -8,7 +8,7 @@ const FormStyled = styled.form`
   flex-direction: column;
   align-items: center;
   span {
-    color: #3bb909;
+    color: ${(props) => props.theme.fontColor};
   }
   @media (max-width: 600px) {
     width: 100%;

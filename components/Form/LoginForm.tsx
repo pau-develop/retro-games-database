@@ -6,7 +6,7 @@ import FormStyled from "./FormStyled";
 import { decodeToken } from "../../database/authentication";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../store/actions";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const LoginForm = (): JSX.Element => {
   const router = useRouter();

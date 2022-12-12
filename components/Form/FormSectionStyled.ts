@@ -5,7 +5,7 @@ const FormSectionStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #3bb909;
+  color: ${(props) => props.theme.fontColor};
   height: 500px;
   .form-section {
     &__text-wrap {
@@ -26,25 +26,28 @@ const FormSectionStyled = styled.div`
       display: flex;
       flex-direction: column;
       font-size: 0.8rem;
+      span {
+        color: ${(props) => props.theme.altFontColor};
+      }
     }
     &__label {
       width: 100%;
       display: flex;
       flex-direction: column;
-      color: #3ec209;
     }
     &__input {
-      color: #3bb909;
+      color: ${(props) => props.theme.fontColor};
       padding: 15px;
       margin: 15px 0;
-      background-color: #102510;
+      background-color: ${(props) => props.theme.primaryColor};
       border: none;
+      border-radius: 10px;
     }
     &__input:focus {
-      outline: 1px solid #3bb909;
+      outline: 2px solid ${(props) => props.theme.secondaryColor};
     }
     &__input::placeholder {
-      color: #86a681;
+      color: ${(props) => props.theme.fontColor};
     }
     &__button-wrap {
       flex: 2;
@@ -54,15 +57,18 @@ const FormSectionStyled = styled.div`
       justify-content: space-around;
       width: 100%;
       button {
-        border-color: #3bb909;
-        background-color: transparent;
-        color: #3bb909;
+        border-radius: 10px;
+        background-color: ${(props) => props.theme.thirdColor};
+        color: ${(props) => props.theme.fontColor};
         width: 100%;
         height: 25%;
       }
       button:last-child {
         width: 75%;
         height: 20%;
+      }
+      button:hover {
+        cursor: pointer;
       }
       .form-button--disabled {
         visibility: hidden;
