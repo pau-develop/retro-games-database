@@ -1,24 +1,27 @@
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
-  width: 100%;
+  position: absolute;
+  width: 98%;
   height: 8%;
-  background-color: #000;
-  border-bottom: 2px solid #3bb909;
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.primaryColor};
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5%;
+  margin: 1%;
+  padding: 1%;
   .header {
     &__title {
       padding: 0;
       margin: 0;
-      color: #3bb909;
+      color: ${(props) => props.theme.fontColor};
     }
     &__navigation {
       padding: 0;
       margin: 0;
-      color: #3bb909;
+      color: ${(props) => props.theme.fontColor};
       ul {
         display: flex;
         list-style: none;
@@ -27,7 +30,7 @@ const HeaderStyled = styled.div`
         }
       }
       a:-webkit-any-link {
-        color: #3bb909;
+        color: ${(props) => props.theme.fontColor};
         cursor: pointer;
         text-decoration: none;
       }
