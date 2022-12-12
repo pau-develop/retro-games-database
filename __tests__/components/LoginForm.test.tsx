@@ -1,7 +1,21 @@
 import LoginForm from "@/components/Form/LoginForm";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../../store/store";
 
 const mockUserLogin = jest.fn().mockReturnValue(false);
+
+interface WrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+let Wrapper: ({ children }: WrapperProps) => JSX.Element;
+
+beforeEach(() => {
+  Wrapper = ({ children }: WrapperProps): JSX.Element => {
+    return <Provider store={store}>{children}</Provider>;
+  };
+});
 
 jest.mock("../../hooks/useUserAPI", () => ({
   __esModule: true,
@@ -14,14 +28,14 @@ jest.mock("../../hooks/useUserAPI", () => ({
 describe("Given a LoginForm component", () => {
   describe("When instantiated", () => {
     test("It should render a heading with the text 'Login'", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const heading = screen.getByRole("heading", { name: "Login" });
 
       expect(heading).toBeInTheDocument();
     });
 
     test("It should render an input box for user name and another for password'", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const inputElement = screen.getByPlaceholderText("User name");
       const inputElement2 = screen.getByPlaceholderText("Password");
       expect(inputElement).toBeInTheDocument();
@@ -31,7 +45,7 @@ describe("Given a LoginForm component", () => {
 
   describe("When user name field is left empy", () => {
     test("It should display an error message", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const inputElement = screen.getByPlaceholderText("User name");
       const loginButton = screen.getByRole("button", { name: "Login" });
 
@@ -43,7 +57,7 @@ describe("Given a LoginForm component", () => {
 
   describe("When input is not a valid user name", () => {
     test("It should display an error message", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const inputElement = screen.getByPlaceholderText("User name");
       const Login = screen.getByRole("button", { name: "Login" });
       fireEvent.change(inputElement, {
@@ -59,7 +73,7 @@ describe("Given a LoginForm component", () => {
 
   describe("When input is not a valid password", () => {
     test("It should display an error message", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const inputElement = screen.getByPlaceholderText("User name");
       const inputElement2 = screen.getByPlaceholderText("Password");
       const loginButton = screen.getByRole("button", { name: "Login" });
@@ -84,7 +98,7 @@ describe("Given a LoginForm component", () => {
 
   describe("When both password and user name are correct", () => {
     test("The userLoginFunction should be called", () => {
-      render(<LoginForm />);
+      render(<LoginForm />, { wrapper: Wrapper });
       const inputElement = screen.getByPlaceholderText("User name");
       const inputElement2 = screen.getByPlaceholderText("Password");
       const loginButton = screen.getByRole("button", { name: "Login" });
