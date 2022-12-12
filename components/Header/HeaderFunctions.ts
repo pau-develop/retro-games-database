@@ -1,6 +1,7 @@
 import React from "react";
 
 export const getElementPos = (event: React.MouseEvent<HTMLElement>) => {
+  console.log(event);
   const element = event.target as HTMLElement;
   const elementPositions = element.getBoundingClientRect();
   const elementObject = {
@@ -24,6 +25,7 @@ export const shouldRenderDropDown = (
     left: event.clientX - 5,
     right: event.clientX + 5,
   };
+
   if (mousePositions.top < dropDownPosition.top && type === "top") return false;
   if (mousePositions.bot > dropDownPosition.bot && type === "bot") return false;
   if (mousePositions.left < dropDownPosition.left) return false;

@@ -1,5 +1,5 @@
 import Header from "@/components/Header/Header";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("Given a Header component", () => {
   describe("When instantiated", () => {
@@ -10,6 +10,41 @@ describe("Given a Header component", () => {
       });
 
       expect(heading).toBeInTheDocument();
+    });
+  });
+
+  describe("When mouse hovers over the 'Guest' item", () => {
+    test("It should render a dropdown menu with items 'register' & 'login'", () => {
+      render(<Header />);
+      const navItems = screen.getAllByRole("listitem");
+      fireEvent.mouseOver(navItems[1]);
+      const dropMenu = screen.getByText("Register");
+      expect(dropMenu).toBeInTheDocument();
+    });
+  });
+
+  describe("When mouse stops hovering over the 'Guest' nav item", () => {
+    test("It should stop rendering the dropdown menu", () => {
+      render(<Header />);
+      const navItems = screen.getAllByRole("listitem");
+      fireEvent.mouseOver(navItems[1]);
+      const dropMenu = screen.getByText("Register");
+      expect(dropMenu).toBeInTheDocument();
+      fireEvent.mouseLeave(navItems[1]);
+      expect(dropMenu).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When mouse stops hovering over the dropdown menu", () => {
+    test("It should stop rendering the dropdown menu", () => {
+      render(<Header />);
+      const navItems = screen.getAllByRole("listitem");
+      fireEvent.mouseOver(navItems[1]);
+      const dropMenu = screen.getByText("Register");
+      expect(dropMenu).toBeInTheDocument();
+      fireEvent.mouseOver(dropMenu);
+      fireEvent.mouseLeave(dropMenu);
+      expect(dropMenu).not.toBeInTheDocument();
     });
   });
 });

@@ -48,7 +48,7 @@ const Header = (): JSX.Element => {
             onMouseLeave={(event) => handleMouseLeave(event)}
             onMouseEnter={(event) => getElementPosition(event)}
           >
-            <span> Guest</span> <i>{caretIcon}</i>
+            Guest<i>{caretIcon}</i>
           </li>
         </ul>
         {accountDropDown && (
