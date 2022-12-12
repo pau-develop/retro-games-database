@@ -7,8 +7,9 @@ const UserDropDownStyled = styled.ul`
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: 10px;
   right: 0%;
-  top: 150%;
-  padding: 5px;
+  top: 105%;
+  padding: 10px;
+
   li {
     text-align: center;
     width: 100px;

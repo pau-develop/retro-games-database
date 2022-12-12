@@ -11,7 +11,7 @@ const HeaderStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 1%;
-  padding: 5px;
+  padding: 5px 10px;
   .header {
     &__title {
       padding: 0;
@@ -26,12 +26,16 @@ const HeaderStyled = styled.div`
         display: flex;
         list-style: none;
         li {
+          background-color: transparent;
+          border-radius: 5px;
           width: 100px;
           padding: 10px;
+          margin: 0 5px;
           position: relative;
           text-align: center;
         }
         li:hover {
+          background-color: ${(props) => props.theme.secondaryColor};
           cursor: pointer;
         }
       }
