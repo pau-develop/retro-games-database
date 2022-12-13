@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import HeaderStyled from "./HeaderStyled";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";
 import { loginUserAction } from "../../store/actions";
+import useWidth from "hooks/useWidth";
 const caretIcon = <FontAwesomeIcon icon={faCaretDown} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 
@@ -23,12 +24,14 @@ const initialDropDownPosition = {
 };
 
 const Header = (): JSX.Element => {
+  const [mobileDisplay, setMobileDisplay] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [accountDropDown, setAccountDropDown] = useState(false);
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
+  const windowWidth = useWidth();
 
   useEffect(() => {
     if (checkForToken(localStorage)) return;
@@ -56,35 +59,39 @@ const Header = (): JSX.Element => {
 
   return (
     <HeaderStyled className="header">
-      <h1 className="header__title">RETRO GAMES DATABASE</h1>
-      <nav className="header__navigation">
-        <ul className="header__list">
-          <li>
-            <Link href="/home">Home</Link>
-          </li>
-          {user.userName === "" ? (
-            <li
-              onMouseLeave={(event) => handleMouseLeave(event)}
-              onMouseEnter={(event) => getElementPosition(event)}
-            >
-              Guest<i>{caretIcon}</i>
-            </li>
-          ) : (
-            <li
-              onMouseLeave={(event) => handleMouseLeave(event)}
-              onMouseEnter={(event) => getElementPosition(event)}
-            >
-              Account<i>{userIcon}</i>
-            </li>
-          )}
-        </ul>
-        {accountDropDown && (
-          <UserDropDown
-            action={(shouldRender) => setAccountDropDown(shouldRender)}
-            type={user.userName !== "" ? "user" : "guest"}
-          />
-        )}
-      </nav>
+      {windowWidth <= 720 ? null : (
+        <>
+          <h1 className="header__title">RETRO GAMES DATABASE</h1>
+          <nav className="header__navigation">
+            <ul className="header__list">
+              <li>
+                <Link href="/home">Home</Link>
+              </li>
+              {user.userName === "" ? (
+                <li
+                  onMouseLeave={(event) => handleMouseLeave(event)}
+                  onMouseEnter={(event) => getElementPosition(event)}
+                >
+                  Guest<i>{caretIcon}</i>
+                </li>
+              ) : (
+                <li
+                  onMouseLeave={(event) => handleMouseLeave(event)}
+                  onMouseEnter={(event) => getElementPosition(event)}
+                >
+                  Account<i>{userIcon}</i>
+                </li>
+              )}
+            </ul>
+            {accountDropDown && (
+              <UserDropDown
+                action={(shouldRender) => setAccountDropDown(shouldRender)}
+                type={user.userName !== "" ? "user" : "guest"}
+              />
+            )}
+          </nav>
+        </>
+      )}
     </HeaderStyled>
   );
 };

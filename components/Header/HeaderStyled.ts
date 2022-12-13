@@ -6,12 +6,18 @@ const HeaderStyled = styled.div`
   height: 8%;
   border-radius: 10px;
   background-color: ${(props) => props.theme.primaryColor};
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 1%;
   padding: 5px 10px;
+  @media (max-width: 720px) {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
   .header {
     &__title {
       padding: 0;
