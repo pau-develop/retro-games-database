@@ -2,8 +2,10 @@ import { decodeToken } from "../database/authentication";
 import { IUserInput } from "interfaces/interfaces";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../store/actions";
+import { useRouter } from "next/router";
 
 const useUserAPI = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const checkEmail = async (input: string) => {
     const result = await fetch("/api/checkEmail", {
@@ -63,6 +65,7 @@ const useUserAPI = () => {
       verified: false,
     };
     dispatch(loginUserAction(user));
+    router.push("/home");
   };
 
   const userRegister = async (userData: IUserInput) => {
