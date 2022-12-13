@@ -6,14 +6,14 @@ import React, { useEffect, useRef, useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";
 import { loginUserAction } from "../../store/actions";
 import useWidth from "hooks/useWidth";
-const caretIcon = <FontAwesomeIcon icon={faCaretDown} />;
+const hamburgerIcon = <FontAwesomeIcon icon={faBars} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 
 const initialDropDownPosition = {
@@ -59,7 +59,13 @@ const Header = (): JSX.Element => {
 
   return (
     <HeaderStyled className="header">
-      {windowWidth <= 720 ? null : (
+      {windowWidth <= 720 ? (
+        <>
+          <i>{hamburgerIcon}</i>
+          <h1 className="header__title">RETRO GAMES DATABASE</h1>
+          <i>{userIcon}</i>
+        </>
+      ) : (
         <>
           <h1 className="header__title">RETRO GAMES DATABASE</h1>
           <nav className="header__navigation">
@@ -72,7 +78,7 @@ const Header = (): JSX.Element => {
                   onMouseLeave={(event) => handleMouseLeave(event)}
                   onMouseEnter={(event) => getElementPosition(event)}
                 >
-                  Guest<i>{caretIcon}</i>
+                  Guest<i>{userIcon}</i>
                 </li>
               ) : (
                 <li
