@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";
 import { loginUserAction } from "../../store/actions";
-import useWidth from "hooks/useWidth";
+import useWidth from "../../hooks/useWidth";
 import NavDropDown from "../NavDropDown/NavDropDown";
 const hamburgerIcon = <FontAwesomeIcon icon={faBars} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
@@ -34,7 +34,8 @@ const Header = (): JSX.Element => {
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
-  const windowWidth = useWidth();
+
+  const windowWidth = useWidth() as number;
 
   useEffect(() => {
     if (checkForToken(localStorage)) return;

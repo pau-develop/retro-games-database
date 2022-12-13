@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 
+// Hook
 const useWidth = () => {
-  if (process.browser) {
-    const [width, setWidth] = useState(window.innerWidth);
-    const handleResize = () => setWidth(window.innerWidth);
-    useEffect(() => {
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, [width]);
-    return width;
-  }
-  return 0;
+  const [windoWidth, setWindowWidth] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windoWidth;
 };
 
 export default useWidth;
