@@ -70,9 +70,17 @@ const Header = (): JSX.Element => {
       <HeaderStyled className="header">
         {windowWidth <= 720 ? (
           <>
-            <i onClick={() => setNavDropDown(!navDropDown)}>{hamburgerIcon}</i>
+            <i
+              data-testid="hamburger-icon"
+              onClick={() => setNavDropDown(!navDropDown)}
+            >
+              {hamburgerIcon}
+            </i>
             <h1 className="header__title">RETRO GAMES DATABASE</h1>
-            <i onClick={() => setMobileAccountDropDown(!mobileAccountDropDown)}>
+            <i
+              data-testid="account-icon"
+              onClick={() => setMobileAccountDropDown(!mobileAccountDropDown)}
+            >
               {userIcon}
             </i>
           </>
