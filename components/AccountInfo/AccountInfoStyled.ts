@@ -2,34 +2,34 @@ import styled from "styled-components";
 
 const AccountInfoStyled = styled.div`
   display: flex;
-  width: 100%;
-  ul {
-    display: flex;
+  @media (max-width: 720px) {
     flex-direction: column;
-    list-style: none;
-    width: 50%;
-    li {
-      height: 50px;
+  }
+  width: 100%;
+  .account-info {
+    &__list {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      list-style: none;
+      width: 50%;
+      @media (max-width: 720px) {
+        width: 100%;
+      }
+    }
+    &__list-item {
+      min-height: 50px;
+      display: flex;
+      align-items: flex-start;
       span {
         width: 30%;
         text-align: left;
       }
-      button {
-        border: none;
-        font-family: ${(props) => props.theme.font};
-        margin-left: 5%;
-        width: 15%;
-        height: 30px;
-        color: ${(props) => props.theme.fontColor};
-        background: ${(props) => props.theme.thirdColor};
-      }
-      button:hover {
-        cursor: pointer;
-      }
+    }
+    &__input {
+      width: 50%;
+
       input {
-        width: 50%;
+        width: 100%;
         padding: 10px;
         color: ${(props) => props.theme.fontColor};
         background-color: ${(props) => props.theme.primaryColor};
@@ -43,11 +43,38 @@ const AccountInfoStyled = styled.div`
         color: ${(props) => props.theme.fontColor};
       }
     }
-  }
-  @media (max-width: 720px) {
-    flex-direction: column;
-    ul {
-      width: 100%;
+    &__button {
+      border: none;
+      font-family: ${(props) => props.theme.font};
+      margin-left: 5%;
+      width: 15%;
+      height: 30px;
+      color: ${(props) => props.theme.fontColor};
+      background: ${(props) => props.theme.thirdColor};
+    }
+    &__button:hover {
+      cursor: pointer;
+    }
+    &__button--disabled {
+      opacity: 0.2;
+      border: none;
+      font-family: ${(props) => props.theme.font};
+      margin-left: 5%;
+      width: 15%;
+      height: 30px;
+      color: ${(props) => props.theme.fontColor};
+      background: ${(props) => props.theme.thirdColor};
+      pointer-events: none;
+      cursor: default;
+    }
+    &__alerts {
+      display: flex;
+      flex-direction: column;
+      color: ${(props) => props.theme.altFontColor};
+      font-size: 0.7rem;
+      span {
+        width: 100%;
+      }
     }
   }
 `;
