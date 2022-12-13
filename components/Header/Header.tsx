@@ -58,47 +58,57 @@ const Header = (): JSX.Element => {
   };
 
   return (
-    <HeaderStyled className="header">
-      {windowWidth <= 720 ? (
-        <>
-          <i>{hamburgerIcon}</i>
-          <h1 className="header__title">RETRO GAMES DATABASE</h1>
-          <i>{userIcon}</i>
-        </>
-      ) : (
-        <>
-          <h1 className="header__title">RETRO GAMES DATABASE</h1>
-          <nav className="header__navigation">
-            <ul className="header__list">
-              <li>
-                <Link href="/home">Home</Link>
-              </li>
-              {user.userName === "" ? (
-                <li
-                  onMouseLeave={(event) => handleMouseLeave(event)}
-                  onMouseEnter={(event) => getElementPosition(event)}
-                >
-                  Guest<i>{userIcon}</i>
+    <>
+      <HeaderStyled className="header">
+        {windowWidth <= 720 ? (
+          <>
+            <i>{hamburgerIcon}</i>
+            <h1 className="header__title">RETRO GAMES DATABASE</h1>
+            <i onClick={() => setAccountDropDown(!accountDropDown)}>
+              {userIcon}
+            </i>
+          </>
+        ) : (
+          <>
+            <h1 className="header__title">RETRO GAMES DATABASE</h1>
+            <nav className="header__navigation">
+              <ul className="header__list">
+                <li>
+                  <Link href="/home">Home</Link>
                 </li>
-              ) : (
-                <li
-                  onMouseLeave={(event) => handleMouseLeave(event)}
-                  onMouseEnter={(event) => getElementPosition(event)}
-                >
-                  Account<i>{userIcon}</i>
-                </li>
+                {user.userName === "" ? (
+                  <li
+                    onMouseLeave={(event) => handleMouseLeave(event)}
+                    onMouseEnter={(event) => getElementPosition(event)}
+                  >
+                    Guest<i>{userIcon}</i>
+                  </li>
+                ) : (
+                  <li
+                    onMouseLeave={(event) => handleMouseLeave(event)}
+                    onMouseEnter={(event) => getElementPosition(event)}
+                  >
+                    Account<i>{userIcon}</i>
+                  </li>
+                )}
+              </ul>
+              {accountDropDown && (
+                <UserDropDown
+                  action={(shouldRender) => setAccountDropDown(shouldRender)}
+                  type={user.userName !== "" ? "user" : "guest"}
+                />
               )}
-            </ul>
-            {accountDropDown && (
-              <UserDropDown
-                action={(shouldRender) => setAccountDropDown(shouldRender)}
-                type={user.userName !== "" ? "user" : "guest"}
-              />
-            )}
-          </nav>
-        </>
+            </nav>
+          </>
+        )}
+      </HeaderStyled>
+      {accountDropDown && (
+        <UserDropDown
+          action={(shouldRender) => setAccountDropDown(shouldRender)}
+          type={user.userName !== "" ? "user" : "guest"}
+        />
       )}
-    </HeaderStyled>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { getElementPos, shouldRenderDropDown } from "../Header/HeaderFunctions";
 import UserDropDownStyled from "./UserDropDownStyled";
+import useWidth from "hooks/useWidth";
 
 const initialDropDownPosition = {
   top: 0,
@@ -17,18 +18,23 @@ interface UserDropDownProps {
 }
 
 const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
+  const windowWidth = useWidth();
   const { userLogout } = useUserAPI();
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {
-    const element = getElementPos(event);
-    setDropDownPosition(element);
+    if (windowWidth > 720) {
+      const element = getElementPos(event);
+      setDropDownPosition(element);
+    }
   };
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
-    const result = shouldRenderDropDown(event, dropDownPosition, "bot");
-    if (!result) return action(false);
+    if (windowWidth > 720) {
+      const result = shouldRenderDropDown(event, dropDownPosition, "bot");
+      if (!result) return action(false);
+    }
   };
 
   return (

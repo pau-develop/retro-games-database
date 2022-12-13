@@ -12,7 +12,8 @@ const HeaderStyled = styled.div`
   margin: 10px;
   padding: 5px 10px;
   @media (max-width: 720px) {
-    height: 50px;
+    position: absolute;
+    height: 6%;
     color: ${(props) => props.theme.fontColor};
     width: 100%;
     padding: 0 4%;
