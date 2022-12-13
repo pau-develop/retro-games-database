@@ -92,4 +92,46 @@ describe("Given a Header component", () => {
       render(<Header />, { wrapper: Wrapper });
     });
   });
+
+  describe("When in mobile display, clicking on the hamburger icon", () => {
+    test("should open a navigation menu with the app pages", () => {
+      window.innerWidth = 500;
+      render(<Header />, { wrapper: Wrapper });
+      const icon = screen.getByTestId("hamburger-icon");
+      fireEvent.click(icon);
+      const homeItem = screen.getByText("Home");
+      expect(homeItem).toBeInTheDocument();
+    });
+
+    test("When an item is clicked, the nav menu should close", () => {
+      window.innerWidth = 500;
+      render(<Header />, { wrapper: Wrapper });
+      const icon = screen.getByTestId("hamburger-icon");
+      fireEvent.click(icon);
+      const homeItem = screen.getByText("Home");
+      fireEvent.click(homeItem);
+      expect(homeItem).not.toBeInTheDocument();
+    });
+  });
+
+  describe("When in mobile display, clicking on the account icon", () => {
+    test("should open a navigation menu with the settings/logout options", () => {
+      window.innerWidth = 500;
+      render(<Header />, { wrapper: Wrapper });
+      const icon = screen.getByTestId("account-icon");
+      fireEvent.click(icon);
+      const settingsItem = screen.getByText("Settings");
+      expect(settingsItem).toBeInTheDocument();
+    });
+
+    test("When an item is clicked, the nav menu should close", () => {
+      window.innerWidth = 500;
+      render(<Header />, { wrapper: Wrapper });
+      const icon = screen.getByTestId("account-icon");
+      fireEvent.click(icon);
+      const settingsItem = screen.getByText("Settings");
+      fireEvent.click(settingsItem);
+      expect(settingsItem).not.toBeInTheDocument();
+    });
+  });
 });

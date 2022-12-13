@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { getElementPos, shouldRenderDropDown } from "../Header/HeaderFunctions";
 import UserDropDownStyled from "./UserDropDownStyled";
+import useWidth from "../../hooks/useWidth";
 
 const initialDropDownPosition = {
   top: 0,
@@ -13,22 +14,39 @@ const initialDropDownPosition = {
 
 interface UserDropDownProps {
   action: (shouldRender: boolean) => void;
+  actionClose: () => void;
   type: "guest" | "user";
 }
 
-const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
+const UserDropDown = ({
+  action,
+  type,
+  actionClose,
+}: UserDropDownProps): JSX.Element => {
   const { userLogout } = useUserAPI();
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
+
+  const windowWidth = useWidth() as number;
+
   const getElementPosition = (event: React.MouseEvent<HTMLElement>) => {
-    const element = getElementPos(event);
-    setDropDownPosition(element);
+    if (windowWidth > 720) {
+      const element = getElementPos(event);
+      setDropDownPosition(element);
+    }
   };
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
-    const result = shouldRenderDropDown(event, dropDownPosition, "bot");
-    if (!result) return action(false);
+    if (windowWidth > 720) {
+      const result = shouldRenderDropDown(event, dropDownPosition, "bot");
+      if (!result) return action(false);
+    }
+  };
+
+  const handleLogout = () => {
+    userLogout();
+    actionClose();
   };
 
   return (
@@ -39,18 +57,24 @@ const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
       {type === "user" && (
         <>
           <li>
-            <Link href="/account">Settings</Link>
+            <Link onClick={actionClose} href="/account">
+              Settings
+            </Link>
           </li>
-          <li onClick={() => userLogout()}>Logout</li>
+          <li onClick={handleLogout}>Logout</li>
         </>
       )}
       {type === "guest" && (
         <>
           <li>
-            <Link href="/register">Register</Link>
+            <Link onClick={actionClose} href="/register">
+              Register
+            </Link>
           </li>
           <li>
-            <Link href="/login">Login</Link>
+            <Link onClick={actionClose} href="/login">
+              Login
+            </Link>
           </li>
         </>
       )}
