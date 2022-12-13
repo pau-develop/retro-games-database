@@ -9,20 +9,22 @@ const AccountInfo = ({ user }: AccountInfoProps): JSX.Element => {
   return (
     <AccountInfoStyled>
       <ul>
-        <li>User name</li>
-        <li>Email</li>
-        <li>Location</li>
-        <li>Languages</li>
-      </ul>
-      <ul>
         <li>
+          <span>User name</span>
           <input placeholder={user.userName}></input>
+          <button>Change</button>
         </li>
         <li>
+          <span>Email</span>
           <input placeholder={user.email}></input>
+          <button>Change</button>
         </li>
-        <li>Pending</li>
-        <li>Pending</li>
+        <li>
+          <span>Location</span>
+        </li>
+        <li>
+          <span>Languages</span>
+        </li>
       </ul>
     </AccountInfoStyled>
   );

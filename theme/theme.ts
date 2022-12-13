@@ -5,6 +5,7 @@ const theme = {
   thirdColor: "#242B92",
   fontColor: "#B1D5CB",
   altFontColor: "#e6b800",
+  font: "SEGOE UI",
 };
 
 export default theme;
