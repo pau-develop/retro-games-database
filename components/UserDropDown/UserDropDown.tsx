@@ -39,7 +39,7 @@ const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
       {type === "user" && (
         <>
           <li>
-            <Link href="/home">Settings</Link>
+            <Link href="/account">Settings</Link>
           </li>
           <li onClick={() => userLogout()}>Logout</li>
         </>

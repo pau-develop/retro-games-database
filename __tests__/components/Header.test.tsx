@@ -4,6 +4,24 @@ import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import { mockUser } from "../../mocks/testMocks";
 
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
+
 jest.mock("../../database/authentication", () => ({
   ...jest.requireActual("../../database/authentication"),
 
