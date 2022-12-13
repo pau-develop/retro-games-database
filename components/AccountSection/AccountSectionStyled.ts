@@ -22,28 +22,6 @@ const AccountSectionStyled = styled.section`
       background-color: ${(props) => props.theme.primaryColorFade};
       width: 100%;
       display: flex;
-      ul {
-        flex: 1;
-        list-style: none;
-        li {
-          height: 50px;
-          display: flex;
-
-          align-items: center;
-          input {
-            background-color: ${(props) => props.theme.primaryColor};
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-          }
-          input:focus {
-            outline: 2px solid ${(props) => props.theme.secondaryColor};
-          }
-          input::placeholder {
-            color: ${(props) => props.theme.fontColor};
-          }
-        }
-      }
     }
   }
 `;

@@ -3,12 +3,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { IUser } from "interfaces/interfaces";
 import AccountSection from "../AccountSection/AccountSection";
+import AccountInfo from "../AccountInfo/AccountInfo";
 
 const AccountSettings = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
   return (
     <AccountStyled>
-      <AccountSection title="Account Info"></AccountSection>
+      <AccountSection title="Account Info">
+        <AccountInfo user={user} />
+      </AccountSection>
     </AccountStyled>
   );
 };
