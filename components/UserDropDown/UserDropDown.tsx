@@ -14,10 +14,15 @@ const initialDropDownPosition = {
 
 interface UserDropDownProps {
   action: (shouldRender: boolean) => void;
+  actionClose: () => void;
   type: "guest" | "user";
 }
 
-const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
+const UserDropDown = ({
+  action,
+  type,
+  actionClose,
+}: UserDropDownProps): JSX.Element => {
   const windowWidth = useWidth();
   const { userLogout } = useUserAPI();
   const [dropDownPosition, setDropDownPosition] = useState(
@@ -37,6 +42,11 @@ const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
     }
   };
 
+  const handleLogout = () => {
+    userLogout();
+    actionClose();
+  };
+
   return (
     <UserDropDownStyled
       onMouseLeave={(event) => handleMouseLeave(event)}
@@ -45,18 +55,24 @@ const UserDropDown = ({ action, type }: UserDropDownProps): JSX.Element => {
       {type === "user" && (
         <>
           <li>
-            <Link href="/account">Settings</Link>
+            <Link onClick={actionClose} href="/account">
+              Settings
+            </Link>
           </li>
-          <li onClick={() => userLogout()}>Logout</li>
+          <li onClick={handleLogout}>Logout</li>
         </>
       )}
       {type === "guest" && (
         <>
           <li>
-            <Link href="/register">Register</Link>
+            <Link onClick={actionClose} href="/register">
+              Register
+            </Link>
           </li>
           <li>
-            <Link href="/login">Login</Link>
+            <Link onClick={actionClose} href="/login">
+              Login
+            </Link>
           </li>
         </>
       )}

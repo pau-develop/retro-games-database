@@ -13,6 +13,7 @@ import { IUser } from "../../interfaces/interfaces";
 import { decodeToken } from "../../database/authentication";
 import { loginUserAction } from "../../store/actions";
 import useWidth from "hooks/useWidth";
+import NavDropDown from "../NavDropDown/NavDropDown";
 const hamburgerIcon = <FontAwesomeIcon icon={faBars} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 
@@ -28,6 +29,8 @@ const Header = (): JSX.Element => {
   const dispatch = useDispatch();
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [accountDropDown, setAccountDropDown] = useState(false);
+  const [mobileAccountDropDown, setMobileAccountDropDown] = useState(false);
+  const [navDropDown, setNavDropDown] = useState(false);
   const [dropDownPosition, setDropDownPosition] = useState(
     initialDropDownPosition
   );
@@ -37,6 +40,10 @@ const Header = (): JSX.Element => {
     if (checkForToken(localStorage)) return;
     checkForToken(sessionStorage);
   }, []);
+
+  useEffect(() => {
+    if (windowWidth > 720 && navDropDown) setNavDropDown(false);
+  }, [windowWidth]);
 
   const checkForToken = (storage: Storage) => {
     const token = storage.getItem("token");
@@ -62,9 +69,9 @@ const Header = (): JSX.Element => {
       <HeaderStyled className="header">
         {windowWidth <= 720 ? (
           <>
-            <i>{hamburgerIcon}</i>
+            <i onClick={() => setNavDropDown(!navDropDown)}>{hamburgerIcon}</i>
             <h1 className="header__title">RETRO GAMES DATABASE</h1>
-            <i onClick={() => setAccountDropDown(!accountDropDown)}>
+            <i onClick={() => setMobileAccountDropDown(!mobileAccountDropDown)}>
               {userIcon}
             </i>
           </>
@@ -94,6 +101,7 @@ const Header = (): JSX.Element => {
               </ul>
               {accountDropDown && (
                 <UserDropDown
+                  actionClose={() => setAccountDropDown(false)}
                   action={(shouldRender) => setAccountDropDown(shouldRender)}
                   type={user.userName !== "" ? "user" : "guest"}
                 />
@@ -102,12 +110,15 @@ const Header = (): JSX.Element => {
           </>
         )}
       </HeaderStyled>
-      {accountDropDown && (
+
+      {mobileAccountDropDown && (
         <UserDropDown
+          actionClose={() => setMobileAccountDropDown(false)}
           action={(shouldRender) => setAccountDropDown(shouldRender)}
           type={user.userName !== "" ? "user" : "guest"}
         />
       )}
+      {navDropDown && <NavDropDown actionClose={() => setNavDropDown(false)} />}
     </>
   );
 };

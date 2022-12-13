@@ -24,7 +24,7 @@ const UserDropDownStyled = styled.ul`
     position: fixed;
     border-radius: 10px 0 0 10px;
     top: 6.5%;
-    width: 49%;
+    width: 49.5%;
     li {
       color: ${(props) => props.theme.fontColor};
       width: 100%;
