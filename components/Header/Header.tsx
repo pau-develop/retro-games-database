@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import HeaderStyled from "./HeaderStyled";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { getElementPos, shouldRenderDropDown } from "./HeaderFunctions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +25,6 @@ const initialDropDownPosition = {
 };
 
 const Header = (): JSX.Element => {
-  const [mobileDisplay, setMobileDisplay] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [accountDropDown, setAccountDropDown] = useState(false);
