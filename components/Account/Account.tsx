@@ -5,7 +5,7 @@ import { IUser } from "interfaces/interfaces";
 import AccountSection from "../AccountSection/AccountSection";
 import AccountInfo from "../AccountInfo/AccountInfo";
 
-const AccountSettings = (): JSX.Element => {
+const Account = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
   return (
     <AccountStyled>
@@ -16,4 +16,4 @@ const AccountSettings = (): JSX.Element => {
   );
 };
 
-export default AccountSettings;
+export default Account;
