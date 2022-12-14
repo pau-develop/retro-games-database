@@ -19,7 +19,7 @@ const AccountInfoStyled = styled.div`
     &__list-item {
       min-height: 50px;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       span {
         width: 30%;
         text-align: left;
@@ -75,6 +75,36 @@ const AccountInfoStyled = styled.div`
       span {
         width: 100%;
       }
+    }
+    &__verified {
+      width: 40%;
+      color: green;
+    }
+    &__unverified {
+      width: 40%;
+      color: red;
+    }
+    &__verification {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    &__verify-button {
+      border: none;
+      font-family: ${(props) => props.theme.font};
+      margin-left: 5%;
+      width: 15%;
+      height: 30px;
+      color: ${(props) => props.theme.fontColor};
+      background: ${(props) => props.theme.thirdColor};
+    }
+    &__verify-button:hover {
+      cursor: pointer;
+    }
+    &__verification-process {
+      width: 50%;
+      font-size: 0.75rem;
     }
   }
 `;

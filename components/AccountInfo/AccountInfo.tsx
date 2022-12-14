@@ -134,6 +134,24 @@ const AccountInfo = (): JSX.Element => {
         <li className="account-info__list-item">
           <span>Languages</span>
         </li>
+        <li className="account-info__list-item">
+          <div className="account-info__verification">
+            {user.verified ? (
+              <span className="account-info__verified">✔ Account verified</span>
+            ) : (
+              <>
+                <span className="account-info__unverified">
+                  ❗ Not verified
+                </span>
+                <p className="account-info__verification-process">
+                  {`You will need to verify your account to be able to post.
+                  Click on send to receive a verification email.`}
+                </p>
+                <button className="account-info__verify-button">Send</button>
+              </>
+            )}
+          </div>
+        </li>
       </ul>
     </AccountInfoStyled>
   );
