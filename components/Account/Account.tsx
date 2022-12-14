@@ -10,7 +10,7 @@ const Account = (): JSX.Element => {
   return (
     <AccountStyled>
       <AccountSection title="Account Info">
-        <AccountInfo user={user} />
+        <AccountInfo />
       </AccountSection>
     </AccountStyled>
   );

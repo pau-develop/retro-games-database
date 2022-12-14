@@ -24,3 +24,7 @@ export const decodeToken = (token: string) => {
   };
   return user;
 };
+
+export const verifyToken = (token: string) => {
+  return jwt.verify(token, process.env.SECRET as string);
+};

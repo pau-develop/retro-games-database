@@ -3,15 +3,16 @@ import { IUser } from "../../interfaces/interfaces";
 import { useRef, useState } from "react";
 import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
+import updateName from "@/pages/api/updateName";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
-interface AccountInfoProps {
-  user: IUser;
-}
+const AccountInfo = (): JSX.Element => {
+  const user = useSelector<RootState>((state) => state.user) as IUser;
 
-const AccountInfo = ({ user }: AccountInfoProps): JSX.Element => {
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
-  const { checkName, checkEmail } = useUserAPI();
+  const { checkName, checkEmail, updateName } = useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
     new Array()
   );
@@ -20,7 +21,6 @@ const AccountInfo = ({ user }: AccountInfoProps): JSX.Element => {
   );
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  console.log("AIXO", nameRef.current?.value);
 
   const validateNameField = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -32,7 +32,15 @@ const AccountInfo = ({ user }: AccountInfoProps): JSX.Element => {
       return setNameAlertMessage(validation);
     }
     const result = await checkName(nameRef.current!.value);
-    if (result) return console.log("GAS");
+    if (result) {
+      const response = await updateName(nameRef.current!.value);
+      if (response) {
+        nameRef.current!.value = "";
+        setTopButton(false);
+        return setNameAlertMessage([""]);
+      }
+      return setNameAlertMessage(["⚠ Something went wrong"]);
+    }
 
     setTopButton(false);
     return setNameAlertMessage(["⚠ User name already taken"]);

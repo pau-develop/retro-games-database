@@ -49,6 +49,7 @@ const Header = (): JSX.Element => {
     const token = storage.getItem("token");
     if (token === null) return false;
     const user = decodeToken(token);
+    sessionStorage.setItem("token", token);
     dispatch(loginUserAction(user));
     return true;
   };

@@ -1,5 +1,5 @@
 import { decodeToken } from "../database/authentication";
-import { IUserInput } from "interfaces/interfaces";
+import { IUser, IUserInput } from "interfaces/interfaces";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../store/actions";
 import { useRouter } from "next/router";
@@ -29,6 +29,7 @@ const useUserAPI = () => {
     if (result.status === 403) return false;
     return true;
   };
+
   const userLogin = async (
     input: string,
     input2: string,
@@ -67,6 +68,26 @@ const useUserAPI = () => {
     dispatch(loginUserAction(user));
     router.push("/home");
   };
+  const updateName = async (newName: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateName", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newName),
+    });
+    if (result.status === 403) return false;
+    const user = decodeToken(token as string);
+    const updatedUser: IUser = {
+      ...user,
+      userName: newName,
+    };
+    console.log(updatedUser);
+    dispatch(loginUserAction(updatedUser));
+    return true;
+  };
 
   const userRegister = async (userData: IUserInput) => {
     const result = await fetch("/api/register", {
@@ -78,7 +99,14 @@ const useUserAPI = () => {
     });
     return result;
   };
-  return { checkEmail, checkName, userLogin, userRegister, userLogout };
+  return {
+    checkEmail,
+    checkName,
+    userLogin,
+    userRegister,
+    userLogout,
+    updateName,
+  };
 };
 
 export default useUserAPI;
