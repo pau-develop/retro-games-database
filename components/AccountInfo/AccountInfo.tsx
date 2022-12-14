@@ -1,6 +1,6 @@
 import useUserAPI from "../../hooks/useUserAPI";
 import { IUser } from "../../interfaces/interfaces";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
@@ -11,7 +11,8 @@ const AccountInfo = (): JSX.Element => {
   console.log(user);
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
-  const { checkName, checkEmail, updateName, updateEmail } = useUserAPI();
+  const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
+    useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
     new Array()
   );
@@ -20,6 +21,10 @@ const AccountInfo = (): JSX.Element => {
   );
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    getLoggedUser();
+  }, [getLoggedUser]);
 
   const validateNameField = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -36,7 +41,8 @@ const AccountInfo = (): JSX.Element => {
       if (response) {
         nameRef.current!.value = "";
         setTopButton(false);
-        return setNameAlertMessage([""]);
+        setNameAlertMessage([""]);
+        return getLoggedUser();
       }
       return setNameAlertMessage(["⚠ Something went wrong"]);
     }
@@ -60,7 +66,8 @@ const AccountInfo = (): JSX.Element => {
       if (response) {
         emailRef.current!.value = "";
         setBotButton(false);
-        return setEmailAlertMessage([""]);
+        setEmailAlertMessage([""]);
+        return getLoggedUser();
       }
       return setNameAlertMessage(["⚠ Something went wrong"]);
     }

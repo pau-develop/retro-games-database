@@ -3,6 +3,7 @@ import { IUser, IUserInput } from "interfaces/interfaces";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../store/actions";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 const useUserAPI = () => {
   const router = useRouter();
@@ -79,13 +80,6 @@ const useUserAPI = () => {
       body: JSON.stringify(newName),
     });
     if (result.status === 403) return false;
-    const user = decodeToken(token as string);
-    const updatedUser: IUser = {
-      ...user,
-      userName: newName,
-    };
-
-    dispatch(loginUserAction(updatedUser));
     return true;
   };
 
@@ -100,16 +94,23 @@ const useUserAPI = () => {
       body: JSON.stringify(newEmail),
     });
     if (result.status === 403) return false;
-    const user = decodeToken(token as string);
-    const updatedUser: IUser = {
-      ...user,
-      email: newEmail,
-      verified: false,
-    };
-    console.log(updatedUser);
-    dispatch(loginUserAction(updatedUser));
     return true;
   };
+
+  const getLoggedUser = useCallback(async () => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/getLoggedUser", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (result.status === 200) {
+      const { user } = await result.json();
+      dispatch(loginUserAction(user));
+    }
+  }, []);
 
   const userRegister = async (userData: IUserInput) => {
     const result = await fetch("/api/register", {
@@ -129,6 +130,7 @@ const useUserAPI = () => {
     userLogout,
     updateName,
     updateEmail,
+    getLoggedUser,
   };
 };
 
