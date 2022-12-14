@@ -22,6 +22,9 @@ const AccountSectionStyled = styled.section`
       background-color: ${(props) => props.theme.primaryColorFade};
       width: 100%;
       display: flex;
+      @media (max-width: 720px) {
+        padding: 20px;
+      }
     }
   }
 `;
