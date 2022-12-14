@@ -105,6 +105,7 @@ const AccountInfoStyled = styled.div`
     &__verification-process {
       width: 50%;
       font-size: 0.75rem;
+      text-align: center;
     }
   }
 `;

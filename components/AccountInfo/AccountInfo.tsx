@@ -3,16 +3,15 @@ import { IUser } from "../../interfaces/interfaces";
 import { useRef, useState } from "react";
 import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
-import updateName from "@/pages/api/updateName";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 
 const AccountInfo = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
-
+  console.log(user);
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
-  const { checkName, checkEmail, updateName } = useUserAPI();
+  const { checkName, checkEmail, updateName, updateEmail } = useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
     new Array()
   );
@@ -56,7 +55,15 @@ const AccountInfo = (): JSX.Element => {
       return setEmailAlertMessage(validation);
     }
     const result = await checkEmail(emailRef.current!.value);
-    if (result) return console.log("GAS");
+    if (result) {
+      const response = await updateEmail(emailRef.current!.value);
+      if (response) {
+        emailRef.current!.value = "";
+        setBotButton(false);
+        return setEmailAlertMessage([""]);
+      }
+      return setNameAlertMessage(["⚠ Something went wrong"]);
+    }
 
     setEmailAlertMessage(["⚠ Email already taken"]);
     return setBotButton(false);

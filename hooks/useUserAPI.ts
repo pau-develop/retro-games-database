@@ -84,6 +84,28 @@ const useUserAPI = () => {
       ...user,
       userName: newName,
     };
+
+    dispatch(loginUserAction(updatedUser));
+    return true;
+  };
+
+  const updateEmail = async (newEmail: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateEmail", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newEmail),
+    });
+    if (result.status === 403) return false;
+    const user = decodeToken(token as string);
+    const updatedUser: IUser = {
+      ...user,
+      email: newEmail,
+      verified: false,
+    };
     console.log(updatedUser);
     dispatch(loginUserAction(updatedUser));
     return true;
@@ -106,6 +128,7 @@ const useUserAPI = () => {
     userRegister,
     userLogout,
     updateName,
+    updateEmail,
   };
 };
 
