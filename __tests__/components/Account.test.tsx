@@ -1,5 +1,6 @@
 import Account from "@/components/Account/Account";
 import { render, screen } from "@testing-library/react";
+import { mockUser } from "../../mocks/testMocks";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 
@@ -36,6 +37,10 @@ beforeEach(() => {
 describe("Given an Account component", () => {
   describe("When instantiated", () => {
     test("It should render an Account Info section", () => {
+      global.fetch = jest.fn().mockReturnValue({
+        status: 200,
+        json: jest.fn().mockReturnValue({ user: mockUser }),
+      });
       render(<Account />, { wrapper: Wrapper });
       const heading = screen.getByRole("heading", { name: "Account Info" });
       expect(heading).toBeInTheDocument();

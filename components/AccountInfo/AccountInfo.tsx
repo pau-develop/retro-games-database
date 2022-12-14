@@ -8,7 +8,6 @@ import { RootState } from "store/store";
 
 const AccountInfo = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
-  console.log(user);
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
   const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =

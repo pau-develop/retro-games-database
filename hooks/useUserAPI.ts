@@ -109,7 +109,9 @@ const useUserAPI = () => {
     if (result.status === 200) {
       const { user } = await result.json();
       dispatch(loginUserAction(user));
+      return true;
     }
+    return false;
   }, []);
 
   const userRegister = async (userData: IUserInput) => {
