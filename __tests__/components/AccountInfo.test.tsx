@@ -52,8 +52,8 @@ describe("Given an AccountInfo component", () => {
   describe("When instantiated", () => {
     test("It should render a list with user info", () => {
       render(<AccountInfo />, { wrapper: Wrapper });
-      const listElement = screen.getByRole("list");
-      expect(listElement).toBeInTheDocument();
+      const listElement = screen.getAllByRole("list");
+      expect(listElement[0]).toBeInTheDocument();
     });
   });
 

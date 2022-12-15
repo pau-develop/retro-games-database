@@ -6,6 +6,7 @@ import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import Button from "../Button/Button";
+import UserCard from "../UserCard/UserCard";
 
 const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
@@ -203,6 +204,9 @@ const AccountInfo = (): JSX.Element => {
           </div>
         </li>
       </ul>
+      <section className="account-info__card">
+        <UserCard user={user} />
+      </section>
     </AccountInfoStyled>
   );
 };

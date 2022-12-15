@@ -150,6 +150,15 @@ const AccountInfoStyled = styled.div`
       font-size: 0.75rem;
       text-align: center;
     }
+    &__card {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: 720px) {
+        width: 100%;
+      }
+    }
   }
 `;
 
