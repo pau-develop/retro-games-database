@@ -7,6 +7,18 @@ const AccountInfoStyled = styled.div`
   }
   width: 100%;
   .account-info {
+    &__birth {
+      border-radius: 5px;
+      width: 50%;
+      padding: 10px;
+      color: ${(props) => props.theme.fontColor};
+      background-color: ${(props) => props.theme.primaryColor};
+      border: none;
+      color-scheme: dark;
+    }
+    &__birth:focus {
+      outline: none;
+    }
     &__countries {
       width: 50%;
       border-radius: 5px;

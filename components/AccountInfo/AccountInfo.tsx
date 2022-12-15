@@ -168,6 +168,10 @@ const AccountInfo = (): JSX.Element => {
         </li>
 
         <li className="account-info__list-item">
+          <span>Birth date</span>
+          <input className="account-info__birth" type="date" />
+        </li>
+        <li className="account-info__list-item">
           <div className="account-info__verification">
             {user.verified ? (
               <span className="account-info__verified">✔ Account verified</span>
