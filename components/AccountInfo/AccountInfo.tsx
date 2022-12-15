@@ -10,8 +10,8 @@ import useFlags from "../../hooks/useFlags";
 const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
   const user = useSelector<RootState>((state) => state.user) as IUser;
-  const [topButton, setTopButton] = useState(true);
-  const [botButton, setBotButton] = useState(true);
+  const [topButton, setTopButton] = useState<number>(0);
+  const [botButton, setBotButton] = useState<number>(0);
   const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
     useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
@@ -42,7 +42,7 @@ const AccountInfo = (): JSX.Element => {
     event.preventDefault();
     const validation = validateName(nameRef.current!);
     if (typeof validation !== "number") {
-      setTopButton(false);
+      setTopButton(0);
       return setNameAlertMessage(validation);
     }
     const result = await checkName(nameRef.current!.value);
@@ -50,14 +50,14 @@ const AccountInfo = (): JSX.Element => {
       const response = await updateName(nameRef.current!.value);
       if (response) {
         nameRef.current!.value = "";
-        setTopButton(false);
+        setTopButton(2);
         setNameAlertMessage([""]);
         return getLoggedUser();
       }
       return setNameAlertMessage(["⚠ Something went wrong"]);
     }
 
-    setTopButton(false);
+    setTopButton(0);
     return setNameAlertMessage(["⚠ User name already taken"]);
   };
 
@@ -67,7 +67,7 @@ const AccountInfo = (): JSX.Element => {
     event.preventDefault();
     const validation = validateEmail(emailRef.current!);
     if (typeof validation !== "number") {
-      setBotButton(false);
+      setBotButton(0);
       return setEmailAlertMessage(validation);
     }
     const result = await checkEmail(emailRef.current!.value);
@@ -75,7 +75,7 @@ const AccountInfo = (): JSX.Element => {
       const response = await updateEmail(emailRef.current!.value);
       if (response) {
         emailRef.current!.value = "";
-        setBotButton(false);
+        setBotButton(2);
         setEmailAlertMessage([""]);
         return getLoggedUser();
       }
@@ -83,20 +83,20 @@ const AccountInfo = (): JSX.Element => {
     }
 
     setEmailAlertMessage(["⚠ Email already taken"]);
-    return setBotButton(false);
+    return setBotButton(0);
   };
 
   const checkContent = (inputBox: "name" | "email") => {
     if (inputBox === "name") {
       if (nameRef.current!.value !== "") {
         setNameAlertMessage([""]);
-        return setTopButton(true);
+        return setTopButton(1);
       }
       setEmailAlertMessage([""]);
-      return setTopButton(false);
+      return setTopButton(0);
     }
-    if (emailRef.current!.value !== "") return setBotButton(true);
-    return setBotButton(false);
+    if (emailRef.current!.value !== "") return setBotButton(1);
+    return setBotButton(0);
   };
 
   return (
@@ -116,16 +116,30 @@ const AccountInfo = (): JSX.Element => {
               ))}
             </div>
           </div>
-          <button
-            className={
-              topButton
-                ? "account-info__button"
-                : "account-info__button--disabled"
-            }
-            onClick={validateNameField}
-          >
-            Update
-          </button>
+          {topButton === 0 && (
+            <button
+              className="account-info__button--disabled"
+              onClick={validateNameField}
+            >
+              Update
+            </button>
+          )}
+          {topButton === 1 && (
+            <button
+              className="account-info__button"
+              onClick={validateNameField}
+            >
+              Update
+            </button>
+          )}
+          {topButton === 2 && (
+            <button
+              className="account-info__button--updated"
+              onClick={validateNameField}
+            >
+              Updated!
+            </button>
+          )}
         </li>
         <li className="account-info__list-item">
           <span>Email</span>
@@ -141,16 +155,30 @@ const AccountInfo = (): JSX.Element => {
               ))}
             </div>
           </div>
-          <button
-            className={
-              botButton
-                ? "account-info__button"
-                : "account-info__button--disabled"
-            }
-            onClick={validateEmailField}
-          >
-            Update
-          </button>
+          {botButton === 0 && (
+            <button
+              className="account-info__button--disabled"
+              onClick={validateEmailField}
+            >
+              Update
+            </button>
+          )}
+          {botButton === 1 && (
+            <button
+              className="account-info__button"
+              onClick={validateEmailField}
+            >
+              Update
+            </button>
+          )}
+          {botButton === 2 && (
+            <button
+              className="account-info__button--updated"
+              onClick={validateEmailField}
+            >
+              Updated!
+            </button>
+          )}
         </li>
         <li className="account-info__list-item">
           <span>Country</span>

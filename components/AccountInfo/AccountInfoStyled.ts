@@ -90,6 +90,18 @@ const AccountInfoStyled = styled.div`
       pointer-events: none;
       cursor: default;
     }
+    &__button--updated {
+      border: none;
+      font-family: ${(props) => props.theme.font};
+      margin-left: 5%;
+      width: 15%;
+      height: 30px;
+      color: green;
+      background-color: transparent;
+      font-weight: 900;
+      pointer-events: none;
+      cursor: default;
+    }
     &__alerts {
       display: flex;
       flex-direction: column;

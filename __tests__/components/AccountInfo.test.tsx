@@ -82,8 +82,9 @@ describe("Given an AccountInfo component", () => {
       expect(updateButton[1].className).toBe("account-info__button");
       fireEvent.change(nameInputElement, { target: { value: "" } });
       fireEvent.change(emailInputElement, { target: { value: "" } });
-      expect(updateButton[0].className).toBe("account-info__button--disabled");
-      expect(updateButton[1].className).toBe("account-info__button--disabled");
+      const newButtons = screen.getAllByRole("button", { name: "Update" });
+      expect(newButtons[0].className).toBe("account-info__button--disabled");
+      expect(newButtons[1].className).toBe("account-info__button--disabled");
     });
   });
 
@@ -106,7 +107,8 @@ describe("Given an AccountInfo component", () => {
       });
       const updateButton = screen.getAllByRole("button", { name: "Update" });
       fireEvent.click(updateButton[0]);
-      expect(updateButton[0].className).toBe("account-info__button--disabled");
+      const newButtons = screen.getAllByRole("button", { name: "Update" });
+      expect(newButtons[0].className).toBe("account-info__button--disabled");
     });
   });
 
@@ -129,7 +131,8 @@ describe("Given an AccountInfo component", () => {
       });
       const updateButton = screen.getAllByRole("button", { name: "Update" });
       fireEvent.click(updateButton[1]);
-      expect(updateButton[1].className).toBe("account-info__button--disabled");
+      const newButtons = screen.getAllByRole("button", { name: "Update" });
+      expect(newButtons[1].className).toBe("account-info__button--disabled");
     });
   });
 });
