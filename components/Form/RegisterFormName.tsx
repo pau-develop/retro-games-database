@@ -1,7 +1,7 @@
 import useUserAPI from "../../hooks/useUserAPI";
 import { IUserInput } from "interfaces/interfaces";
 import React, { useEffect, useRef, useState } from "react";
-import { validateName } from "./FormFunctions";
+import { setValue, validateName } from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 
 interface RegisterFormNameProps {
@@ -20,8 +20,8 @@ const RegisterFormName = ({
   const { checkName } = useUserAPI();
 
   useEffect(() => {
-    if (userData.userName !== "") inputRef.current!.value = userData.userName;
-
+    if (userData.userName !== "")
+      setValue(inputRef.current!, userData.userName);
     inputRef.current!.focus();
   }, []);
 
@@ -29,8 +29,16 @@ const RegisterFormName = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+
+    if (inputRef.current!.value === "")
+      return setAlertMessage(["⚠ User name field is mandatory"]);
+
     const validation = validateName(inputRef.current!);
-    if (typeof validation !== "number") return setAlertMessage(validation);
+    if (typeof validation !== "number") {
+      setValue(inputRef.current!, "");
+      return setAlertMessage(validation);
+    }
+
     const result = checkName(inputRef.current!.value);
     return (await result)
       ? actionNext(inputRef.current!.value)

@@ -12,7 +12,6 @@ const AccountInfo = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
-  console.log(countries);
   const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
     useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(

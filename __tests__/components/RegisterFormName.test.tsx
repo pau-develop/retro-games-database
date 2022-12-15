@@ -64,7 +64,7 @@ describe("Given a RegisterFormName component", () => {
 
       fireEvent.click(submitButton);
 
-      const alertMessage = screen.getByText("⚠ user name field is mandatory");
+      const alertMessage = screen.getByText("⚠ User name field is mandatory");
     });
   });
 
