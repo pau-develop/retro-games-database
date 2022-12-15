@@ -4,12 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
-import { RootState } from "store/store";
+import { RootState } from "../../store/store";
+import useFlags from "../../hooks/useFlags";
 
 const AccountInfo = (): JSX.Element => {
+  const [countries, setCountries] = useState<any[]>(new Array());
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [topButton, setTopButton] = useState(true);
   const [botButton, setBotButton] = useState(true);
+  console.log(countries);
   const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
     useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
@@ -24,6 +27,15 @@ const AccountInfo = (): JSX.Element => {
   useEffect(() => {
     getLoggedUser();
   }, [getLoggedUser]);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      const data = await fetch("https://restcountries.com/v3.1/all");
+      const countries = await data.json();
+      setCountries(countries);
+    };
+    fetchCountries();
+  }, []);
 
   const validateNameField = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -142,10 +154,22 @@ const AccountInfo = (): JSX.Element => {
           </button>
         </li>
         <li className="account-info__list-item">
-          <span>Location</span>
+          <span>Country</span>
+          <select className="account-info__countries">
+            {countries !== undefined &&
+              countries.map((country: any, index) => {
+                return (
+                  <option value={country.name.common} key={index}>
+                    {country.name.common}
+                  </option>
+                );
+              })}
+          </select>
         </li>
+
         <li className="account-info__list-item">
-          <span>Languages</span>
+          <span>Birth date</span>
+          <input className="account-info__birth" type="date" />
         </li>
         <li className="account-info__list-item">
           <div className="account-info__verification">
