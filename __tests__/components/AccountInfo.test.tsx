@@ -132,7 +132,7 @@ describe("Given an AccountInfo component", () => {
       const updateButton = screen.getAllByRole("button", { name: "Update" });
       fireEvent.click(updateButton[1]);
       const newButtons = screen.getAllByRole("button", { name: "Update" });
-      expect(newButtons[1].className).toBe("account-info__button--disabled");
+      expect(newButtons[0].className).toBe("account-info__button--disabled");
     });
   });
 });

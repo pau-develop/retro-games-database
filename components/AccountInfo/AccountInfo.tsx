@@ -5,7 +5,7 @@ import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import useFlags from "../../hooks/useFlags";
+import Button from "../Button/Button";
 
 const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
@@ -117,28 +117,23 @@ const AccountInfo = (): JSX.Element => {
             </div>
           </div>
           {topButton === 0 && (
-            <button
-              className="account-info__button--disabled"
-              onClick={validateNameField}
-            >
-              Update
-            </button>
+            <Button
+              buttonClass="account-info__button--disabled"
+              text="Update"
+            />
           )}
           {topButton === 1 && (
-            <button
-              className="account-info__button"
-              onClick={validateNameField}
-            >
-              Update
-            </button>
+            <Button
+              buttonClass="account-info__button"
+              validateAction={validateNameField}
+              text="Update"
+            />
           )}
           {topButton === 2 && (
-            <button
-              className="account-info__button--updated"
-              onClick={validateNameField}
-            >
-              Updated!
-            </button>
+            <Button
+              buttonClass="account-info__button--updated"
+              text="Updated!"
+            />
           )}
         </li>
         <li className="account-info__list-item">
@@ -155,29 +150,25 @@ const AccountInfo = (): JSX.Element => {
               ))}
             </div>
           </div>
+
           {botButton === 0 && (
-            <button
-              className="account-info__button--disabled"
-              onClick={validateEmailField}
-            >
-              Update
-            </button>
+            <Button
+              buttonClass="account-info__button--disabled"
+              text="Update"
+            />
           )}
           {botButton === 1 && (
-            <button
-              className="account-info__button"
-              onClick={validateEmailField}
-            >
-              Update
-            </button>
+            <Button
+              buttonClass="account-info__button"
+              validateAction={validateNameField}
+              text="Update"
+            />
           )}
           {botButton === 2 && (
-            <button
-              className="account-info__button--updated"
-              onClick={validateEmailField}
-            >
-              Updated!
-            </button>
+            <Button
+              buttonClass="account-info__button--updated"
+              text="Updated!"
+            />
           )}
         </li>
         <li className="account-info__list-item">
