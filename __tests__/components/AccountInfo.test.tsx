@@ -1,10 +1,5 @@
 import AccountInfo from "@/components/AccountInfo/AccountInfo";
-import {
-  fireEvent,
-  getAllByRole,
-  render,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { mockUser } from "../../mocks/testMocks";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";

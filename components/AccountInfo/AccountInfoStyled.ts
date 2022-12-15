@@ -7,6 +7,17 @@ const AccountInfoStyled = styled.div`
   }
   width: 100%;
   .account-info {
+    &__countries {
+      width: 50%;
+      border-radius: 5px;
+      background-color: ${(props) => props.theme.primaryColor};
+      border: none;
+      padding: 10px;
+      color: ${(props) => props.theme.fontColor};
+    }
+    &__countries:focus {
+      outline: none;
+    }
     &__list {
       display: flex;
       flex-direction: column;
