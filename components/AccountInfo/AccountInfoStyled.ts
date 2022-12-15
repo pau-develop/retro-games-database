@@ -43,10 +43,10 @@ const AccountInfoStyled = styled.div`
       min-height: 50px;
       display: flex;
       align-items: center;
-      span {
-        width: 30%;
-        text-align: left;
-      }
+    }
+    &__item-name {
+      width: 30%;
+      text-align: left;
     }
     &__input {
       width: 50%;
@@ -105,25 +105,33 @@ const AccountInfoStyled = styled.div`
     &__alerts {
       display: flex;
       flex-direction: column;
-      color: ${(props) => props.theme.altFontColor};
+      color: ${(props) => props.theme.alertFontColor};
       font-size: 0.7rem;
       span {
         width: 100%;
       }
     }
-    &__verified {
-      width: 40%;
-      color: green;
-    }
-    &__unverified {
-      width: 40%;
-      color: red;
-    }
+
     &__verification {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
+      span:first-child {
+        width: 30%;
+      }
+    }
+    &__unverified {
+      width: 50%;
+      color: ${(props) => props.theme.failFontColor};
+      font-weight: 700;
+      text-align: center;
+    }
+    &__verified {
+      width: 50%;
+      color: ${(props) => props.theme.passFontColor};
+      font-weight: 700;
+      text-align: center;
     }
     &__verify-button {
       border: none;

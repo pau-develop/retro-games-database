@@ -27,7 +27,7 @@ const FormSectionStyled = styled.div`
       flex-direction: column;
       font-size: 0.8rem;
       span {
-        color: ${(props) => props.theme.altFontColor};
+        color: ${(props) => props.theme.alertFontColor};
       }
     }
     &__label {

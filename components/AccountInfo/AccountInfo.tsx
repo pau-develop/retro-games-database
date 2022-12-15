@@ -103,7 +103,7 @@ const AccountInfo = (): JSX.Element => {
     <AccountInfoStyled className="account-info">
       <ul className="account-info__list">
         <li className="account-info__list-item">
-          <span>User name</span>
+          <span className="account-info__item-name">User name</span>
           <div className="account-info__input">
             <input
               ref={nameRef}
@@ -137,7 +137,7 @@ const AccountInfo = (): JSX.Element => {
           )}
         </li>
         <li className="account-info__list-item">
-          <span>Email</span>
+          <span className="account-info__item-name">Email</span>
           <div className="account-info__input">
             <input
               ref={emailRef}
@@ -160,7 +160,7 @@ const AccountInfo = (): JSX.Element => {
           {botButton === 1 && (
             <Button
               buttonClass="account-info__button"
-              validateAction={validateNameField}
+              validateAction={validateEmailField}
               text="Update"
             />
           )}
@@ -172,7 +172,7 @@ const AccountInfo = (): JSX.Element => {
           )}
         </li>
         <li className="account-info__list-item">
-          <span>Country</span>
+          <span className="account-info__item-name">Country</span>
           <select className="account-info__countries">
             {countries !== undefined &&
               countries.map((country: any, index) => {
@@ -186,23 +186,18 @@ const AccountInfo = (): JSX.Element => {
         </li>
 
         <li className="account-info__list-item">
-          <span>Birth date</span>
+          <span className="account-info__item-name">Birth date</span>
           <input className="account-info__birth" type="date" />
         </li>
         <li className="account-info__list-item">
           <div className="account-info__verification">
+            <span className="account-info__item-name">Status</span>
             {user.verified ? (
-              <span className="account-info__verified">✔ Account verified</span>
+              <span className="account-info__verified">verified</span>
             ) : (
               <>
-                <span className="account-info__unverified">
-                  ❗ Not verified
-                </span>
-                <p className="account-info__verification-process">
-                  {`You will need to verify your account to be able to post.
-                  Click on send to receive a verification email.`}
-                </p>
-                <button className="account-info__verify-button">Send</button>
+                <span className="account-info__unverified">not verified</span>
+                <Button text="Verify" buttonClass="account-info__button" />
               </>
             )}
           </div>
