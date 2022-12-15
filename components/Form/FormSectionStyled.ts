@@ -27,7 +27,7 @@ const FormSectionStyled = styled.div`
       flex-direction: column;
       font-size: 0.8rem;
       span {
-        color: ${(props) => props.theme.altFontColor};
+        color: ${(props) => props.theme.alertFontColor};
       }
     }
     &__label {
@@ -75,17 +75,19 @@ const FormSectionStyled = styled.div`
       }
     }
     &__checkbox {
+      margin-top: 10px;
       width: 100%;
       font-size: 0.8rem;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      margin-left: 20px;
       align-items: center;
       span {
         padding-left: 10px;
         color: ${(props) => props.theme.fontColor};
       }
-      input {
-        background-color: ${(props) => props.theme.fontColor};
+      input:checked {
+        background-color: ${(props) => props.theme.primaryColor};
       }
     }
   }

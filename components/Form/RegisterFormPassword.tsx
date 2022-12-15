@@ -1,6 +1,10 @@
 import { IUserInput } from "interfaces/interfaces";
 import React, { useEffect, useRef, useState } from "react";
-import { revalidatePassword, validatePassword } from "./FormFunctions";
+import {
+  revalidatePassword,
+  setValue,
+  validatePassword,
+} from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 
 interface RegisterFormPasswordProps {
@@ -31,10 +35,17 @@ const RegisterFormPassword = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    let validation = validatePassword(inputRef.current!, inputRef2.current!);
-    if (typeof validation !== "number") return setAlertMessage(validation);
+    if (inputRef.current!.value === "")
+      return setAlertMessage(["⚠ Password field is mandatory"]);
+
+    let validation = validatePassword(inputRef.current!);
+    if (typeof validation !== "number") {
+      setValue(inputRef.current!, "");
+      return setAlertMessage(validation);
+    }
 
     setAlertMessage([""]);
+
     validation = revalidatePassword(inputRef.current!, inputRef2.current!);
     if (typeof validation !== "number") return setBotAlertMessage(validation);
     return actionNext(inputRef.current!.value);

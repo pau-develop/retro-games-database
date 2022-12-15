@@ -4,7 +4,9 @@ const theme = {
   secondaryColor: "#1E505F",
   thirdColor: "#242B92",
   fontColor: "#B1D5CB",
-  altFontColor: "#e6b800",
+  alertFontColor: "#e6b800",
+  failFontColor: "#fc3838",
+  passFontColor: "#26e81c",
   font: "SEGOE UI",
 };
 

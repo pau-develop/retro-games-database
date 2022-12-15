@@ -69,7 +69,7 @@ describe("Given a LoginForm component", () => {
 
       fireEvent.click(loginButton);
 
-      const alertMessage = screen.getByText("⚠ user name field is mandatory");
+      const alertMessage = screen.getByText("⚠ User name field is mandatory");
     });
   });
 

@@ -5,14 +5,13 @@ import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import useFlags from "../../hooks/useFlags";
+import Button from "../Button/Button";
 
 const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
   const user = useSelector<RootState>((state) => state.user) as IUser;
-  const [topButton, setTopButton] = useState(true);
-  const [botButton, setBotButton] = useState(true);
-  console.log(countries);
+  const [topButton, setTopButton] = useState<number>(0);
+  const [botButton, setBotButton] = useState<number>(0);
   const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
     useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
@@ -43,7 +42,7 @@ const AccountInfo = (): JSX.Element => {
     event.preventDefault();
     const validation = validateName(nameRef.current!);
     if (typeof validation !== "number") {
-      setTopButton(false);
+      setTopButton(0);
       return setNameAlertMessage(validation);
     }
     const result = await checkName(nameRef.current!.value);
@@ -51,14 +50,14 @@ const AccountInfo = (): JSX.Element => {
       const response = await updateName(nameRef.current!.value);
       if (response) {
         nameRef.current!.value = "";
-        setTopButton(false);
+        setTopButton(2);
         setNameAlertMessage([""]);
         return getLoggedUser();
       }
       return setNameAlertMessage(["⚠ Something went wrong"]);
     }
 
-    setTopButton(false);
+    setTopButton(0);
     return setNameAlertMessage(["⚠ User name already taken"]);
   };
 
@@ -68,7 +67,7 @@ const AccountInfo = (): JSX.Element => {
     event.preventDefault();
     const validation = validateEmail(emailRef.current!);
     if (typeof validation !== "number") {
-      setBotButton(false);
+      setBotButton(0);
       return setEmailAlertMessage(validation);
     }
     const result = await checkEmail(emailRef.current!.value);
@@ -76,7 +75,7 @@ const AccountInfo = (): JSX.Element => {
       const response = await updateEmail(emailRef.current!.value);
       if (response) {
         emailRef.current!.value = "";
-        setBotButton(false);
+        setBotButton(2);
         setEmailAlertMessage([""]);
         return getLoggedUser();
       }
@@ -84,27 +83,27 @@ const AccountInfo = (): JSX.Element => {
     }
 
     setEmailAlertMessage(["⚠ Email already taken"]);
-    return setBotButton(false);
+    return setBotButton(0);
   };
 
   const checkContent = (inputBox: "name" | "email") => {
     if (inputBox === "name") {
       if (nameRef.current!.value !== "") {
         setNameAlertMessage([""]);
-        return setTopButton(true);
+        return setTopButton(1);
       }
       setEmailAlertMessage([""]);
-      return setTopButton(false);
+      return setTopButton(0);
     }
-    if (emailRef.current!.value !== "") return setBotButton(true);
-    return setBotButton(false);
+    if (emailRef.current!.value !== "") return setBotButton(1);
+    return setBotButton(0);
   };
 
   return (
     <AccountInfoStyled className="account-info">
       <ul className="account-info__list">
         <li className="account-info__list-item">
-          <span>User name</span>
+          <span className="account-info__item-name">User name</span>
           <div className="account-info__input">
             <input
               ref={nameRef}
@@ -117,19 +116,28 @@ const AccountInfo = (): JSX.Element => {
               ))}
             </div>
           </div>
-          <button
-            className={
-              topButton
-                ? "account-info__button"
-                : "account-info__button--disabled"
-            }
-            onClick={validateNameField}
-          >
-            Update
-          </button>
+          {topButton === 0 && (
+            <Button
+              buttonClass="account-info__button--disabled"
+              text="Update"
+            />
+          )}
+          {topButton === 1 && (
+            <Button
+              buttonClass="account-info__button"
+              validateAction={validateNameField}
+              text="Update"
+            />
+          )}
+          {topButton === 2 && (
+            <Button
+              buttonClass="account-info__button--updated"
+              text="Updated!"
+            />
+          )}
         </li>
         <li className="account-info__list-item">
-          <span>Email</span>
+          <span className="account-info__item-name">Email</span>
           <div className="account-info__input">
             <input
               ref={emailRef}
@@ -142,19 +150,29 @@ const AccountInfo = (): JSX.Element => {
               ))}
             </div>
           </div>
-          <button
-            className={
-              botButton
-                ? "account-info__button"
-                : "account-info__button--disabled"
-            }
-            onClick={validateEmailField}
-          >
-            Update
-          </button>
+
+          {botButton === 0 && (
+            <Button
+              buttonClass="account-info__button--disabled"
+              text="Update"
+            />
+          )}
+          {botButton === 1 && (
+            <Button
+              buttonClass="account-info__button"
+              validateAction={validateEmailField}
+              text="Update"
+            />
+          )}
+          {botButton === 2 && (
+            <Button
+              buttonClass="account-info__button--updated"
+              text="Updated!"
+            />
+          )}
         </li>
         <li className="account-info__list-item">
-          <span>Country</span>
+          <span className="account-info__item-name">Country</span>
           <select className="account-info__countries">
             {countries !== undefined &&
               countries.map((country: any, index) => {
@@ -168,23 +186,18 @@ const AccountInfo = (): JSX.Element => {
         </li>
 
         <li className="account-info__list-item">
-          <span>Birth date</span>
+          <span className="account-info__item-name">Birth date</span>
           <input className="account-info__birth" type="date" />
         </li>
         <li className="account-info__list-item">
           <div className="account-info__verification">
+            <span className="account-info__item-name">Status</span>
             {user.verified ? (
-              <span className="account-info__verified">✔ Account verified</span>
+              <span className="account-info__verified">verified</span>
             ) : (
               <>
-                <span className="account-info__unverified">
-                  ❗ Not verified
-                </span>
-                <p className="account-info__verification-process">
-                  {`You will need to verify your account to be able to post.
-                  Click on send to receive a verification email.`}
-                </p>
-                <button className="account-info__verify-button">Send</button>
+                <span className="account-info__unverified">not verified</span>
+                <Button text="Verify" buttonClass="account-info__button" />
               </>
             )}
           </div>

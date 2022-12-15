@@ -1,7 +1,7 @@
 import useUserAPI from "../../hooks/useUserAPI";
 import { IUserInput } from "interfaces/interfaces";
 import { useEffect, useRef, useState } from "react";
-import { validateEmail } from "./FormFunctions";
+import { setValue, validateEmail } from "./FormFunctions";
 import FormSectionStyled from "./FormSectionStyled";
 
 interface RegisterFormEmailProps {
@@ -18,8 +18,7 @@ const RegisterFormEmail = ({
   const { checkEmail } = useUserAPI();
 
   useEffect(() => {
-    if (userData.email !== "") inputRef.current!.value = userData.email;
-
+    if (userData.email !== "") setValue(inputRef.current!, userData.email);
     inputRef.current!.focus();
   }, []);
 
@@ -27,8 +26,16 @@ const RegisterFormEmail = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+
+    if (inputRef.current!.value === "")
+      return setAlertMessage(["⚠ Email field is mandatory"]);
+
     const validation = validateEmail(inputRef.current!);
-    if (typeof validation !== "number") return setAlertMessage(validation);
+    if (typeof validation !== "number") {
+      setValue(inputRef.current!, "");
+      return setAlertMessage(validation);
+    }
+
     const result = await checkEmail(inputRef.current!.value);
     return result
       ? actionNext(inputRef.current!.value)

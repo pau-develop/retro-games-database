@@ -18,6 +18,8 @@ const LoginForm = (): JSX.Element => {
 
   const validateLoginInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    if (inputRef.current!.value === "")
+      return setAlertMessage(["⚠ User name field is mandatory"]);
     let validation = validateName(inputRef.current!);
     if (typeof validation !== "number") return setAlertMessage(validation);
 
