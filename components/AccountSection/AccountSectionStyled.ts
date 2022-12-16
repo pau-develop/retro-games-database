@@ -3,6 +3,8 @@ const AccountSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 1200px;
+  margin: auto auto;
   .account-section {
     &__title {
       display: inline;
