@@ -32,6 +32,7 @@ const UserCardStyled = styled.div`
         padding: 5px 0;
       }
       li:first-child {
+        padding: 0;
         font-size: 1.5rem;
       }
     }

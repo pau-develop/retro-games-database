@@ -13,6 +13,9 @@ const register = async (request: NextApiRequest, response: NextApiResponse) => {
     password: newUser.password,
     email: newUser.email,
     verified: false,
+    country: "",
+    birthDate: "",
+    memberSince: "",
   });
 
   response.json({ result });

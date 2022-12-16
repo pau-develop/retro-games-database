@@ -21,6 +21,9 @@ export const decodeToken = (token: string) => {
     email: result.email,
     verified: result.verified,
     token: token,
+    country: result.country,
+    memberSince: result.memberSince,
+    birthDate: result.birthDate,
   };
   return user;
 };
