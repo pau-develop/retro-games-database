@@ -6,5 +6,5 @@ export const mockUser = {
   token: "12345",
   country: "Spain",
   birthDate: "01/01/87",
-  memeberSince: "01/01/2022",
+  memberSince: "01/01/2022",
 };

@@ -13,6 +13,7 @@ const styles = {
 };
 
 const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
+  console.log(countries);
   const country = countries.filter(
     (country: any) => country.name.common === user.country
   );
@@ -31,7 +32,10 @@ const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
           <span>Since {user.memberSince}</span>
         </li>
         <li className="user-card__country">
-          <img src={country[0] && country[0].flags.svg} />
+          <img
+            src={country[0] && country[0].flags.svg}
+            alt={country[0] && `${country[0].name.common}'s flag`}
+          />
           {user.country !== "" ? user.country : "Unknown location"}
         </li>
       </ul>
