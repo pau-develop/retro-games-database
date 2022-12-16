@@ -18,7 +18,7 @@ const UserCard = ({ user }: UserCardProps): JSX.Element => {
       <div className="user-card__overlay" />
       <ul className="user-card__left-side">
         <li>
-          <h3>{user.userName}</h3>
+          <span>{user.userName}</span>
         </li>
         <li>
           <span>{user.email}</span>
@@ -29,7 +29,7 @@ const UserCard = ({ user }: UserCardProps): JSX.Element => {
       </ul>
       <div className="user-card__right-side">
         <img src="/pictest01.webp" alt="profile picture" />
-        <span>Account number</span>
+        <span>#000001</span>
       </div>
     </UserCardStyled>
   );

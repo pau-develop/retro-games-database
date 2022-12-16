@@ -9,6 +9,8 @@ const UserCardStyled = styled.div`
   padding: 20px;
   image-rendering: pixelated;
   display: flex;
+  text-shadow: 2px 2px #000;
+  font-weight: 700;
   .user-card {
     &__overlay {
       position: absolute;
@@ -27,13 +29,26 @@ const UserCardStyled = styled.div`
       list-style: none;
       width: 152px;
       li {
-        padding: 5dpx 0;
+        padding: 5px 0;
+      }
+      li:first-child {
+        font-size: 1.5rem;
       }
     }
     &__right-side {
+      height: 150px;
       width: 128px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       img {
+        align-self: flex-end;
         border: 1px solid white;
+        width: 75%;
+        height: 75%;
+      }
+      span {
+        text-align: right;
       }
     }
   }
