@@ -17,6 +17,9 @@ const login = async (request: NextApiRequest, response: NextApiResponse) => {
       userName: dbUser.userName,
       email: dbUser.email,
       verified: dbUser.verified,
+      birthDate: dbUser.birthDate,
+      memberSince: dbUser.memberSince,
+      country: dbUser.country,
     };
     const token = createToken(payload);
     return response.status(200).json({ token: token });

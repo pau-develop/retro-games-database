@@ -15,7 +15,7 @@ export const createToken = (payload: JwtPayload) =>
 
 export const decodeToken = (token: string) => {
   const result = jwt.decode(token) as IUser;
-
+  console.log(result);
   const user: IUser = {
     userName: result.userName,
     email: result.email,

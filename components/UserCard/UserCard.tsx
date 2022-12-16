@@ -24,7 +24,7 @@ const UserCard = ({ user }: UserCardProps): JSX.Element => {
           <span>{user.email}</span>
         </li>
         <li>
-          <span>{user.verified}</span>
+          <span>Since {user.memberSince}</span>
         </li>
       </ul>
       <div className="user-card__right-side">
