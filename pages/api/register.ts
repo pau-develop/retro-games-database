@@ -9,7 +9,6 @@ const register = async (request: NextApiRequest, response: NextApiResponse) => {
   const newUser = request.body;
   newUser.password = await hashPass(newUser.password);
   const creationDate = useDate();
-  console.log(creationDate);
   const result = await User.create({
     userName: newUser.userName,
     password: newUser.password,

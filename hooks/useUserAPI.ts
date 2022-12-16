@@ -50,7 +50,6 @@ const useUserAPI = () => {
     if (result.status === 403) return false;
 
     const data = await result.json();
-    console.log(data);
     const user = decodeToken(data.token);
     dispatch(loginUserAction(user));
     if (stayLogged) localStorage.setItem("token", user.token);

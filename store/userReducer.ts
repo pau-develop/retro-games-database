@@ -7,6 +7,9 @@ const initialState: IUser = {
   email: "",
   verified: false,
   token: "",
+  country: "",
+  birthDate: "",
+  memberSince: "",
 };
 
 const userReducer = createReducer(initialState, (builder) => {

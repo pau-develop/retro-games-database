@@ -25,6 +25,13 @@ const UserCardStyled = styled.div`
         rgba(19, 107, 117, 0.5)
       );
     }
+    &__country {
+      img {
+        height: 12px;
+
+        margin-right: 6px;
+      }
+    }
     &__left-side {
       list-style: none;
       width: 152px;

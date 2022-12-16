@@ -219,7 +219,7 @@ const AccountInfo = (): JSX.Element => {
         </li>
       </ul>
       <section className="account-info__card">
-        <UserCard user={user} />
+        <UserCard user={user} countries={countries} />
       </section>
     </AccountInfoStyled>
   );

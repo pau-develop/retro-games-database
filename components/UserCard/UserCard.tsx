@@ -3,6 +3,7 @@ import UserCardStyled from "./UserCardStyled";
 
 interface UserCardProps {
   user: IUser;
+  countries: any;
 }
 
 const styles = {
@@ -11,8 +12,11 @@ const styles = {
   },
 };
 
-const UserCard = ({ user }: UserCardProps): JSX.Element => {
-  console.log(user);
+const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
+  const country = countries.filter(
+    (country: any) => country.name.common === user.country
+  );
+
   return (
     <UserCardStyled className="user-card" style={styles.card}>
       <div className="user-card__overlay" />
@@ -26,9 +30,9 @@ const UserCard = ({ user }: UserCardProps): JSX.Element => {
         <li>
           <span>Since {user.memberSince}</span>
         </li>
-        <li>
+        <li className="user-card__country">
+          <img src={country[0] && country[0].flags.svg} />
           {user.country !== "" ? user.country : "Unknown location"}
-          <span></span>
         </li>
       </ul>
       <div className="user-card__right-side">
