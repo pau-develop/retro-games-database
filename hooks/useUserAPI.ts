@@ -65,6 +65,9 @@ const useUserAPI = () => {
       email: "",
       token: "",
       verified: false,
+      country: "",
+      birthDate: "",
+      memberSince: "",
     };
     dispatch(loginUserAction(user));
     router.push("/home");
@@ -92,6 +95,20 @@ const useUserAPI = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(newEmail),
+    });
+    if (result.status === 403) return false;
+    return true;
+  };
+
+  const updateCountry = async (country: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateCountry", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(country),
     });
     if (result.status === 403) return false;
     return true;
@@ -133,6 +150,7 @@ const useUserAPI = () => {
     updateName,
     updateEmail,
     getLoggedUser,
+    updateCountry,
   };
 };
 

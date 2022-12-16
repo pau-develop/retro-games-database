@@ -122,12 +122,19 @@ const AccountInfoStyled = styled.div`
       }
     }
     &__unverified {
+      background-color: ${(props) => props.theme.primaryColor};
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
       width: 50%;
       color: ${(props) => props.theme.failFontColor};
       font-weight: 700;
       text-align: center;
     }
     &__verified {
+      background-color: ${(props) => props.theme.primaryColor};
+      border: none;
+      border-radius: 5px;
       width: 50%;
       color: ${(props) => props.theme.passFontColor};
       font-weight: 700;

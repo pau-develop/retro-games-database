@@ -19,6 +19,15 @@ const userSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  country: {
+    type: String,
+  },
+  birthDate: {
+    type: String,
+  },
+  memberSince: {
+    type: String,
+  },
 });
 
 const User = mongoose.models.User || model("User", userSchema, "users");

@@ -10,6 +10,9 @@ export interface IUser {
   email: string;
   verified: boolean;
   token: string;
+  country: string;
+  birthDate: string;
+  memberSince: string;
 }
 
 interface Action {

@@ -15,12 +15,14 @@ export const createToken = (payload: JwtPayload) =>
 
 export const decodeToken = (token: string) => {
   const result = jwt.decode(token) as IUser;
-
   const user: IUser = {
     userName: result.userName,
     email: result.email,
     verified: result.verified,
     token: token,
+    country: result.country,
+    memberSince: result.memberSince,
+    birthDate: result.birthDate,
   };
   return user;
 };

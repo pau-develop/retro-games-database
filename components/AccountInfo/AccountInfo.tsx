@@ -1,6 +1,6 @@
 import useUserAPI from "../../hooks/useUserAPI";
 import { IUser } from "../../interfaces/interfaces";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { validateEmail, validateName } from "../Form/FormFunctions";
 import AccountInfoStyled from "./AccountInfoStyled";
 import { useSelector } from "react-redux";
@@ -13,8 +13,14 @@ const AccountInfo = (): JSX.Element => {
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [topButton, setTopButton] = useState<number>(0);
   const [botButton, setBotButton] = useState<number>(0);
-  const { checkName, checkEmail, updateName, updateEmail, getLoggedUser } =
-    useUserAPI();
+  const {
+    checkName,
+    checkEmail,
+    updateName,
+    updateEmail,
+    getLoggedUser,
+    updateCountry,
+  } = useUserAPI();
   const [nameAlertMessage, setNameAlertMessage] = useState<string[]>(
     new Array()
   );
@@ -60,6 +66,11 @@ const AccountInfo = (): JSX.Element => {
 
     setTopButton(0);
     return setNameAlertMessage(["⚠ User name already taken"]);
+  };
+
+  const handleUpdateCountry = async (country: string) => {
+    const result = await updateCountry(country);
+    if (result) return getLoggedUser();
   };
 
   const validateEmailField = async (
@@ -174,7 +185,10 @@ const AccountInfo = (): JSX.Element => {
         </li>
         <li className="account-info__list-item">
           <span className="account-info__item-name">Country</span>
-          <select className="account-info__countries">
+          <select
+            className="account-info__countries"
+            onChange={(event) => handleUpdateCountry(event.target.value)}
+          >
             {countries !== undefined &&
               countries.map((country: any, index) => {
                 return (
@@ -205,7 +219,7 @@ const AccountInfo = (): JSX.Element => {
         </li>
       </ul>
       <section className="account-info__card">
-        <UserCard user={user} />
+        <UserCard user={user} countries={countries} />
       </section>
     </AccountInfoStyled>
   );

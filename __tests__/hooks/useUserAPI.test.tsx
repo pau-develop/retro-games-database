@@ -185,4 +185,117 @@ describe("Given a useAPI hook", () => {
       expect(result).toStrictEqual({ status: 200 });
     });
   });
+
+  describe("When its function updateName is called", () => {
+    test("It should return false if the response status is 403", async () => {
+      const {
+        result: {
+          current: { updateName },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 403,
+      });
+      const result = await updateName("new name");
+      expect(result).toBe(false);
+    });
+
+    test("It should return true if the response status is 200", async () => {
+      const {
+        result: {
+          current: { updateName },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 200,
+      });
+      const result = await updateName("new name");
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("When its function updateEmail is called", () => {
+    test("It should return false if the response status is 403", async () => {
+      const {
+        result: {
+          current: { updateEmail },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 403,
+      });
+      const result = await updateEmail("new email");
+      expect(result).toBe(false);
+    });
+
+    test("It should return true if the response status is 200", async () => {
+      const {
+        result: {
+          current: { updateEmail },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 200,
+      });
+      const result = await updateEmail("new email");
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("When its function updateCountry is called", () => {
+    test("It should return false if the response status is 403", async () => {
+      const {
+        result: {
+          current: { updateCountry },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 403,
+      });
+      const result = await updateCountry("new country");
+      expect(result).toBe(false);
+    });
+
+    test("It should return true if the response status is 200", async () => {
+      const {
+        result: {
+          current: { updateCountry },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 200,
+      });
+      const result = await updateCountry("new country");
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("When its function getLoggedUser is called", () => {
+    test("It should return false if the response status is 403", async () => {
+      const {
+        result: {
+          current: { getLoggedUser },
+        },
+      } = renderHook(useUserAPI, {
+        wrapper: Wrapper,
+      });
+      global.fetch = jest.fn().mockResolvedValue({
+        status: 403,
+      });
+      const result = await getLoggedUser();
+      expect(result).toBe(false);
+    });
+  });
 });
