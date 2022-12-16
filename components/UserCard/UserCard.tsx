@@ -26,6 +26,10 @@ const UserCard = ({ user }: UserCardProps): JSX.Element => {
         <li>
           <span>Since {user.memberSince}</span>
         </li>
+        <li>
+          {user.country !== "" ? user.country : "Unknown location"}
+          <span></span>
+        </li>
       </ul>
       <div className="user-card__right-side">
         <img src="/pictest01.webp" alt="profile picture" />

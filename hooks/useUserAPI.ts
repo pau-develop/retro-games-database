@@ -101,6 +101,20 @@ const useUserAPI = () => {
     return true;
   };
 
+  const updateCountry = async (country: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateCountry", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(country),
+    });
+    if (result.status === 403) return false;
+    return true;
+  };
+
   const getLoggedUser = useCallback(async () => {
     const token = sessionStorage.getItem("token");
     const result = await fetch("/api/getLoggedUser", {
@@ -137,6 +151,7 @@ const useUserAPI = () => {
     updateName,
     updateEmail,
     getLoggedUser,
+    updateCountry,
   };
 };
 
