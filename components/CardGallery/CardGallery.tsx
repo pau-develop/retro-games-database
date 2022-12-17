@@ -1,4 +1,5 @@
 import { AdvancedImage } from "@cloudinary/react";
+import useCloud from "hooks/useCloud";
 import { useCallback, useEffect, useState } from "react";
 import CardGalleryStyled from "./CardGalleryStyled";
 
@@ -7,17 +8,17 @@ interface CardGalleryProps {
 }
 
 const CardGallery = ({ action }: CardGalleryProps) => {
+  const { fetchCards } = useCloud();
   const [cards, setCards] = useState<any>([]);
 
-  const fetchCards = useCallback(async () => {
-    const result = await fetch("/api/cloudinaryAPI");
-    const data = await result.json();
-
-    setCards(data);
-  }, []);
-
   useEffect(() => {
-    fetchCards();
+    async function getCards() {
+      const result = await fetchCards();
+      console.log(result);
+      setCards(result);
+    }
+
+    getCards();
   }, [fetchCards]);
 
   const handleClickCard = (url: string) => {
