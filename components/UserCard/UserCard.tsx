@@ -13,7 +13,6 @@ const styles = {
 };
 
 const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
-  console.log(countries);
   const country = countries.filter(
     (country: any) => country.name.common === user.country
   );

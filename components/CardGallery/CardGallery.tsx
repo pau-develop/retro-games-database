@@ -1,3 +1,5 @@
+import { AdvancedImage } from "@cloudinary/react";
+import { useCallback, useEffect, useState } from "react";
 import CardGalleryStyled from "./CardGalleryStyled";
 
 interface CardGalleryProps {
@@ -5,18 +7,37 @@ interface CardGalleryProps {
 }
 
 const CardGallery = ({ action }: CardGalleryProps) => {
+  const [cards, setCards] = useState<any>([]);
+
+  const fetchCards = useCallback(async () => {
+    const result = await fetch("/api/cloudinaryAPI");
+    const data = await result.json();
+
+    setCards(data);
+  }, []);
+
+  useEffect(() => {
+    fetchCards();
+  }, [fetchCards]);
+
+  const handleClickCard = (url: string) => {
+    //add card url to db
+  };
+
   return (
     <CardGalleryStyled>
       <ul>
-        <li>
-          <img src="/bgtest01.webp" onClick={action} />
-        </li>
-        <li>
-          <img src="/bgtest02.webp" />
-        </li>
-        <li>
-          <img src="/bgtest03.webp" />
-        </li>
+        {cards.map((cards: any) => {
+          return (
+            <li key={cards.asset_id}>
+              <img
+                src={cards.url}
+                alt="card design"
+                onClick={() => handleClickCard(cards.url)}
+              />
+            </li>
+          );
+        })}
       </ul>
     </CardGalleryStyled>
   );

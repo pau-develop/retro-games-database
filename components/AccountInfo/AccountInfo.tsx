@@ -115,7 +115,6 @@ const AccountInfo = (): JSX.Element => {
   };
 
   const handleCardMenu = (menu: number) => {
-    console.log("hi");
     setCardGallery(menu);
   };
 
