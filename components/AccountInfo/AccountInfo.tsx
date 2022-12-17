@@ -14,6 +14,7 @@ const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
   const [cardGallery, setCardGallery] = useState<number>(0);
   const user = useSelector<RootState>((state) => state.user) as IUser;
+  console.log(user);
   const [topButton, setTopButton] = useState<number>(0);
   const [botButton, setBotButton] = useState<number>(0);
   const {
@@ -114,7 +115,7 @@ const AccountInfo = (): JSX.Element => {
     return setBotButton(0);
   };
 
-  const handleCardMenu = (menu: number) => {
+  const handleCardMenu = async (menu: number) => {
     setCardGallery(menu);
   };
 

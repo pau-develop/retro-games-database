@@ -13,6 +13,8 @@ export interface IUser {
   country: string;
   birthDate: string;
   memberSince: string;
+  card: string;
+  avatar: string;
 }
 
 interface Action {

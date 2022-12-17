@@ -114,6 +114,20 @@ const useUserAPI = () => {
     return true;
   };
 
+  const updateCard = async (card: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateCard", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(card),
+    });
+    if (result.status === 403) return false;
+    return true;
+  };
+
   const getLoggedUser = useCallback(async () => {
     const token = sessionStorage.getItem("token");
     const result = await fetch("/api/getLoggedUser", {
@@ -151,6 +165,7 @@ const useUserAPI = () => {
     updateEmail,
     getLoggedUser,
     updateCountry,
+    updateCard,
   };
 };
 

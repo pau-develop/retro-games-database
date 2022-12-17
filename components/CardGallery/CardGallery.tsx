@@ -1,5 +1,7 @@
+import getLoggedUser from "@/pages/api/getLoggedUser";
 import { AdvancedImage } from "@cloudinary/react";
 import useCloud from "hooks/useCloud";
+import useUserAPI from "hooks/useUserAPI";
 import { useCallback, useEffect, useState } from "react";
 import CardGalleryStyled from "./CardGalleryStyled";
 
@@ -9,6 +11,7 @@ interface CardGalleryProps {
 
 const CardGallery = ({ action }: CardGalleryProps) => {
   const { fetchCards } = useCloud();
+  const { updateCard, getLoggedUser } = useUserAPI();
   const [cards, setCards] = useState<any>([]);
 
   useEffect(() => {
@@ -21,8 +24,12 @@ const CardGallery = ({ action }: CardGalleryProps) => {
     getCards();
   }, [fetchCards]);
 
-  const handleClickCard = (url: string) => {
-    //add card url to db
+  const handleClickCard = async (url: string) => {
+    const result = await updateCard(url);
+    if (result) {
+      getLoggedUser();
+      return action();
+    }
   };
 
   return (

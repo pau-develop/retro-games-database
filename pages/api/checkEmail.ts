@@ -1,5 +1,5 @@
 import connectDB from "database/connectDB";
-import User from "database/User";
+import { User } from "database/Models";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const checkEmail = async (
