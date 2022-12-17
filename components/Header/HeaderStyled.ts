@@ -1,22 +1,19 @@
 import styled from "styled-components";
 
 const HeaderStyled = styled.div`
-  position: absolute;
-  width: 98%;
-  height: 60px;
-  border-radius: 10px;
+  width: 100%;
+  height: 6%;
+  position: relative;
   background-color: ${(props) => props.theme.primaryColor};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px;
-  padding: 5px 10px;
+  padding: 0 20px;
   @media (max-width: 720px) {
-    position: absolute;
     height: 6%;
     color: ${(props) => props.theme.fontColor};
     width: 100%;
-    padding: 0 4%;
+    padding: 0 15px;
     margin: 0;
     border: none;
     border-radius: 0;
@@ -26,7 +23,7 @@ const HeaderStyled = styled.div`
   }
   .header {
     &__title {
-      padding: 0;
+      padding: 0 20px;
       margin: 0;
       color: ${(props) => props.theme.fontColor};
       @media (max-width: 720px) {

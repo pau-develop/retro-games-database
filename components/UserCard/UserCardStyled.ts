@@ -11,6 +11,7 @@ const UserCardStyled = styled.div`
   display: flex;
   text-shadow: 2px 2px #000;
   font-weight: 700;
+
   .user-card {
     &__overlay {
       position: absolute;

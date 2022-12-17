@@ -5,27 +5,28 @@ const AccountSectionStyled = styled.section`
   height: 100%;
   max-width: 1200px;
   margin: auto auto;
+  background-color: ${(props) => props.theme.fourthColor};
   .account-section {
     &__title {
       display: inline;
-      padding: 5px;
-      width: 200px;
-      border: 2px solid ${(props) => props.theme.secondaryColor};
+      padding: 20px;
+      width: 100%;
       border-bottom: none;
       border-radius: 10px 10px 0 0;
       h2 {
         text-align: center;
-        background-color: ${(props) => props.theme.primaryColorFade};
+      }
+      @media (max-width: 720px) {
+        padding: 10px 10px 0 10px;
       }
     }
     &__info {
-      padding: 40px;
-      border: 2px solid ${(props) => props.theme.secondaryColor};
-      background-color: ${(props) => props.theme.primaryColorFade};
+      padding: 0 40px;
+
       width: 100%;
       display: flex;
       @media (max-width: 720px) {
-        padding: 20px;
+        padding: 15px;
       }
     }
   }

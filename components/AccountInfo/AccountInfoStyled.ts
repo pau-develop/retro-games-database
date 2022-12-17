@@ -160,6 +160,7 @@ const AccountInfoStyled = styled.div`
     &__card {
       width: 50%;
       display: flex;
+      padding: 25px 0;
       align-items: center;
       justify-content: center;
       @media (max-width: 720px) {
