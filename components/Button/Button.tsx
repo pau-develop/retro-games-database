@@ -4,13 +4,20 @@ interface ButtonProps {
   validateAction?: (
     event: React.MouseEvent<HTMLButtonElement>
   ) => Promise<boolean | void>;
+
+  action?: () => void;
 }
 
-const Button = ({ buttonClass, text, validateAction }: ButtonProps) => {
+const Button = ({ buttonClass, text, validateAction, action }: ButtonProps) => {
   return (
-    <button className={buttonClass} onClick={validateAction}>
-      {text}
-    </button>
+    <>
+      <button
+        className={buttonClass}
+        onClick={validateAction === undefined ? action : validateAction}
+      >
+        {text}
+      </button>
+    </>
   );
 };
 

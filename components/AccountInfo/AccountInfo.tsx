@@ -7,9 +7,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import Button from "../Button/Button";
 import UserCard from "../UserCard/UserCard";
+import CardDesignsGallery from "../CardGallery/CardGallery";
+import CardGallery from "../CardGallery/CardGallery";
 
 const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
+  const [cardGallery, setCardGallery] = useState<number>(0);
   const user = useSelector<RootState>((state) => state.user) as IUser;
   const [topButton, setTopButton] = useState<number>(0);
   const [botButton, setBotButton] = useState<number>(0);
@@ -109,6 +112,11 @@ const AccountInfo = (): JSX.Element => {
     }
     if (emailRef.current!.value !== "") return setBotButton(1);
     return setBotButton(0);
+  };
+
+  const handleCardMenu = (menu: number) => {
+    console.log("hi");
+    setCardGallery(menu);
   };
 
   return (
@@ -220,7 +228,21 @@ const AccountInfo = (): JSX.Element => {
       </ul>
       <section className="account-info__card">
         <UserCard user={user} countries={countries} />
+        <div className="account-info__card-buttons">
+          <Button
+            buttonClass="account-info__card-button"
+            text="Card"
+            action={() => handleCardMenu(1)}
+          />
+          <Button
+            buttonClass="account-info__card-button"
+            text="Avatar"
+            action={() => handleCardMenu(2)}
+          />
+          <input type="color" />
+        </div>
       </section>
+      {cardGallery !== 0 && <CardGallery action={() => handleCardMenu(0)} />}
     </AccountInfoStyled>
   );
 };

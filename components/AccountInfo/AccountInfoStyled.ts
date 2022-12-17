@@ -158,14 +158,30 @@ const AccountInfoStyled = styled.div`
       text-align: center;
     }
     &__card {
+      height: 100%;
       width: 50%;
       display: flex;
-      padding: 25px 0;
+      flex-direction: column;
+
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       @media (max-width: 720px) {
         width: 100%;
       }
+    }
+    &__card-buttons {
+      width: 50%;
+      display: flex;
+      justify-content: space-around;
+    }
+    &__card-button {
+      border: none;
+      font-family: ${(props) => props.theme.font};
+
+      width: 15%;
+      height: 30px;
+      color: ${(props) => props.theme.fontColor};
+      background: ${(props) => props.theme.thirdColor};
     }
   }
 `;
