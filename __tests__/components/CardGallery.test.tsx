@@ -1,5 +1,5 @@
 import CardGallery from "@/components/CardGallery/CardGallery";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 
@@ -55,16 +55,51 @@ jest.mock("../../hooks/useCloud", () => () => ({
   fetchImages: () => mockFetchImages(),
 }));
 
+const mockUpdateCard = jest.fn().mockReturnValue(true);
+const mockUpdateAvatar = jest.fn().mockReturnValue(true);
+const mockGetLoggedUser = jest.fn().mockReturnValue(true);
+const mockAction = jest.fn();
+
+jest.mock("../../hooks/useUserAPI", () => () => ({
+  ...jest.requireActual("../../hooks/useUserAPI"),
+
+  updateCard: () => mockUpdateCard(),
+  updateAvatar: () => mockUpdateAvatar(),
+  getLoggedUser: () => mockGetLoggedUser(),
+}));
+
 describe("Given a CardGallery component", () => {
   describe("When instantiated", () => {
     test("It should call the getImages function (which returns an array of image links) and display a list item for each image in the array", () => {
-      jest.useFakeTimers();
       render(<CardGallery action={() => null} type="card" />, {
         wrapper: Wrapper,
       });
-      jest.advanceTimersByTime(2000);
 
       const listItems = screen.getAllByRole("listitem");
+    });
+
+    test("When an image is pressed, it should update the card property in user and close the gallery", async () => {
+      render(<CardGallery action={mockAction} type="card" />, {
+        wrapper: Wrapper,
+      });
+
+      const listItems = screen.getAllByAltText("card design");
+      waitFor(() => {
+        fireEvent.click(listItems[0]);
+      });
+      expect(mockUpdateCard).toHaveBeenCalled();
+    });
+
+    test("And the same goes for the avatar gallery", async () => {
+      render(<CardGallery action={mockAction} type="avatar" />, {
+        wrapper: Wrapper,
+      });
+
+      const listItems = screen.getAllByAltText("card design");
+      waitFor(() => {
+        fireEvent.click(listItems[0]);
+      });
+      expect(mockUpdateAvatar).toHaveBeenCalled();
     });
   });
 });
