@@ -4,24 +4,24 @@ import { User } from "database/Models";
 import { JwtPayload } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const updateName = async (
+const updateCard = async (
   request: NextApiRequest,
   response: NextApiResponse
 ) => {
   await connectDB("retro-games");
-  const newName = request.body;
+  const newCard = request.body;
   const headers = request.headers;
   const token = headers.authorization?.slice(7, headers.authoritzation?.length);
   const tokenInfo = (await verifyToken(token as string)) as JwtPayload;
   try {
-    const updatedUser = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { _id: tokenInfo._id },
-      { $set: { userName: newName } }
+      { $set: { card: newCard } }
     );
-    return response.status(200).json({ message: "user name updated!" });
+    return response.status(200).json({ message: "card updated" });
   } catch (error) {
-    return response.status(403).json({ message: "somethings went wrong" });
+    return response.status(403).json({ message: "something went wrong" });
   }
 };
 
-export default updateName;
+export default updateCard;

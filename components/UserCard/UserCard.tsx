@@ -6,17 +6,15 @@ interface UserCardProps {
   countries: any;
 }
 
-const styles = {
-  card: {
-    backgroundImage: "url('/bgtest01.webp')",
-  },
-};
-
 const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
-  console.log(countries);
   const country = countries.filter(
     (country: any) => country.name.common === user.country
   );
+  const styles = {
+    card: {
+      backgroundImage: `url(${user.card})`,
+    },
+  };
 
   return (
     <UserCardStyled className="user-card" style={styles.card}>
@@ -40,7 +38,7 @@ const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
         </li>
       </ul>
       <div className="user-card__right-side">
-        <img src="/pictest01.webp" alt="profile picture" />
+        <img src={user.avatar} alt="profile picture" />
         <span>#000001</span>
       </div>
     </UserCardStyled>

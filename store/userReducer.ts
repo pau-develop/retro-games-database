@@ -10,6 +10,8 @@ const initialState: IUser = {
   country: "",
   birthDate: "",
   memberSince: "",
+  card: "",
+  avatar: "",
 };
 
 const userReducer = createReducer(initialState, (builder) => {

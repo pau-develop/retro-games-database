@@ -4,16 +4,6 @@ import { mockUser } from "../../mocks/testMocks";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 
-// const mockCheckEmail = jest.fn().mockReturnValue(true);
-
-// jest.mock("../../hooks/useUserAPI", () => ({
-//   __esModule: true,
-//   ...jest.requireActual("../../hooks/useUserAPI"),
-//   default: () => ({
-//     checkEmail: () => mockCheckEmail(),
-//   }),
-// }));
-
 interface WrapperProps {
   children: JSX.Element | JSX.Element[];
 }

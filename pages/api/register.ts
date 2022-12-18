@@ -1,6 +1,6 @@
 import connectDB from "database/connectDB";
 import hashPass from "database/hashPass";
-import User from "database/User";
+import { User } from "database/Models";
 import useDate from "hooks/useDate";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -17,6 +17,8 @@ const register = async (request: NextApiRequest, response: NextApiResponse) => {
     country: "",
     birthDate: "",
     memberSince: creationDate,
+    card: "",
+    avatar: "",
   });
 
   response.json({ result });

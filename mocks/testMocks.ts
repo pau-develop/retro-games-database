@@ -7,4 +7,6 @@ export const mockUser = {
   country: "Spain",
   birthDate: "01/01/87",
   memberSince: "01/01/2022",
+  card: "",
+  avatar: "",
 };

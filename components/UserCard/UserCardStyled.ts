@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const UserCardStyled = styled.div`
-  background-color: blue;
+  background-color: black;
   width: 320px;
   height: 190px;
   border-radius: 20px;
