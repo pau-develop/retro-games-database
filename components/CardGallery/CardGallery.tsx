@@ -1,7 +1,7 @@
 import getLoggedUser from "@/pages/api/getLoggedUser";
 import { AdvancedImage } from "@cloudinary/react";
-import useCloud from "hooks/useCloud";
-import useUserAPI from "hooks/useUserAPI";
+import useCloud from "../../hooks/useCloud";
+import useUserAPI from "../../hooks/useUserAPI";
 import { useCallback, useEffect, useState } from "react";
 import CardGalleryStyled from "./CardGalleryStyled";
 

@@ -23,6 +23,8 @@ export const decodeToken = (token: string) => {
     country: result.country,
     memberSince: result.memberSince,
     birthDate: result.birthDate,
+    card: result.card,
+    avatar: result.avatar,
   };
   return user;
 };

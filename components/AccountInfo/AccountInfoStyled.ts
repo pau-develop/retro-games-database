@@ -126,6 +126,7 @@ const AccountInfoStyled = styled.div`
       border: none;
       border-radius: 5px;
       padding: 10px;
+      font-size: 0.8rem;
       width: 50%;
       color: ${(props) => props.theme.failFontColor};
       font-weight: 700;
@@ -134,6 +135,7 @@ const AccountInfoStyled = styled.div`
     &__verified {
       background-color: ${(props) => props.theme.primaryColor};
       border: none;
+      font-size: 0.8rem;
       border-radius: 5px;
       width: 50%;
       color: ${(props) => props.theme.passFontColor};
@@ -162,10 +164,10 @@ const AccountInfoStyled = styled.div`
       width: 50%;
       display: flex;
       flex-direction: column;
-
       align-items: center;
       justify-content: space-between;
       @media (max-width: 720px) {
+        margin-top: 20px;
         width: 100%;
       }
     }
@@ -174,15 +176,30 @@ const AccountInfoStyled = styled.div`
       width: 50%;
       display: flex;
       justify-content: space-around;
+      align-items: center;
+      input[type="color"] {
+        padding: 0;
+        margin: 0;
+        border: none;
+        height: 30px;
+        width: 25%;
+        background-color: ${(props) => props.theme.thirdColor};
+      }
+      @media (max-width: 720px) {
+        margin-top: 20px;
+        width: 100%;
+      }
     }
     &__card-button {
       border: none;
       font-family: ${(props) => props.theme.font};
 
-      width: 15%;
+      width: 25%;
       height: 30px;
       color: ${(props) => props.theme.fontColor};
       background: ${(props) => props.theme.thirdColor};
+    }
+    &__color-button {
     }
   }
 `;

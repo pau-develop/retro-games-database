@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import Button from "../Button/Button";
 import UserCard from "../UserCard/UserCard";
-import CardDesignsGallery from "../CardGallery/CardGallery";
 import CardGallery from "../CardGallery/CardGallery";
 
 const AccountInfo = (): JSX.Element => {
@@ -238,7 +237,7 @@ const AccountInfo = (): JSX.Element => {
             text="Avatar"
             action={() => handleCardMenu(2)}
           />
-          <input type="color" />
+          <input type="color" className="account-info__color-button" />
         </div>
       </section>
       {cardGallery === 1 && (
