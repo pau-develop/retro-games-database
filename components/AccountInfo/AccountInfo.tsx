@@ -14,7 +14,6 @@ const AccountInfo = (): JSX.Element => {
   const [countries, setCountries] = useState<any[]>(new Array());
   const [cardGallery, setCardGallery] = useState<number>(0);
   const user = useSelector<RootState>((state) => state.user) as IUser;
-  console.log(user);
   const [topButton, setTopButton] = useState<number>(0);
   const [botButton, setBotButton] = useState<number>(0);
   const {
@@ -242,7 +241,12 @@ const AccountInfo = (): JSX.Element => {
           <input type="color" />
         </div>
       </section>
-      {cardGallery !== 0 && <CardGallery action={() => handleCardMenu(0)} />}
+      {cardGallery === 1 && (
+        <CardGallery action={() => handleCardMenu(0)} type="card" />
+      )}
+      {cardGallery === 2 && (
+        <CardGallery action={() => handleCardMenu(0)} type="avatar" />
+      )}
     </AccountInfoStyled>
   );
 };

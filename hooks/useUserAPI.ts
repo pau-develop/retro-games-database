@@ -68,6 +68,8 @@ const useUserAPI = () => {
       country: "",
       birthDate: "",
       memberSince: "",
+      card: "",
+      avatar: "",
     };
     dispatch(loginUserAction(user));
     router.push("/home");
@@ -128,6 +130,20 @@ const useUserAPI = () => {
     return true;
   };
 
+  const updateAvatar = async (avatar: string) => {
+    const token = sessionStorage.getItem("token");
+    const result = await fetch("/api/updateAvatar", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(avatar),
+    });
+    if (result.status === 403) return false;
+    return true;
+  };
+
   const getLoggedUser = useCallback(async () => {
     const token = sessionStorage.getItem("token");
     const result = await fetch("/api/getLoggedUser", {
@@ -166,6 +182,7 @@ const useUserAPI = () => {
     getLoggedUser,
     updateCountry,
     updateCard,
+    updateAvatar,
   };
 };
 

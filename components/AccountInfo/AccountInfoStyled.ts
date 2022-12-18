@@ -170,6 +170,7 @@ const AccountInfoStyled = styled.div`
       }
     }
     &__card-buttons {
+      min-height: 50px;
       width: 50%;
       display: flex;
       justify-content: space-around;

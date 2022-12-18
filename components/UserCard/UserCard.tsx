@@ -38,7 +38,7 @@ const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
         </li>
       </ul>
       <div className="user-card__right-side">
-        <img src="/pictest01.webp" alt="profile picture" />
+        <img src={user.avatar} alt="profile picture" />
         <span>#000001</span>
       </div>
     </UserCardStyled>

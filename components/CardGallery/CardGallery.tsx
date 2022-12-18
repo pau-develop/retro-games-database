@@ -7,25 +7,26 @@ import CardGalleryStyled from "./CardGalleryStyled";
 
 interface CardGalleryProps {
   action: () => void;
+  type: "card" | "avatar";
 }
 
-const CardGallery = ({ action }: CardGalleryProps) => {
-  const { fetchCards } = useCloud();
-  const { updateCard, getLoggedUser } = useUserAPI();
+const CardGallery = ({ action, type }: CardGalleryProps) => {
+  const { fetchImages } = useCloud();
+  const { updateCard, updateAvatar, getLoggedUser } = useUserAPI();
   const [cards, setCards] = useState<any>([]);
 
   useEffect(() => {
-    async function getCards() {
-      const result = await fetchCards();
-      console.log(result);
+    async function getImages() {
+      const result = await fetchImages(type);
       setCards(result);
     }
 
-    getCards();
-  }, [fetchCards]);
+    getImages();
+  }, [fetchImages]);
 
   const handleClickCard = async (url: string) => {
-    const result = await updateCard(url);
+    const result =
+      type === "card" ? await updateCard(url) : await updateAvatar(url);
     if (result) {
       getLoggedUser();
       return action();
