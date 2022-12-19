@@ -18,7 +18,7 @@ const updateCountry = async (
       { _id: tokenInfo._id },
       { $set: { country: newCountry } }
     );
-    return response.status(200).json({ message: "email updated" });
+    return response.status(200).json({ message: "country updated" });
   } catch (error) {
     return response.status(403).json({ message: "somethings went wrong" });
   }
