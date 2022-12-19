@@ -8,7 +8,7 @@ interface UserCardProps {
 
 const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
   const country = countries.filter(
-    (country: any) => country.name.common === user.country
+    (country: any) => country.name === user.country
   );
   const styles = {
     card: {
@@ -32,7 +32,7 @@ const UserCard = ({ user, countries }: UserCardProps): JSX.Element => {
         <li className="user-card__country">
           <img
             src={country[0] && country[0].flags.svg}
-            alt={country[0] && `${country[0].name.common}'s flag`}
+            alt={country[0] && `${country[0].name}'s flag`}
           />
           {user.country !== "" ? user.country : "Unknown location"}
         </li>

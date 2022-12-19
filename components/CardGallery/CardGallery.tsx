@@ -16,34 +16,43 @@ const CardGallery = ({ action, type }: CardGalleryProps) => {
   useEffect(() => {
     async function getImages() {
       const result = await fetchImages(type);
-      console.log("CHECK", result);
       setCards(result);
     }
 
     getImages();
   }, [fetchImages]);
 
-  console.log("CARDS", cards);
-
   const handleClickCard = async (url: string) => {
     const result =
       type === "card" ? await updateCard(url) : await updateAvatar(url);
     if (result) {
-      getLoggedUser();
       return action();
     }
   };
 
   return (
-    <CardGalleryStyled>
-      <ul>
+    <CardGalleryStyled className="card-gallery">
+      <ul
+        className={
+          type === "card"
+            ? "card-gallery__list--card"
+            : "card-gallery__list--avatar"
+        }
+      >
         {cards.map((cards: any) => {
           return (
-            <li key={cards.asset_id}>
+            <li
+              key={cards.asset_id}
+              className={
+                type === "card"
+                  ? "card-gallery__item--card"
+                  : "card-gallery__item--avatar"
+              }
+            >
               <img
-                src={cards.url}
+                src={cards.secure_url}
                 alt="card design"
-                onClick={() => handleClickCard(cards.url)}
+                onClick={() => handleClickCard(cards.secure_url)}
               />
             </li>
           );

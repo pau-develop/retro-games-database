@@ -5,7 +5,6 @@ const cloudinaryAPI = async (
   response: NextApiResponse
 ) => {
   const { tag } = request.query;
-  console.log(tag);
   const result = await fetch(
     `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/resources/image/tags/${tag}
 `,
@@ -19,7 +18,6 @@ const cloudinaryAPI = async (
     }
   );
   const data = await result.json();
-  console.log("CLOUDINARYAPI", data);
   response.status(200).json(data.resources);
 };
 

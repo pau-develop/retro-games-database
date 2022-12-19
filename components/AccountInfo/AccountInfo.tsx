@@ -38,8 +38,8 @@ const AccountInfo = (): JSX.Element => {
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const data = await fetch("https://restcountries.com/v3.1/all");
-      const countries = await data.json();
+      const data = await fetch("https://restcountries.com/v2/all");
+      let countries = await data.json();
       setCountries(countries);
     };
     fetchCountries();
@@ -114,6 +114,7 @@ const AccountInfo = (): JSX.Element => {
   };
 
   const handleCardMenu = async (menu: number) => {
+    getLoggedUser();
     setCardGallery(menu);
   };
 
@@ -192,14 +193,15 @@ const AccountInfo = (): JSX.Element => {
         <li className="account-info__list-item">
           <span className="account-info__item-name">Country</span>
           <select
+            value={user.country}
             className="account-info__countries"
             onChange={(event) => handleUpdateCountry(event.target.value)}
           >
             {countries !== undefined &&
               countries.map((country: any, index) => {
                 return (
-                  <option value={country.name.common} key={index}>
-                    {country.name.common}
+                  <option value={country.name} key={index}>
+                    {country.name}
                   </option>
                 );
               })}
@@ -237,7 +239,6 @@ const AccountInfo = (): JSX.Element => {
             text="Avatar"
             action={() => handleCardMenu(2)}
           />
-          <input type="color" className="account-info__color-button" />
         </div>
       </section>
       {cardGallery === 1 && (
