@@ -1,6 +1,6 @@
 import { createToken, hashCompare } from "database/authentication";
 import connectDB from "database/connectDB";
-import User from "database/User";
+import { User } from "database/Models";
 import { JwtPayload } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 
