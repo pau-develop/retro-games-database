@@ -10,8 +10,8 @@ const NavDropDown = ({ actionClose }: NavDropDownProps): JSX.Element => {
     <NavDropDownSyled>
       <>
         <li>
-          <Link href="/home" onClick={actionClose}>
-            Home
+          <Link href="/game" onClick={actionClose}>
+            Game
           </Link>
         </li>
       </>
