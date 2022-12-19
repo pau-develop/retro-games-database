@@ -31,11 +31,24 @@ const CardGallery = ({ action, type }: CardGalleryProps) => {
   };
 
   return (
-    <CardGalleryStyled>
-      <ul>
+    <CardGalleryStyled className="card-gallery">
+      <ul
+        className={
+          type === "card"
+            ? "card-gallery__list--card"
+            : "card-gallery__list--avatar"
+        }
+      >
         {cards.map((cards: any) => {
           return (
-            <li key={cards.asset_id}>
+            <li
+              key={cards.asset_id}
+              className={
+                type === "card"
+                  ? "card-gallery__item--card"
+                  : "card-gallery__item--avatar"
+              }
+            >
               <img
                 src={cards.secure_url}
                 alt="card design"

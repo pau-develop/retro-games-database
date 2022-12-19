@@ -239,7 +239,6 @@ const AccountInfo = (): JSX.Element => {
             text="Avatar"
             action={() => handleCardMenu(2)}
           />
-          <input type="color" className="account-info__color-button" />
         </div>
       </section>
       {cardGallery === 1 && (

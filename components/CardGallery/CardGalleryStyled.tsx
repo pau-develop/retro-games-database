@@ -17,20 +17,43 @@ const CardGalleryStyled = styled.div`
   border: 2px solid ${(props) => props.theme.secondaryColor};
   border-radius: 20px;
   padding: 20px;
-  ul {
-    padding: 20px 0;
-    list-style: none;
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
-    @media (max-width: 720px) {
-      grid-template-columns: 100%;
+  overflow-y: scroll;
+  .card-gallery {
+    &__list--card {
+      padding: 20px 0;
+      list-style: none;
+      display: grid;
+      grid: auto-flow / 1fr 1fr 1fr;
+      @media (max-width: 720px) {
+        grid-template-columns: 100%;
+      }
     }
-    li {
+    &__list--avatar {
+      padding: 20px 0;
+      list-style: none;
+      display: grid;
+      grid: auto-flow / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      @media (max-width: 720px) {
+        grid: auto-flow / 1fr 1fr 1fr;
+      }
+    }
+    &__item--card {
       display: flex;
       margin: 5px;
       img {
         margin: auto auto;
         border-radius: 20px;
+        @media (max-width: 720px) {
+          height: 90%;
+        }
+      }
+    }
+    &__item--avatar {
+      display: flex;
+      margin: 5px;
+      img {
+        margin: auto auto;
+
         @media (max-width: 720px) {
           height: 90%;
         }
