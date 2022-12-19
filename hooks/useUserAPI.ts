@@ -126,6 +126,7 @@ const useUserAPI = () => {
       },
       body: JSON.stringify(card),
     });
+
     if (result.status === 403) return false;
     return true;
   };

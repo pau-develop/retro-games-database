@@ -1,9 +1,7 @@
 import UserCard from "@/components/UserCard/UserCard";
 import { render, screen } from "@testing-library/react";
 import { mockUser } from "../../mocks/testMocks";
-const mockCountryList = [
-  { name: { common: "Spain" }, flags: { svg: "fakeSource" } },
-];
+const mockCountryList = [{ name: "Spain", flags: { svg: "fakeSource" } }];
 
 describe("Given a UserCard component", () => {
   describe("When instantiated", () => {

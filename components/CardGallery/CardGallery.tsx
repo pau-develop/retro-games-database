@@ -16,20 +16,16 @@ const CardGallery = ({ action, type }: CardGalleryProps) => {
   useEffect(() => {
     async function getImages() {
       const result = await fetchImages(type);
-      console.log("CHECK", result);
       setCards(result);
     }
 
     getImages();
   }, [fetchImages]);
 
-  console.log("CARDS", cards);
-
   const handleClickCard = async (url: string) => {
     const result =
       type === "card" ? await updateCard(url) : await updateAvatar(url);
     if (result) {
-      getLoggedUser();
       return action();
     }
   };
@@ -41,9 +37,9 @@ const CardGallery = ({ action, type }: CardGalleryProps) => {
           return (
             <li key={cards.asset_id}>
               <img
-                src={cards.url}
+                src={cards.secure_url}
                 alt="card design"
-                onClick={() => handleClickCard(cards.url)}
+                onClick={() => handleClickCard(cards.secure_url)}
               />
             </li>
           );

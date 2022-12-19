@@ -14,7 +14,7 @@ const updateCard = async (
   const token = headers.authorization?.slice(7, headers.authoritzation?.length);
   const tokenInfo = (await verifyToken(token as string)) as JwtPayload;
   try {
-    await User.findOneAndUpdate(
+    const myUser = await User.findOneAndUpdate(
       { _id: tokenInfo._id },
       { $set: { card: newCard } }
     );
