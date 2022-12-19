@@ -38,9 +38,13 @@ const AccountInfo = (): JSX.Element => {
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const data = await fetch("https://restcountries.com/v2/all");
-      let countries = await data.json();
-      setCountries(countries);
+      try {
+        const data = await fetch("https://restcountries.com/v2/all");
+        let countries = await data.json();
+        setCountries(countries);
+      } catch (error) {
+        setCountries([{ name: "Not available atm, sorry ^^" }]);
+      }
     };
     fetchCountries();
   }, []);
