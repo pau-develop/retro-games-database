@@ -1,3 +1,4 @@
+import MainWrap from "../MainWrap/MainWrap";
 import GameStyled from "./GameStyled";
 
 const Game = (): JSX.Element => {
@@ -9,9 +10,11 @@ const Game = (): JSX.Element => {
   };
 
   return (
-    <GameStyled className="game">
-      <h2>{game.title}</h2>
-    </GameStyled>
+    <MainWrap>
+      <GameStyled className="game">
+        <h2>{game.title}</h2>
+      </GameStyled>
+    </MainWrap>
   );
 };
 

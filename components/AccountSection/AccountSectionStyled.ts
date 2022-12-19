@@ -3,7 +3,6 @@ const AccountSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 1200px;
   margin: auto auto;
   background-color: ${(props) => props.theme.fourthColor};
   .account-section {

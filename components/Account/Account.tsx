@@ -1,14 +1,17 @@
 import AccountStyled from "./AccountStyled";
 import AccountSection from "../AccountSection/AccountSection";
 import AccountInfo from "../AccountInfo/AccountInfo";
+import MainWrap from "../MainWrap/MainWrap";
 
 const Account = (): JSX.Element => {
   return (
-    <AccountStyled>
-      <AccountSection title="Account Info">
-        <AccountInfo />
-      </AccountSection>
-    </AccountStyled>
+    <MainWrap>
+      <AccountStyled>
+        <AccountSection title="Account Info">
+          <AccountInfo />
+        </AccountSection>
+      </AccountStyled>
+    </MainWrap>
   );
 };
 
