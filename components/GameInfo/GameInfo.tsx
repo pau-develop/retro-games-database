@@ -24,7 +24,7 @@ const GameInfo = ({ game }: GameInfoProps): JSX.Element => {
           <span>Developer</span>
           <div>
             {game.developer.map((dev: string) => (
-              <span>{dev}</span>
+              <span key={dev}>{dev}</span>
             ))}
           </div>
         </li>
@@ -32,7 +32,7 @@ const GameInfo = ({ game }: GameInfoProps): JSX.Element => {
           <span>Genre</span>
           <div>
             {game.genre.map((genre: string) => (
-              <span>{genre}</span>
+              <span key={genre}>{genre}</span>
             ))}
           </div>
         </li>

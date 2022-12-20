@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const UserDropDownStyled = styled.ul`
   position: absolute;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.primaryColor};

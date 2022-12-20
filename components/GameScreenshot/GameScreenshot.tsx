@@ -42,6 +42,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                 .filter((screenshot, index) => index === currentIndex - 1)
                 .map((screenshot, index) => (
                   <img
+                    key={screenshot}
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex - 1)}
                     alt={screenshot}
@@ -53,6 +54,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                 .filter((screenshot, index) => index === currentIndex)
                 .map((screenshot, index) => (
                   <img
+                    key={screenshot}
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex)}
                     alt={screenshot}
@@ -64,6 +66,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                 .filter((screenshot, index) => index === currentIndex + 1)
                 .map((screenshot, index) => (
                   <img
+                    key={screenshot}
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex + 1)}
                     alt={screenshot}
@@ -78,6 +81,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                 .filter((screenshot, index) => index === currentIndex)
                 .map((screenshot, index) => (
                   <img
+                    key={screenshot}
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex)}
                     alt={screenshot}
