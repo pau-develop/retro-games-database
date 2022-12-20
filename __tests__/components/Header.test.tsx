@@ -99,7 +99,7 @@ describe("Given a Header component", () => {
       render(<Header />, { wrapper: Wrapper });
       const icon = screen.getByTestId("hamburger-icon");
       fireEvent.click(icon);
-      const homeItem = screen.getByText("Home");
+      const homeItem = screen.getByText("Game");
       expect(homeItem).toBeInTheDocument();
     });
 
@@ -108,7 +108,7 @@ describe("Given a Header component", () => {
       render(<Header />, { wrapper: Wrapper });
       const icon = screen.getByTestId("hamburger-icon");
       fireEvent.click(icon);
-      const homeItem = screen.getByText("Home");
+      const homeItem = screen.getByText("Game");
       fireEvent.click(homeItem);
       expect(homeItem).not.toBeInTheDocument();
     });

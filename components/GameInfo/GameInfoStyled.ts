@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const GameInfoStyled = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,14 +9,8 @@ const GameInfoStyled = styled.div`
   color: ${(props) => props.theme.fontColor};
   width: 400px;
   max-width: 100%;
+  padding: 20px;
   .game-info {
-    &__title {
-      width: 100%;
-      padding: 10px;
-      text-align: center;
-
-      border-bottom: none;
-    }
     &__items {
       width: 100%;
       li {
@@ -25,7 +18,7 @@ const GameInfoStyled = styled.div`
         display: flex;
         > span {
           border-radius: 10px;
-          padding: 10px;
+          padding: 5px;
           flex: 1;
         }
         > span:last-child {
@@ -36,7 +29,7 @@ const GameInfoStyled = styled.div`
           text-align: center;
           border-radius: 10px;
           background-color: ${(props) => props.theme.primaryColor};
-          padding: 10px;
+          padding: 5px;
           flex: 1;
           display: flex;
           flex-direction: column;

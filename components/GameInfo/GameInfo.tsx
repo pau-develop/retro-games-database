@@ -7,7 +7,6 @@ interface GameInfoProps {
 const GameInfo = ({ game }: GameInfoProps): JSX.Element => {
   return (
     <GameInfoStyled className="game-info">
-      <h2 className="game-info__title">{game.title}</h2>
       <ul className="game-info__items">
         <li>
           <span>System</span>
