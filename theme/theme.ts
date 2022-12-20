@@ -1,15 +1,20 @@
 const theme = {
-  primaryColor: "#06283D",
-  secondaryColor: "#1E505F",
-  thirdColor: "#242B92",
-  fourthColor: "#021926",
+  backgroundAltColor: "#000",
+  borderColor: "#00BCD2",
+  thirdColor: "#0B0E11",
+  backgroundColor: "#111820",
+  fifthColor: "#000",
   fadeColor: "#06283DDD",
-  fontColor: "#B1D5CB",
+  fontColor: "#007aae",
+  altFontColor: "#019d76",
   alertFontColor: "#e6b800",
   failFontColor: "#fc3838",
   passFontColor: "#26e81c",
-
   font: "SEGOE UI",
+  //#0490a0 font alt alt
+  //#007aae font
+  //#019d76 font alt
+  //bg 101316
 };
 
 export default theme;

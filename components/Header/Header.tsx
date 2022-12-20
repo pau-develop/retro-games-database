@@ -90,7 +90,7 @@ const Header = (): JSX.Element => {
             <nav className="header__navigation">
               <ul className="header__list">
                 <li>
-                  <Link href="/home">Home</Link>
+                  <Link href="/game">Game</Link>
                 </li>
                 {user.userName === "" ? (
                   <li

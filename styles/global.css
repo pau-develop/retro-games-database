@@ -1,9 +1,16 @@
+@font-face {
+  font-family: "whitrabt";
+  src: url("/fonts/WHITRABT.TTF");
+}
+
 html,
 body {
-  font-family: Segoe UI;
+  font-family: "whitrabt";
 }
 
 * {
+  font-family: "whitrabt";
+  user-select: none;
   padding: 0;
   margin: 0;
   box-sizing: border-box;

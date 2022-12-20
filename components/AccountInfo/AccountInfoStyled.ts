@@ -12,7 +12,7 @@ const AccountInfoStyled = styled.div`
       width: 50%;
       padding: 10px;
       color: ${(props) => props.theme.fontColor};
-      background-color: ${(props) => props.theme.primaryColor};
+      background-color: ${(props) => props.theme.backgroundAltColor};
       border: none;
       color-scheme: dark;
     }
@@ -22,7 +22,7 @@ const AccountInfoStyled = styled.div`
     &__countries {
       width: 50%;
       border-radius: 5px;
-      background-color: ${(props) => props.theme.primaryColor};
+      background-color: ${(props) => props.theme.backgroundAltColor};
       border: none;
       padding: 10px;
       color: ${(props) => props.theme.fontColor};
@@ -55,38 +55,40 @@ const AccountInfoStyled = styled.div`
         width: 100%;
         padding: 10px;
         color: ${(props) => props.theme.fontColor};
-        background-color: ${(props) => props.theme.primaryColor};
+        background-color: ${(props) => props.theme.backgroundAltColor};
         border: none;
         border-radius: 5px;
       }
       input:focus {
-        outline: 2px solid ${(props) => props.theme.secondaryColor};
+        outline: 2px solid ${(props) => props.theme.fontColor};
       }
       input::placeholder {
         color: ${(props) => props.theme.fontColor};
       }
     }
     &__button {
-      border: none;
-      font-family: ${(props) => props.theme.font};
-      margin-left: 5%;
-      width: 15%;
-      height: 30px;
+      border-radius: 10px;
+      border-color: ${(props) => props.theme.fontColor};
+      background-color: transparent;
       color: ${(props) => props.theme.fontColor};
-      background: ${(props) => props.theme.thirdColor};
+      width: 15%;
+      margin-left: 5%;
+      height: 30px;
     }
     &__button:hover {
+      border-color: ${(props) => props.theme.borderColor};
+      color: ${(props) => props.theme.borderColor};
       cursor: pointer;
     }
     &__button--disabled {
       opacity: 0.2;
-      border: none;
-      font-family: ${(props) => props.theme.font};
-      margin-left: 5%;
-      width: 15%;
-      height: 30px;
+      border-radius: 10px;
+      border-color: ${(props) => props.theme.fontColor};
+      background-color: transparent;
       color: ${(props) => props.theme.fontColor};
-      background: ${(props) => props.theme.thirdColor};
+      width: 15%;
+      margin-left: 5%;
+      height: 30px;
       pointer-events: none;
       cursor: default;
     }
@@ -122,7 +124,7 @@ const AccountInfoStyled = styled.div`
       }
     }
     &__unverified {
-      background-color: ${(props) => props.theme.primaryColor};
+      background-color: ${(props) => props.theme.backgroundAltColor};
       border: none;
       border-radius: 5px;
       padding: 10px;
@@ -133,7 +135,7 @@ const AccountInfoStyled = styled.div`
       text-align: center;
     }
     &__verified {
-      background-color: ${(props) => props.theme.primaryColor};
+      background-color: ${(props) => props.theme.backgroundAltColor};
       border: none;
       font-size: 0.8rem;
       border-radius: 5px;
@@ -191,13 +193,17 @@ const AccountInfoStyled = styled.div`
       }
     }
     &__card-button {
-      border: none;
-      font-family: ${(props) => props.theme.font};
-
+      border-radius: 10px;
+      border-color: ${(props) => props.theme.fontColor};
+      background-color: transparent;
+      color: ${(props) => props.theme.fontColor};
       width: 25%;
       height: 30px;
-      color: ${(props) => props.theme.fontColor};
-      background: ${(props) => props.theme.thirdColor};
+    }
+    &__card-button:hover {
+      border-color: ${(props) => props.theme.borderColor};
+      color: ${(props) => props.theme.borderColor};
+      cursor: pointer;
     }
     &__color-button {
     }
