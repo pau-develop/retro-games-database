@@ -10,7 +10,7 @@ const MainWrapStyled = styled.div`
   padding: 20px;
   max-width: 1200px;
   margin: auto auto;
-  background-color: ${(props) => props.theme.fourthColor};
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 export default MainWrapStyled;

@@ -6,7 +6,7 @@ const NavDropDownSyled = styled.ul`
   top: 6.5%;
   width: 49.5%;
   padding: 10px;
-  background-color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.backgroundAltColor};
   a:-webkit-any-link {
     color: ${(props) => props.theme.fontColor};
     cursor: pointer;

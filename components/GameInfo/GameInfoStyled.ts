@@ -5,7 +5,7 @@ const GameInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${(props) => props.theme.fourthColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   color: ${(props) => props.theme.fontColor};
   width: 400px;
   max-width: 100%;
@@ -23,12 +23,12 @@ const GameInfoStyled = styled.div`
         }
         > span:last-child {
           text-align: center;
-          background-color: ${(props) => props.theme.primaryColor};
+          background-color: ${(props) => props.theme.backgroundAltColor};
         }
         div {
           text-align: center;
           border-radius: 10px;
-          background-color: ${(props) => props.theme.primaryColor};
+          background-color: ${(props) => props.theme.backgroundAltColor};
           padding: 5px;
           flex: 1;
           display: flex;

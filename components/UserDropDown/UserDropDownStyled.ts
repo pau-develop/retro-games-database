@@ -5,7 +5,8 @@ const UserDropDownStyled = styled.ul`
   z-index: 10;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.backgroundColor};
+  border: 2px solid ${(props) => props.theme.altFontColor};
   border-radius: 10px;
   right: 0%;
   top: 105%;

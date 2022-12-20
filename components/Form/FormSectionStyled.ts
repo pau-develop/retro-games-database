@@ -9,6 +9,12 @@ const FormSectionStyled = styled.div`
   height: 500px;
   .form-section {
     &__text-wrap {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      h3 {
+        color: ${(props) => props.theme.altFontColor};
+      }
       flex: 1;
       display: flex;
       p {
@@ -39,12 +45,12 @@ const FormSectionStyled = styled.div`
       color: ${(props) => props.theme.fontColor};
       padding: 15px;
       margin: 15px 0;
-      background-color: ${(props) => props.theme.primaryColor};
+      background-color: ${(props) => props.theme.backgroundAltColor};
       border: none;
       border-radius: 10px;
     }
     &__input:focus {
-      outline: 2px solid ${(props) => props.theme.secondaryColor};
+      outline: 2px solid ${(props) => props.theme.fontColor};
     }
     &__input::placeholder {
       color: ${(props) => props.theme.fontColor};
@@ -58,8 +64,9 @@ const FormSectionStyled = styled.div`
       width: 100%;
       button {
         border-radius: 10px;
-        background-color: ${(props) => props.theme.thirdColor};
-        color: ${(props) => props.theme.fontColor};
+        border-color: ${(props) => props.theme.fontColor};
+        background-color: transparent;
+        color: ${(props) => props.theme.altFontColor};
         width: 100%;
         height: 25%;
       }
@@ -69,6 +76,8 @@ const FormSectionStyled = styled.div`
       }
       button:hover {
         cursor: pointer;
+        color: ${(props) => props.theme.borderColor};
+        border-color: ${(props) => props.theme.borderColor};
       }
       .form-button--disabled {
         visibility: hidden;
@@ -87,7 +96,7 @@ const FormSectionStyled = styled.div`
         color: ${(props) => props.theme.fontColor};
       }
       input:checked {
-        background-color: ${(props) => props.theme.primaryColor};
+        background-color: ${(props) => props.theme.backgroundAltColor};
       }
     }
   }

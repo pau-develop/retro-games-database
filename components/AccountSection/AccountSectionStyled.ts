@@ -4,9 +4,10 @@ const AccountSectionStyled = styled.section`
   flex-direction: column;
   height: 100%;
   margin: auto auto;
-  background-color: ${(props) => props.theme.fourthColor};
+  background-color: ${(props) => props.theme.backgroundColor};
   .account-section {
     &__title {
+      color: ${(props) => props.theme.altFontColor};
       display: inline;
       padding: 20px;
       width: 100%;

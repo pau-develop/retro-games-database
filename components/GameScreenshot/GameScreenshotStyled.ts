@@ -48,7 +48,7 @@ const GameScreenshotStyled = styled.div`
         }
       }
       i {
-        color: ${(props) => props.theme.thirdColor};
+        color: ${(props) => props.theme.fontColor};
         text-align: center;
         background-color: transparent;
         flex: 1;
@@ -61,6 +61,7 @@ const GameScreenshotStyled = styled.div`
       }
 
       i:hover {
+        color: ${(props) => props.theme.altFontColor};
         cursor: pointer;
       }
     }

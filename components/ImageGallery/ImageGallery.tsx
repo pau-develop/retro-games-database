@@ -48,7 +48,7 @@ const ImageGallery = ({
             {screenshots
               .filter((screenshot, index) => index === gallIndex)
               .map((screenshot, index) => (
-                <img src={screenshot} alt={screenshot} />
+                <img src={screenshot} alt={screenshot} key={screenshot} />
               ))}
           </li>
         </ul>

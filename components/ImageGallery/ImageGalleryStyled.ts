@@ -19,10 +19,11 @@ const ImageGalleryStyled = styled.div`
       i {
         width: 15%;
         text-align: center;
-        color: ${(props) => props.theme.thirdColor};
+        color: ${(props) => props.theme.fontColor};
         font-size: 3rem;
       }
       i:hover {
+        color: ${(props) => props.theme.altFontColor};
         cursor: pointer;
       }
     }
@@ -46,12 +47,13 @@ const ImageGalleryStyled = styled.div`
         }
       }
       i {
+        color: ${(props) => props.theme.fontColor};
         text-align: center;
         font-size: 3rem;
         width: 15%;
-        color: ${(props) => props.theme.thirdColor};
       }
       i:hover {
+        color: ${(props) => props.theme.altFontColor};
         cursor: pointer;
       }
     }

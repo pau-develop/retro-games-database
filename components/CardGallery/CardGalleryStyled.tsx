@@ -14,7 +14,7 @@ const CardGalleryStyled = styled.div`
     top: 7.5%;
   }
   background-color: ${(props) => props.theme.fadeColor};
-  border: 2px solid ${(props) => props.theme.secondaryColor};
+  border: 2px solid ${(props) => props.theme.borderColor};
   border-radius: 20px;
   padding: 20px;
   overflow-y: scroll;

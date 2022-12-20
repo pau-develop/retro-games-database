@@ -46,6 +46,10 @@ const RegisterFormEmail = ({
     <FormSectionStyled className="form-section">
       <div className="form-section__text-wrap">
         <h3 className="form-section__text">Enter a valid email</h3>
+        <p>
+          Email verification is required for posting, comment, and many other
+          actions .
+        </p>
       </div>
       <div className="form-section__label-wrap">
         <label className="form-section__label" htmlFor="email">
