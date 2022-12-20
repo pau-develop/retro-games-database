@@ -40,17 +40,21 @@ const ImageGallery = ({
         </i>
       </div>
       <div className="image-gallery__wrap">
-        <i onClick={() => handleDecrement()}>{leftIcon}</i>
+        <i data-testid="back-icon" onClick={() => handleDecrement()}>
+          {leftIcon}
+        </i>
         <ul>
           <li>
             {screenshots
               .filter((screenshot, index) => index === gallIndex)
               .map((screenshot, index) => (
-                <img src={screenshot} />
+                <img src={screenshot} alt={screenshot} />
               ))}
           </li>
         </ul>
-        <i onClick={() => handleIncrement()}>{rightIcon}</i>
+        <i data-testid="next-icon" onClick={() => handleIncrement()}>
+          {rightIcon}
+        </i>
       </div>
       <span className="image-gallery__page">{`${gallIndex + 1} / ${
         screenshots.length
