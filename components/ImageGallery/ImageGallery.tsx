@@ -35,7 +35,9 @@ const ImageGallery = ({
   return (
     <ImageGalleryStyled className="image-gallery">
       <div className="image-gallery__close">
-        <i onClick={() => action()}>{closeIcon}</i>
+        <i data-testid="close-icon" onClick={() => action()}>
+          {closeIcon}
+        </i>
       </div>
       <div className="image-gallery__wrap">
         <i onClick={() => handleDecrement()}>{leftIcon}</i>

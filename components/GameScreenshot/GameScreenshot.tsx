@@ -5,9 +5,8 @@ import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import Button from "../Button/Button";
-import useWidth from "hooks/useWidth";
-import actionTypes from "store/actionTypes";
+
+import useWidth from "../../hooks/useWidth";
 const leftIcon = <FontAwesomeIcon icon={faCircleChevronLeft} />;
 const rightIcon = <FontAwesomeIcon icon={faCircleChevronRight} />;
 
@@ -32,7 +31,9 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
   return (
     <GameScreenshotStyled className="game-screenshot">
       <div className="game-screenshot__wrap">
-        <i onClick={() => handleDecrement()}>{leftIcon}</i>
+        <i data-testid="back-icon" onClick={() => handleDecrement()}>
+          {leftIcon}
+        </i>
 
         {windowWidth > 720 ? (
           <ul>
@@ -43,6 +44,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                   <img
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex - 1)}
+                    alt={screenshot}
                   />
                 ))}
             </li>
@@ -53,6 +55,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                   <img
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex)}
+                    alt={screenshot}
                   />
                 ))}
             </li>
@@ -63,6 +66,7 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                   <img
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex + 1)}
+                    alt={screenshot}
                   />
                 ))}
             </li>
@@ -76,13 +80,16 @@ const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
                   <img
                     src={screenshot}
                     onClick={() => action(screenshots, currentIndex)}
+                    alt={screenshot}
                   />
                 ))}
             </li>
           </ul>
         )}
 
-        <i onClick={() => handleIncrement()}>{rightIcon}</i>
+        <i data-testid="next-icon" onClick={() => handleIncrement()}>
+          {rightIcon}
+        </i>
       </div>
       <span>{`${currentIndex + 1}/${screenshots.length}`}</span>
     </GameScreenshotStyled>
