@@ -7,14 +7,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button";
 import useWidth from "hooks/useWidth";
+import actionTypes from "store/actionTypes";
 const leftIcon = <FontAwesomeIcon icon={faCircleChevronLeft} />;
 const rightIcon = <FontAwesomeIcon icon={faCircleChevronRight} />;
 
 interface GameScreenshotProps {
   screenshots: string[];
+  action: (screenshots: string[], currentIndex: number) => void;
 }
 
-const GameScreenshot = ({ screenshots }: GameScreenshotProps) => {
+const GameScreenshot = ({ screenshots, action }: GameScreenshotProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const handleIncrement = () => {
@@ -38,21 +40,30 @@ const GameScreenshot = ({ screenshots }: GameScreenshotProps) => {
               {screenshots
                 .filter((screenshot, index) => index === currentIndex - 1)
                 .map((screenshot, index) => (
-                  <img src={screenshot} />
+                  <img
+                    src={screenshot}
+                    onClick={() => action(screenshots, currentIndex - 1)}
+                  />
                 ))}
             </li>
             <li>
               {screenshots
                 .filter((screenshot, index) => index === currentIndex)
                 .map((screenshot, index) => (
-                  <img src={screenshot} />
+                  <img
+                    src={screenshot}
+                    onClick={() => action(screenshots, currentIndex)}
+                  />
                 ))}
             </li>
             <li>
               {screenshots
                 .filter((screenshot, index) => index === currentIndex + 1)
                 .map((screenshot, index) => (
-                  <img src={screenshot} />
+                  <img
+                    src={screenshot}
+                    onClick={() => action(screenshots, currentIndex + 1)}
+                  />
                 ))}
             </li>
           </ul>
@@ -62,7 +73,10 @@ const GameScreenshot = ({ screenshots }: GameScreenshotProps) => {
               {screenshots
                 .filter((screenshot, index) => index === currentIndex)
                 .map((screenshot, index) => (
-                  <img src={screenshot} />
+                  <img
+                    src={screenshot}
+                    onClick={() => action(screenshots, currentIndex)}
+                  />
                 ))}
             </li>
           </ul>

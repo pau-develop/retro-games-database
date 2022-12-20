@@ -39,6 +39,9 @@ const GameScreenshotStyled = styled.div`
             width: 100%;
             image-rendering: pixelated;
           }
+          img:hover {
+            cursor: pointer;
+          }
         }
         li:nth-child(2) {
           flex: 1.75;
